@@ -1,0 +1,20 @@
+table.k-batch-table{
+	border-spacing: 1px;
+    border:1;
+    margin:1;
+    border-collapse:collapse;
+}
+table.k-batch-table td{ 
+    
+	border-spacing: 1px;
+    padding: 1px;
+	vertical-align: top;
+}
+table.k-batch-table tr{
+	height:19px;
+	max-height:20px;
+	padding:0px;marign:1px;
+}
+.modal-dialog {max-width: 1200px;}
+.w-220px {width:220px}
+

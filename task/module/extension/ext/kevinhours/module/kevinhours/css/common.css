@@ -1,0 +1,87 @@
+table.k-table{
+	table-layout:fixed;
+	boder:#000 1px solid;
+	width:100%;
+	padding:3px;marign:3px;
+	border-spacing: 2px;
+	border-collapse:separate ;
+}
+table.k-table td{ 
+	border:#000 1px solid; 
+	vertical-align: top;
+}
+table.k-table-todos{
+	table-layout:fixed;
+	boder:#000 1px solid;
+	width:100%;
+	padding:1px;marign:1px;
+	border-spacing: 1px;
+	border-collapse:separate ;
+}
+table.k-itemLeft{
+	boder:#000 1px solid;
+	width:100%;
+}
+table.overworktable{
+	border:0px;
+	table-layout:fixed;
+	border:#000 0px solid;
+	padding:0px;marign:0px;
+}
+table.overworktable td{
+	border:0px;
+	border-spacing: 2px;
+	padding:2px;marign:2px;
+	border-collapse:separate ;
+	text-align:center;
+}
+.boxoverhours{
+	background:yellow;
+	border:#000 0px solid;
+	min-width: 30px;
+}
+.boxoverhours2{
+	background:#fcc;
+	border:#000 0px solid;
+	min-width: 30px;
+}
+.k-table-tr2{
+	height:80px;
+}
+.k-title-tr{
+	text-align: center;
+	border:#000 1px solid;
+}
+.k-title-tr td{
+	text-align: center;
+	border:#000 1px solid;
+}
+table.k-item tr{
+	height:19px;
+	max-height:20px;
+	padding:0px;marign:0px;
+}
+table.k-item td{ 
+	color: black;
+	font-style:18px black;
+	border: 0px; 
+	vertical-align: central;
+	min-width: 15px;
+	max-height: 20px;
+}
+
+.k-Td-W{ background:#FFFAF0;height:80px;}
+.k-Color-W{ background:yellowgreen;}
+.k-Color-S{ background:yellow;}
+.k-Color-H{ background:pink;}
+.k-day-W{ background:yellowgreen;}
+.k-day-H{ background:pink;}
+.k-day-S{ background:yellow;}
+.k-day-otherMonth{ background:LightSteelBlue;}
+.div-k-day{max-height:20px;margin:0;} 
+.kevin-td {opacity: 0.9; transition: none; border-radius: 3px;border:1px solid;}
+.kevin-table {padding:3px;marign:3px;}
+.k-doing{ background:pink;}
+.k-done{ }
+.k-wait{ background:tomato;}
+.w-15px{width: 15px;}

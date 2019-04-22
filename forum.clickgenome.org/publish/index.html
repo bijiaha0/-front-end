@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Public Article | Forum | ClickGWAS</title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<script type="text/javascript" src="../js/default.js"></script>
+	</head>
+
+	<body>
+		<nav class="navbar">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+					<a class="navbar-brand" href="../">Forum | ClickGWAS</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="../">Home</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="http://www.clickgenome.org/about/">Content Us</a>
+						</li>
+						<li class="active">
+							<a href="./">Publish Article</a>
+						</li>
+						<li class="dropdown">
+							<a id="login" href="#" data-login="0" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loading</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="../u/">Me</a>
+								</li>
+								<li role="separator" class="divider"></li>
+								<li>
+									<a href="#" id="logout">Logout</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
+						<!--<div class="loader">
+							<div class="loader-inner ball-pulse">
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+						</div>-->
+						<div id="editor-container">
+							<div>
+								<h3>Publish your own essay</h3>
+								<hr />
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon" id="basic-addon1">Title: </span>
+									<input name="art-title" type="text" class="form-control" placeholder="Please think of a nice title" aria-describedby="basic-addon1">
+								</div>
+								<hr />
+								<div class="loader" id="editor-loader">
+									<div class="loader-inner ball-pulse">
+										<div></div>
+										<div></div>
+										<div></div>
+									</div>
+								</div>
+								<script name="article" id="editor" type="text/plain" style="height: 500px;width: 100%;"></script>
+								<hr />
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">Category: </span>
+									<input name="art-category" type="text" class="form-control" placeholder="Category (Can only add a category)  *" aria-describedby="basic-addon1">
+								</div>
+								<hr />
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">Label: </span>
+									<input name="art-label" type="text" class="form-control" placeholder="Labels (Multiple labels are separated by semicolons';')  *" aria-describedby="basic-addon1">
+								</div>
+								<hr />
+								<button id="publish" type="button" class="btn btn-primary btn-lg btn-block">PUBLISH</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<p>Copyright&nbsp;&copy;&nbsp;
+				<a href="http://www.clickgenome.morg" target="_blank">www.clickgenome.org</a>&nbsp;2017
+			</p>
+		</footer>
+		<!--编辑器相关配置文件-->
+		<script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="ueditor.all.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="lang/en/en.js"></script>
+		<script type="text/javascript">
+			var ue;
+			var __USERINFO__;
+			$.post(__API__ + "getInfo", {
+				token: getCookie("token")
+			}, function(data) {
+				var info = eval("(" + data + ")");
+				console.log(info);
+				if(info.isLogin == 0) {
+					alert("Please log in first");
+					window.location.href = "../login/";
+				} else {
+					$("#login").attr("data-login", "1");
+					$("#login").empty();
+					$("#login").append(info.data.userName + ' <span class="caret"></span>');
+					__USERINFO__ = info.data;
+					//实例化编辑器
+					ue = UE.getEditor('editor');
+					ue.ready(function() {
+						$("#editor-loader").remove();
+						ue.execCommand('serverparam', {
+							'userName': info.data.userName
+						});
+					});
+				}
+			});
+			$(document).ready(function() {
+				$("#logout").click(function() {
+					deleteAllCookie();
+					window.location.href = "../";
+				});
+			});
+		</script>
+
+		<script type="text/javascript">
+			var loading = false;
+			$("#publish").click(function() {
+				if(loading) {
+					return;
+				}
+				loading = true;
+				$("#publish").text("Publishing...");
+				var ar = UE.getEditor('editor').getContent();
+				if(ar == "") {
+					alert("Please fill in the contents of the article");
+					loading = false;
+					$("#publish").text("PUBLISH");
+					return;
+				}
+				var ti = $("input[name='art-title']").val();
+				if(ti == "") {
+					alert("Please think of a nice title");
+					loading = false;
+					$("#publish").val("PUBLISH");
+					return;
+				}
+				var ca = $("input[name='art-category']").val();
+				if(ca == "") {
+					alert("Please add a category");
+					loading = false;
+					$("#publish").val("PUBLISH");
+					return;
+				}
+				var la = $("input[name='art-label']").val();
+				if(la == "") {
+					alert("Please add a label");
+					loading = false;
+					$("#publish").val("PUBLISH");
+					return;
+				}
+				$.post(__API__ + "addArticle", {
+					title: ti,
+					article: ar,
+					category: ca,
+					tag: la,
+					userName: __USERINFO__.userName,
+					token: getCookie("token")
+				}, function(data) {
+					var info = eval("(" + data + ")");
+					if(info.data != "") {
+						alert("Published successfully");
+						ue.execCommand('clearlocaldata');
+						window.location.href = "../article/single.html?target=" + info.data;
+					} else {
+						alert("Failed to publish");
+						loading = false;
+						$("#publish").val("PUBLISH");
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

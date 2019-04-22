@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+		<title>REGISTER | ClickGWAS</title>
+		<link rel="stylesheet" href="css/default.css">
+		<link rel="stylesheet" href="css/materialize.min.css" />
+		<style type="text/css">
+			* {
+				font-family: "Microsoft YaHei"
+			}
+			html,
+			body {
+				height: 100%;
+			}
+			
+			html {
+				display: table;
+				margin: auto;
+			}
+			
+			body {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			
+			.margin {
+				margin: 0 !important;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #6c92c2;">
+		<div id="login-page" class="row">
+			<div class="col s12 z-depth-6 card-panel">
+				<form class="login-form" style="width: 360px;">
+
+					<div class="row">
+						<div class="input-field col s12 center">
+							<img src="img/logo.gif" style="width: 120px;" alt="" class="responsive-img valign profile-image-login">
+							<p class="center login-form-text">Register account at ClickGWAS</p>
+						</div>
+					</div>
+
+					<div class="row margin">
+						<div class="input-field col s12">
+							<i class="mdi-social-person-outline prefix"></i>
+							<input id="username" type="text" class="validate">
+							<label for="username" class="center-align">Username</label>
+						</div>
+					</div>
+
+					<div class="row margin">
+						<div class="input-field col s12">
+							<i class="mdi-communication-email prefix"></i>
+							<input id="email" type="email" class="validate">
+							<label for="email" class="center-align">Email</label>
+						</div>
+					</div>
+
+					<div class="row margin">
+						<div class="input-field col s12">
+							<i class="mdi-action-lock-outline prefix"></i>
+							<input id="password" type="password" class="validate">
+							<label for="password">Password</label>
+						</div>
+					</div>
+
+					<div class="row margin">
+						<div class="input-field col s12">
+							<i class="mdi-action-lock-outline prefix"></i>
+							<input id="password-again" type="password">
+							<label for="password-again">Re-type password</label>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="input-field col s12">
+							<a id="register" href="javascript:void(0);" class="btn waves-effect waves-light col s12"> Register </a>
+						</div>
+
+
+						<div class="input-field col s12">
+							<p class="margin center medium-small sign-up">Already have an account?
+								<a id="gotologin" href="javascript:void(0);">Login</a>
+							</p>
+						</div>
+
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<script src="js/auth.js"></script>
+		<script type="text/javascript">
+
+			$(document).ready(function(){
+
+	            var ticket = Utils.getQueryString("ticket");
+
+	            console.log('ticket       '+ticket);
+
+	            var appname = Utils.getQueryString("appname");
+
+                console.log('appname       '+appname);
+
+	            var appavatar = Utils.getQueryString("appavatar");
+
+                console.log('appavatar     '+appavatar);
+
+	            $("#gotologin").click(function(){
+	            	window.location.href = "http://portal.clickgenome.org/index.html?" +
+											                "ticket=" + ticket +
+											                "&appname=" + appname +
+											                "&appavatar=" + appavatar;
+	            });
+
+
+
+	            $("#register").click(function(){
+
+			            var username = $("#username").val().trim();
+
+	           	        var email = $("#email").val();
+
+                        var password1 = $("#password").val().trim();
+
+                        var password2 = $("#password-again").val().trim();
+
+                        if(password1 != password2){
+
+                            alert("The password not the same!");
+
+                            return;
+
+                        } else if(password1.trim().length < 7){
+
+                            alert("Please input at least 8 characters!");
+
+                            return;
+                        }else {
+
+                            $.ajax({
+
+                                url : "http://54.193.40.253:8080/sso/sso/"+ email +"/" + password1 + "/" + username + "/add",
+
+                                type : "post",
+
+                                dataType : "json",
+
+                                success : function(data){
+
+                                    if(data.state == true){
+
+                                        alert("Congratulations! " +
+
+                                            "You are successfully registered. " +
+
+                                            "Please go to your email box to check and active your account. " +
+
+                                            "For some cases, please go to the trash mail box or to change the settings of your mailbox to make sure that you can receive this activition letter.");
+
+                                        window.location.href = "http://portal.clickgenome.org/index.html?" +
+                                                                "ticket=" + ticket +
+                                                                "&appname=" + appname +
+                                                                "&appavatar=" + appavatar;
+
+                                    } else {
+
+                                        alert("Register failed!");
+
+                                        window.location.href = "http://portal.clickgenome.org/register.html?" +
+                                                                "ticket=" + ticket +
+                                                                "&appname=" + appname +
+                                                                "&appavatar=" + appavatar;
+                                    }
+                                },
+
+                                error : function(data){
+                                    alert(data);
+                                }
+
+                            })
+
+                        }
+	            });
+
+        	});
+		</script>
+	</body>
+
+</html>

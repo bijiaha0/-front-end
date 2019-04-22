@@ -1,0 +1,27 @@
+---
+name: Kevin表格
+code: kevinchart
+type: extension
+copyright: Kevin
+site:
+author: 'Kevin<3301647@qq.com>'
+abstract: Kevin表格
+desc: Kevin表格
+install: |
+  1. 通过禅道的插件管理来进行安装。
+    1.1 安装Kevincom插件指定版本。
+    1.2 安装本插件
+releases:
+  1.3:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: Move to Kevin Plugin Menu
+    date: 2016-11-27
+    zentao:
+      compatible: all
+      incompatible:
+    depends:
+      kevincom:
+        min: 1.9
+        max:
+    conflicts: null

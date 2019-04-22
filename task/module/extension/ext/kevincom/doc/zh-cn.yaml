@@ -1,0 +1,23 @@
+---
+name: Kevin公用函数
+code: kevincom
+type: extension
+copyright: Kevin
+site: http://kevincom.sourceforge.net/
+author: 'kevin<3301647@qq.com>'
+abstract: kevin 插件的一部分公用函数.
+desc: kevin 插件的一部分公用函数.
+install: >
+  1.
+  通过禅道的插件管理来进行安装。
+releases:
+  1.7:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: conig for toolbar inormation
+    date: 2016-6-7
+    zentao:
+      compatible: all
+      incompatible:
+    depends: null
+    conflicts: null

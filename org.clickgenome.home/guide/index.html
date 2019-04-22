@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="utf-8"/>
+    <meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+    <title>User's Guide | ClickGene</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/guide.css"/>
+    <script src="../js/noframework.waypoints.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/base_component.js"></script>
+<script>
+</script>
+</head>
+<body>
+<div page="guide">
+    <!--page header-->
+    <div class="page-header" id="component_page_header"></div>
+    <!--navigation-->
+    <div class="header" id="component_nav"></div>
+
+    <div class="pagetitle">
+        <h1>User's Guide</h1>
+        <div class="donation">
+            We Accept Donations <a href="https://www.paypal.me/KaiSong"><img src="https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png" style="height: 30px;margin: 0 20px;" /></a>
+        </div>
+    </div>
+    <div class="guide-main">
+        <script type="text/javascript">
+            $(function(){
+                //获取导航距离页面顶部的距离
+                var toTopHeight = $("#nav").offset().top;
+                //监听页面滚动
+                $(window).scroll(function() {
+                    //判断页面滚动超过导航时执行的代码
+                    if( $(document).scrollTop() > toTopHeight) {
+                        //检测是否为IE6。jQuery1.9中去掉了msie的方法，所以只好这样写
+                        if ('undefined' == typeof(document.body.style.maxHeight)) {
+                            //页面滚动的距离
+                            var scrollTop = $(document).scrollTop();
+                            //IE6下，用absolute定位，并设置Top值为距离页面顶部的距离
+                            $("#nav").css({'position': 'absolute', 'top': scrollTop + 'px'});
+                        } else {
+                            //IE6以上浏览器采用fixed定位
+                            $("#nav").addClass("nav_fixed");
+                        }
+                    }else{//判断页面滚动没有超过导航时执行的代码
+                        if ('undefined' == typeof(document.body.style.maxHeight)) {
+                            //设置Top值为导航距页面顶部的初始值。（IE6为了防止浏览器一下滚动过多，所以不能采用直接去掉定位的方法）
+                            $("#nav").css({'position':'absolute','top':toTopHeight+'px'});
+                        }else{
+                            //IE6以上浏览器移除fixed定位，采用默认流布局
+                            $("#nav").removeClass("nav_fixed");
+                        }
+                    }
+                });
+            });
+        </script>
+        <ul id="nav" class="guide-main-contents" style="">
+            <li><a href="#1"><h1>Getting Started</h1></a></li>
+            <li><a href="#2"><h1>HOME</h1></a></li>
+			<li><a href="#2.1"><h2>Toolbar</h2></a></li>
+			<li><a href="#2.2"><h2>Navigation bar</h2></a></li>
+			<li><a href="#2.3"><h2>Focus picture area</h2></a></li>
+			<li><a href="#2.4"><h2>Link area</h2></a></li>
+			<li><a href="#3"><h1>Data Analysis page</h1></a></li>
+			<li><a href="#3.1"><h2>Overview area</h2></a></li>
+			<li><a href="#3.2"><h2>Brief step by step guide</h2></a></li>
+			<li><a href="#3.3"><h2>Data visualization area</h2></a></li>
+			<li><a href="#3.4"><h2>Link area</h2></a></li>
+			<li><a href="#4"><h1>Bee-swarm plot_by Gene</h1></a></li>
+			<li><a href="#4.1"><h2>Overview</h2></a></li>
+            <li><a href="#4.2"><h2>Setting area</h2></a></li>
+			<li><a href="#4.3"><h2>Plotting area</h2></a></li>
+			<li><a href="#4.4"><h2>Figure downloading and DIY</h2></a></li>
+			<li><a href="#4.5"><h2>Examples</h2></a></li>
+			<li><a href="#5"><h1>Bee-swarm plot_by cancer</h1></a></li>
+            <li><a href="#5.1"><h2>Overview</h2></a></li>
+            <li><a href="#5.2"><h2>Setting area</h2></a></li>
+            <li><a href="#5.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#5.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#5.5"><h2>Examples</h2></a></li>
+            <li><a href="#6"><h1>Mountain plot</h1></a></li>
+            <li><a href="#6.1"><h2>Overview</h2></a></li>
+            <li><a href="#6.2"><h2>Setting area</h2></a></li>
+            <li><a href="#6.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#6.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#6.5"><h2>Examples</h2></a></li>
+            <li><a href="#7"><h1>Manhattan plot</h1></a></li>
+            <li><a href="#7.1"><h2>Overview</h2></a></li>
+            <li><a href="#7.2"><h2>Setting area</h2></a></li>
+            <li><a href="#7.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#7.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#7.5"><h2>Examples</h2></a></li>
+            <li><a href="#8"><h1>Deflection plot</h1></a></li>
+            <li><a href="#8.1"><h2>Overview</h2></a></li>
+            <li><a href="#8.2"><h2>Setting area</h2></a></li>
+            <li><a href="#8.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#8.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#8.5"><h2>Examples</h2></a></li>
+            <li><a href="#9"><h1>Volcano plot</h1></a></li>
+            <li><a href="#9.1"><h2>Overview</h2></a></li>
+            <li><a href="#9.2"><h2>Setting area</h2></a></li>
+            <li><a href="#9.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#9.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#10"><h1>Linear regression analysis</h1></a></li>
+            <li><a href="#10.1"><h2>Overview</h2></a></li>
+            <li><a href="#10.2"><h2>Setting area</h2></a></li>
+            <li><a href="#10.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#10.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#11"><h1>Analyze yours</h1></a></li>
+            <li><a href="#12"><h1>Analyze yours:Bee-swarm plot</h1></a></li>
+            <li><a href="#12.1"><h2>Setting area</h2></a></li>
+            <li><a href="#12.2"><h2>Plotting area</h2></a></li>
+            <li><a href="#12.3"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#12.4"><h2>Example data area</h2></a></li>
+            <li><a href="#12.5"><h2>Examples</h2></a></li>
+            <li><a href="#13"><h1>Analyze yours:Mountain plot</h1></a></li>
+            <li><a href="#13.1"><h2>Overview</h2></a></li>
+            <li><a href="#13.2"><h2>Setting area</h2></a></li>
+            <li><a href="#13.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#13.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#13.5"><h2>Example data area</h2></a></li>
+            <li><a href="#14"><h1>Analyze yours:Manhattan plot</h1></a></li>
+            <li><a href="#14.1"><h2>Overview</h2></a></li>
+            <li><a href="#14.2"><h2>Setting area</h2></a></li>
+            <li><a href="#14.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#14.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#14.5"><h2>Example data area</h2></a></li>
+            <li><a href="#15"><h1>Analyze yours:Deflection plot</h1></a></li>
+            <li><a href="#15.1"><h2>Overview</h2></a></li>
+            <li><a href="#15.2"><h2>Setting area</h2></a></li>
+            <li><a href="#15.3"><h2>Plotting area</h2></a></li>
+            <li><a href="#15.4"><h2>Figure downloading and DIY</h2></a></li>
+            <li><a href="#15.5"><h2>Example data area</h2></a></li>
+        </ul>
+        <div class="guide-main-text">
+			<h2><a href="../ClickGene User`s Guide.pdf">Download ClickGene User`s Guide (PDF)</a></h2>
+            <section id="1">
+                <h1>Getting Started</h1>
+                <section id="1.1">
+                    <h2>ClickGene website: An Overview</h2>
+                    <p>
+                        In genetics, a genome-wide association study (<strong>GWA</strong> study, or <strong>GWAS</strong>),
+                        also known as whole genome association study (<strong>WGA</strong> study, or <strong>WGAS</strong>),
+                        is an examination of a genome-wide set of genetic variants in different individuals to see if any variant is associated with a trait.
+                        <strong>GWASs</strong> typically focus on associations between single-nucleotide polymorphisms (<strong>SNPs</strong>) and
+                        traits like major human diseases, but can equally be applied to any other organism.
+                    </p>
+                    <p>
+                        The aim of this <strong>ClickGWAS</strong> is to make it possible for you to do <strong>GWAS</strong> by only mouse-clicking.
+                        As long as you know how to Google, you can use these web-based analysis tools provided by us by yourself.
+                        Therefore, your precious time can be saved for other more meaningful research.
+                        Until now, all data was downloaded from the <strong>"Legacy GDC portal"</strong> which was updated before 10/05/2016. New updated data is coming!
+                        <span style="color: red">All non-primary samples are removed before any preprocessing and analyzing by us.</span>
+                        Gene expression is the level 3 data preprocessed by TCGA which was measured by the platform Illumina HiSeq 2000 RNA Sequencing Version 2.
+                        The level 3 CNV (Copy Number Variation) data was measured by Affymetrix Genome-Wide Human SNP Array 6.0.
+                        The annotation file of hg19 was used as a reference for the locations of genes (<a href="http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/">
+                        http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/</a>).
+                        The CNV value of a gene was defined as the average value of all of the segments' CNV values corresponding to the gene.
+                        More category data <strong>GWAS</strong> analyzing methods are coming! Please go to <a href="https://portal.gdc.cancer.gov/legacy-archive/search/f">
+                        Legacy GDC portal </a>for more details of these data.
+                        Data analysis was restricted to autosomes.
+                    </p>
+                </section>
+                <section id="1.2">
+                    <h2>Key features of ClickGene:</h2>
+                    <p>&rarr;  Open-Access: we won't charge anything for using the analysis tools we provided.
+                        But if you use the results or plots created or obtained by the tools provided with this website,
+                        please be sure that you mention our website in the Material and Methods section in your articles, presentations, reports and other documents. </p>
+                    <p>&rarr;  Data visualization: To make the exploration of data as easy as possible,
+                        different kinds of plots are provided to visualizing almost all kinds of genomic alterations including mRNA expression,
+                        copy number variation and so on. </p>
+                    <p>&rarr;  Downloading and Installation free: No necessary to download any data or install any software or apps.
+                        Therefore, it's totally green for your computer.</p>
+                    <p>&rarr;  Figure DIY: Modify marker shapes, colors and other details of the figures to make them your own style.</p>
+                    <p>&rarr;  Flexible: Different file type and size for figure downloading. </p>
+                    <p>&rarr;  Handy: For your convinence, the sample ID and other necessary details of each individual sample will show up as long as you put your mouse on the corresponding marker in the plots. </p>
+                    <p>&rarr;  Downloadable: The corresponding data for visualizing or data-mining are all downloadable for your further research.</p>
+                    <p>For more information about available methods and options, please go to <a href="http://www.clickgenome.org">ClickGene Website</a>.</p>
+                </section>
+                <section id="1.3">
+                    <h2>Accessing the ClickGene provided methods</h2>
+                    <p><b>ClickGene</b> is accessible using a web browser such as Safari, Chrome, Internet Explorer, Firefox and so on at the following URL: <a href="http://www.clickgenome.org">http://www.clickgenome.org</a></p>
+                    <p>The welcome page displays an overview of main available provided analyses methods:
+                    <div align="center"><img src="../img/guide/1.png" border="1" width="80%"/></div>
+                    <p>It will automatically skip to the HOME page after a few seconds. You also can click the "Skip Now" button at the right bottom of this page to skip into the HOME page if you do not want to wait at all. </p>
+                </section>
+            </section>
+            <section id="2">
+                <h1>HOME</h1>
+                <p>This page displays an overview of this website, our team and all available analyses.</p>
+                <div align="center"><img src="../img/guide/2.png" border="1" width="80%"/></div>
+                <section id="2.1">
+                    <h2>Toolbar</h2>
+                    <div align="center"><img src="../img/guide/3.png" border="1" width="80%"/></div>
+                    <p>The toolbar is at the top-right of the HOME page for you to login, switch to the Data Analysis page or to get the information about how to contact us.</p>
+                </section>
+                <section id="2.2">
+                    <h2>Navigation bar</h2>
+                    <div align="center"><img src="../img/guide/4.png" border="1" width="80%"/></div>
+                    <p>The Navigation bar at the top of HOME page provides links to other pages in this website.</p>
+                    <p>&rarr; Data Analysis: this page provides all links to all provided analyses.</p>
+                    <p>&rarr; Analyze yours: You can analyze your own data by the tools provided by this platform. </p>
+                    <p>&rarr; User's Guide: The user's guide is available in both HTML and PDF file types.</p>
+                    <p>&rarr; Papers: a list of published research articles with the results obtained by using the analysis methods provided by ClickGene.</p>
+                    <p>&rarr; About us: Introduction of our lab, PI and members.</p>
+                </section>
+                <section id="2.3">
+                    <h2>Focus picture area</h2>
+                    <div align="center"><img src="../img/guide/5.png" border="1" width="80%"/></div>
+                    <p>A brief introduction about available methods, downloadable data, update information and news is shown in this area. Pictures will automatically take turns to switch to the next one.
+                        You also can click the "Index dots" at the bottom of it to manually switch it to a certain picture you are interested in.</p>
+                </section>
+                <section id="2.4">
+                    <h2>Link area</h2>
+                    <div align="center"><img src="../img/guide/6.png" border="1" width="80%"/></div>
+                    <p>The bottom part of the "HOME page" is the Link area. Quick entrance to other pages of this website and the URLs of related websites are available here. </p>
+                    <p>For your convenience, a secondary menu is provided for "Data Analysis" on the Navigation bar.
+                        All available analyses are accessible through it as the following figure. Please go to "Data Analysis" page introduction to see more details.</p>
+                </section>
+            </section>
+            <section id="3">
+                <h1>Data Analysis</h1>
+                <p>Note: </p>
+                <p>&rarr; Until now, all data was downloaded from the "Legacy GDC portal" which was updated before 10/05/2016. New updated data is coming!</p>
+                <p>&rarr; Gene expression is the level 3 data preprocessed by TCGA which was measured by the platform Illumina HiSeq 2000 RNA Sequencing Version 2.</p>
+                <p>&rarr; The level 3 CNV (Copy Number Variation) data was measured by Affymetrix Genome-Wide Human SNP Array 6.0.</p>
+                <p>
+                    Please go to <a href="https://portal.gdc.cancer.gov/legacy-archive/search/f"> Legacy GDC portal</a> and
+                    Data Preprocessing section for more details of these data. More category data GWAS analyzing methods are coming!
+                </p>
+                <p>There are several areas in this page including:</p>
+                <p>&nbsp;&nbsp;&diams;&nbsp; Overview area: an overview of cancer types whose data are available</p>
+                <p>&nbsp;&nbsp;&diams;&nbsp; Brief step by step guide: Brief demonstration of how to start to use the analyses provided by us</p>
+                <p>&nbsp;&nbsp;&diams;&nbsp; Data plots area: Examples and brief descriptions of data plotting methods</p>
+                <p>&nbsp;&nbsp;&diams;&nbsp; Data mining area: Examples and brief descriptions of data mining methods</p>
+                <p>&nbsp;&nbsp;&diams;&nbsp; Link area: Links that might be helpful to you</p>
+                <section id="3.1">
+                    <h2>Overview area</h2>
+                    <div align="center"><img src="../img/guide/7.png" border="1" width="80%"/></div>
+                    <p>1、Navigation bar: You can switch to any other pages through the links provided here.</p>
+                    <p>2、Speed buttons: You can click “How to Start” button to skip to the Brief demonstration area in this page to know how to get it started.
+                        You also can click “Go to Analyze” button to skip to
+                        the to Data Plots area to select the analyze function you want to use.</p>
+                    <p>3、Overview area: This is an overview histogram of how many cases in different cancer types are available for the analyze.</p>
+                    <p>4、We are devoted in helping with the oncogenetic research for free.
+                        But we need finical support to afford an advanced internet server who can provide big size data global transfer with a fantastic fast speed.
+                        Therefore, we are very appreciated for any donations.</p>
+                </section>
+                <section id="3.2">
+                    <h2>Brief step by step guide</h2>
+                    <div align="center"><img src="../img/guide/8.png" border="1" width="80%"/></div>
+                    <p>1) SIGN UP: To start using the analyze methods provided by us, you need to register and login first.
+                        Only email address is required for registration. For the same one email address, only one account is allowed.</p>
+                    <p>2) CHOOSE A METHOD: It's a list of all methods provided by us. You can click any of them to skip to the corresponding section of it directly.</p>
+                    <p>3) ENJOY DATA ANALYSIS: After registering ,logging in and selecting a method, now you can enjoy available GWAS analyses.</p>
+                    <p>There are two kinds of GWAS methods provided by us: Data visualization and Data mining.</p>
+                </section>
+                <section id="3.3">
+                    <h2>Data visualization area</h2>
+                    <p>Example images and brief description of all methods are listed here. </p>
+                    <h3>1）Bee-swarm plot</h3>
+                    <p>The Beeswarm plot is a one-dimensional scatter plot like "stripchart", but with closely-packed, non-overlapping points.
+                        Here, the Beeswarm plots with or without box plot are provided.
+                        It’s very helpful to see the distributions of certain genes in different ways.
+                        Therefore, we provide two kinds of Beeswarm plots: </p>
+                    <p>&Delta;  "Bee-swarm plot_By Gene": Bee-swarms for given genes of samples across different cancer types are plotted in the same figure to compare their distributions fairly and easily.</p>
+                    <p>&Delta;  "Bee-swarm plot _ By Cancer": Bee-swarms for different genes in samples of the same given cancer type are created in the same figure to compare their distributions fairly and easily.</p>
+                    <p>You can click the corresponding URLs right below the description and the examples of Bee-swarm plot to get into 'Bee-swarm plot_By Gene' or 'Bee-swarm plot _ By Cancer' page to create corresponding bee-swarms by yourself. </p>
+                    <small><i>Note: up to now, only mRNA expression values and copy number variations of genes in TCGA/GDC data are available for Bee-swarm plot.</i></small>
+                    <div align="center"><img src="../img/guide/9.png" border="1" width="80%"/></div>
+                    <h3>2) Mountain plot</h3>
+                    <div align="center"><img src="../img/guide/10.png" border="1" width="80%"/></div>
+                    <p>Mountain plot is named by Dr. Kai Song because its ups and downs look like mountains outlines seen from afar.
+                        It is a very useful scatter plot, created by Dr. Adi Gazdar and Dr. Kai Song, for visualizing and analyzing genome-wide variations of copy numbers [1, 2].
+                        In Mountain plot, each spot is the median/mean value of copy numbers of each gene in a group which can be a batch or a cancer type.
+                        The genes are sorted according to their locations.
+                        The space between two arms of each chromosome is the location of the corresponding centromere. </p>
+                    <small><i>Note: theoretically, Mountain plot can be used to visualizing mRNA expression values or methylation values of chromosomes.</i></small>
+                </section>
+                <section id="3.4">
+                    <h2>Link area</h2>
+                    <p>Necessary links are available for you to switch to other pages or websites.</p>
+                    <div align="center"><img src="../img/guide/11.png" border="1" width="80%"/></div>
+                </section>
+            </section>
+            <section id="4">
+                <h1>Bee-swarm plot_By Gene</h1>
+                <p>In this webpage, you can create Bee-swarm plots of the distributions of a specific gene in samples across different cancer types. </p>
+                <div align="center"><video width="70%" controls src="../demo-clips/Image_saving_demo_by_gene.mp4"><p>To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p></video></div>
+                <p>As we mentioned above, there are three ways to get into the Bee-swarm plot_By Gene page.</p>
+                <p>1) Through the Navigation bar at the Home page, select "Bee-swarm plot _ By Gene" under "Data Analysis";</p>
+                <p>2) Go to "Data Analysis" page, then go to "Data visualization" area, select "Bee-swarm plot _ By Gene" under Bee-swarm plot area;</p>
+                <p>3) Through the link in the "Link area" at the Home page, go to "Data Analysis" page, then go to "Data visualization" area, select "by gene" at the bottom of Bee-swarm plot area. </p>
+                <p>For 'Bee-swarm plot _ By Gene' page, there are five areas: </p>
+                <div align="center"><img src="../img/guide/01.png" border="1" width="80%"/></div>
+                <section id="4.1">
+                    <h2>Overview</h2>
+                    <p>&rarr; Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr; Setting area: You can specify genes, cancer types, data types, cutoff values and other parameters here.</p>
+                    <p>&rarr; Plotting area: Bee-swarm plot will be shown in this area.</p>
+                    <p>&rarr; Figure Downloading and DIY area: You can download Bee-swarm plot in certain format and certain size. You can also customize line color, line shape, marker color, marker shape and other details through the option buttons in this area.</p>
+                    <p>&rarr; Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                </section>
+                <section id="4.2">
+                    <h2>Setting area</h2>
+                    <div align="center"><img src="../img/guide/02.png" border="1" width="30%"/></div>
+                    <p>1. It reminds you which kind of bee-swarm plot you are working on.</p>
+                    <p>2. You can select mRNA expression, copy number variation.</p>
+                    <p>3. You can specify a concern gene here by inputting gene symbol. One gene at a time. Only HUGO (Human Genome Organization) symbols are accepted. For example: 7:EGFR,3:TP63 </p>
+                    <small><i>Note: small cases and big cases are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene: KRAS.</i></small>
+                    <p>4. You can select your concern cancer types through the drop-down cancer list here. Multiple cancer types are acceptable. </p>
+                    <p>In TCGA/GDC dataset, non-malignant samples and tumor samples for the same cancer type are not both always available. Available sample types vary for different data type even for the same cancer type. For example, for acute myeloid leukemia (LAML) cancer, no non-malignant samples of mRNA expression values are available, but both non-malignant and tumor samples are available for copy number variation data. Different legends are added before cancer names to tell you which kind of samples of the given cancer types are available. </p>
+                    <p>&nbsp;&nbsp;⚠: without non-malignant' which means only tumor samples of this cancer type are available for the data type specified in (2).</p>
+                    <p>&nbsp;&nbsp;❌: not available' which means neither tumor samples nor non-malignant samples of this cancer type are available for the data type specified in (2).</p>
+                    <p>&nbsp;&nbsp;In the plotting area, *_T is used as symbols of groups of tumor samples;
+                        *_N is used as symbols of groups of non-malignant samples.</p>
+                    <p>5. You can specify concern transformation type, boxplot and other popular statistics by checking one or several of boxes here.</p>
+                    <p>&nbsp;&nbsp;&rarr; Log2: after checking this box, log2 transformation will be applied to the data before Bee-swarm plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p>6. When samples are available, you can choose to plot Bee-swarms plot for only tumor samples, only non-malignant samples or both of them by checking the boxes before them.</p>
+                    <p>7. When bee-swarms of more than one groups of samples are plotted, unpaired two-tailed Student's significance test can be calculated when you input the group number here. Note, the group number starts from 1 from the left group to the right.</p>
+                    <p>8. You can input cutoff values here, then the percentage of samples compared with cutoffs will show up in the figures. </p>
+                    <p>&diams; For one cutoff value, percentages of samples whose values larger and equal (≥) than it and of ones whose values smaller than it will be calculated. </p>
+                    <p>&diams; For two cutoff values, if cutoff1 > cutoff2, then</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nabla;&nbsp;&nbsp; percentages of ≥ cutoff1 </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nabla;&nbsp;&nbsp; percentages of ≥ cutoff2 and < cutoff1 </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nabla;&nbsp;&nbsp; percentages of < cutoff2 <br/>
+                        will be calculated and shown in the plotting area beside the corresponding bee-swarm plots.</p>
+                    <p>After setting all these necessary parameters, click "GO" button at the bottom of this area, the Bee-swarms will be plotted in the plotting area. There are no limits on how many genes you want to plot. But due to the configuration of your computer, the internet speed and the data sizes need
+                        to be transmitted for plotting (several times of the sample sizes), it may take a while to transmit and to load the data for plotting. The more genes you want to plot, the longer the response time will it cost. </p>
+                </section>
+                <section id="4.3">
+                    <h2>Plotting area</h2>
+                    <p>Bee-swarm figures will be plotted in this area as follows.</p>
+                    <div align="center"><img src="../img/guide/03.png" border="1" width="80%"/></div>
+                    <p>A toolbar will show up at the top right of this plotting area when Bee-swarm plots are created.</p>
+                    <div align="center"><img src="../img/guide/04.png" border="1" width="30%"/></div>
+                    <p>1. Zoom in: Rectangular zoom in tool. This tool allows you to select a region to display at full application size. After selecting this botton, your mouse will turn into a small cross. Then click and hold the left mouse button and drag a rectangle around a portion of the screen and have it zoomed in. </p>
+                    <p>2. Zoom out: Zoom back to the status it was a step before by cliking it.</p>
+                    <p>3. Restore: Show the plots in the original portion.</p>
+                    <p>4. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <p>5. Data table: If you want to download the sample data, you can click this button. Then a table containing all data will show up in the plotting area like this:</p>
+                    <div align="center"><img src="../img/guide/05.png" border="1" width="80%"/></div>
+                    <p>The first part of this table shows the usefull statistics of the samples, then the value and sample ID of each individual case in each group. You can select and copy the whole table or any part of it into a word or excel file by clicking and holding right mouse button as you usally do. </p>
+                    <p>You can scroll down to see the information of other samples. You also can click the "close" button at the bottom left of this page to close the table page and go back to the default page with the plotting area. </p>
+                    <h3>There are two more ways to zoom in:</h3>
+                    <p>&nbsp;&nbsp;&diams;  Vertically zoom in: There is a zoom bar at the right edge of the plotting area. Click and hold on either one of the two buttons on it, you can zoom in or zoom out vertically.</p>
+                    <p>&nbsp;&nbsp;&diams;  Horizontally zoom in: Slide the mouse wheel (for apple magic mouse, slide up or down) up or down, you can zoom in or zoom out horizontally.</p>
+                    <p>For your convinence, the sample ID and other details of each individual sample will show up when you put your mouse on the corresponding marker. For example: in the following figure, aftering putting the mouse on a marker, a catalog showed up is:</p>
+                    <div align="center"><img src="../img/guide/06.png" border="1" width="30%"/></div>
+                    <p>&diams; First row: the group message of this sample;</p>
+                    <p>&diams; Second row: x-axis, y-axis, sample ID:</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;x-axis: calculated from a program to separate samples in a bee-swarm like plot, no biological meaning;</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;y-axis: mRNA expression, copy number variation values depends on which data type you are working on;</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;sample ID: for the data provided by our website which were downloaded from TCGA/GDC public portal, it was given by GDC portal; for your own data, you can name your own sample ID.</p>
+                    <p>Therefore, in this example: the sample ID is TCGA-06-0187-01, and it's mRNA expression value of EGFR in Glioblastoma multiforme is 86384.59375.</p>
+                    <div align="center"><img src="../img/guide/07.png" border="1" width="80%"/></div>
+                </section>
+                <section id="4.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/08.png" border="1" width="80%"/></div>
+                    <h3>1. Figure Downloading area:</h3>
+                    <p> You can specify image format (png or jpg) and size/dimensions for the image to download. </p>
+                    <h3>2. Figure DIY area:</h3>
+                    <p>You can modify colors, shapes and other details of this figure for you own style.</p>
+                    <p>Select the group whose style you want to modify, then modify the color, shape of the markers, box, static lines here.</p>
+                </section>
+                <section id="4.5">
+                    <h2>The examples of Bee-swarm plots by gene</h2>
+                    <p><b>Example 1</b>: Plotting Bee-swarm of mRNA expression values of EGFR in lung adenocarcinoma tumor samples and calculate the percentages of samples between 1000 and 2000. See below:</p>
+                    <div align="center"><img src="../img/guide/09.png" border="1" width="80%"/></div>
+                    <p>In this figure, two cutoff values are given: 1000 and 2000. According to the digital figures in the plot, we can get to know that for EGFR mRNA expression values in lung adenocarcinoma cancer, the percentages are</p>
+                    <p>&nbsp;&nbsp; ≥2000, 21.67%</p>
+                    <p>&nbsp;&nbsp; <2000 and ≥1000, 27.85%</p>
+                    <p>&nbsp;&nbsp; <1000, 50.48%</p>
+                    <p><b>Example 2</b>:Plotting Bee-swarms of mRNA expression values of gene KRAS in adrenocortical carcinoma, bladder urothelial carcinoma, colon adenocarcinoma, lung adenocarcinoma and lung squamous cell carcinama tumor samples. </p>
+                    <p>The parameters in the Setting area are as the following picture. The default setting for the shapes, colors and sizes of markers, boxes and mean lines for all groups are the same.</p>
+                    <div align="center"><img src="../img/guide/010.png" border="1" width="80%"/></div>
+                    <br />
+                    <p><b>Example 3</b>:Plotting Bee-swarms of mRNA expression values of gene KRAS in glioblastoma multiforme, esophageal carcinoma and lung adenocarcinoma tumor samples and do the t-test between esophageal carcinoma and lung adenocarcinoma tumor samples. </p>
+                    <p>Because esophageal carcinoma and lung adenocarcinoma tumor samples are the second and third groups from the left separately, therefore input 2 and 3 in the input boxes of T-Test, then click 'GO'. </p>
+                    <p>The p value shown in the figure is 2.56e-6 which means in these two cancer types, the KRAS mRNA expression is significantly different.</p>
+                    <div align="center"><img src="../img/guide/012.png" border="1" width="80%"/></div>
+                </section>
+
+            </section>
+            <section id="5">
+                <h1>Beeswarm plot by cancer</h1>
+                <p>In this webpage, you can create Bee-swarm plots of the distributions of different genes in different samples in one cancer type. </p>
+                <div align="center"><video width="70%" controls src="../demo-clips/Image_saving_demo_by_cancer.mp4"><p>To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p></video></div>
+                <p>As we mentioned above, there are three ways to get into the 'Bee-swarm plot_By Cancer' page.</p>
+                <p>1)&nbsp;&nbsp;Through the Navigation bar at the Home page, select "Bee-swarm plot_By Cancer" under "Data Analysis";</p>
+                <p>2)&nbsp;&nbsp;Go to "Data Analysis" page, then go to "Data visualization" area, select "Bee-swarm plot_By Cancer" under Bee-swarm plot area;</p>
+                <p>3)&nbsp;&nbsp;Through the link in "Link area" at the Home page, go to "Data Analysis" page, then go to "Data visualization" area, select "Bee-swarm plot_By Cancer" under Bee-swarm plot area. </p>
+                <p>For 'Bee-swarm plot_By Cancer' page, there are five areas: </p>
+                <div align="center"><img src="../img/guide/100.png" border="1" width="80%"/></div>
+                <div align="center"><img src="../img/guide/101.png" border="1" width="80%"/></div>
+                <section id="5.1">
+                    <h2>Overview</h2>
+                    <p>&nbsp;&nbsp;&diams; Navigation bar: Users can switch to other pages through this navigation bar.</p>
+                    <p>&nbsp;&nbsp;&diams; Setting area: Users can specify genes, cancer types, data types, cutoff values and other function details here.</p>
+                    <p>&nbsp;&nbsp;&diams; Plotting area: The Beeswarm plot will be plotted in this area.</p>
+                    <p>&nbsp;&nbsp;&diams; Figure Downloading and DIY area: Users can download Beeswarm plot in certain format in certain size. Users can also customize line color, line shape, marker color, marker shapes through the option buttons in this area.</p>
+                    <p>&nbsp;&nbsp;&diams; Link area: Necessary links are available for users to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                </section>
+                <section id="5.2">
+                    <h2>Setting area</h2>
+                    <div align="center"><img src="../img/guide/102.png" border="1" width="30%"/></div>
+                    <p>1. It reminds you which kind of Bee-swarm plot you are working on.</p>
+                    <p>2. You can select mRNA expression, copy number variation.</p>
+                    <p>3. You can select concern cancer types through the drop-down cancer list here. One cancer type at a time.</p>
+                    <p>In TCGA/GDC dataset, non-malignant samples and tumor samples are not both always available for all cancer types. Available sample types vary for different data type even for the same cancer type. For example, for acute myeloid leukemia (LAML) cancer, no non-malignant samples of mRNA expression values are available, but both non-malignant and tumor samples are available for copy number variation data. Different legends are added before cancer names to tell you which kind of samples of the given cancer types can be available. </p>
+                    <p>&nbsp;&nbsp;&nbsp;⚠: without non-malignant which means only tumor samples of this cancer type are available for the data type specified in (2).</p>
+                    <p>&nbsp;&nbsp;&nbsp;❌: not available which means neither tumor samples nor non-malignant samples of this cancer type are available for the data type specified in (2).</p>
+                    <p>&nbsp;&nbsp;&nbsp;In the plotting area, *_T is used as symbols of groups of tumor samples; *_N is used as symbols of groups of non-malignant samples.</p>
+                    <p>4. You can specify concern genes here by inputting gene symbols. Only HUGO (Human Genome Organization) symbols are accepted. For multiple gene plotting, a comma and a space must be input between gene symbols, for example: 7:EGFR, 3:TP63…</p>
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+                    <p>5. You can specify concern transformation type, boxplot and other popular statistics by checking one or several of them. Log: after checking this option, log transformation will be applied to the data before Beeswarm plot (for mRNA expression values, it’s log2 transformation; for CNV (copy number variation) values, it’s log2(CNV/2) transformation).</p>
+                    <p>6. When samples are available, you can choose to plot Beeswarms plot for only tumor samples, non-malignant samples or both by checking the boxes before them.</p>
+                    <p>7. When Bee-swarms of more than one groups of samples are plotted, unpaired two-tailed Student’s significance test can be calculated for you when you input the group number here. Note, the group number starts from 1 from the left to the right.</p>
+                    <p>8. You can input cutoff values here, then the percentage of samples compared with cutoffs will show up in the figures. </p>
+                    <p>&diams; For one cutoff value, percentages of samples whose values larger and equal (≥) than it and of ones whose values smaller than it will be calculated.</p>
+                    <p>&diams; For two cutoff values, if cutoff1 > cutoff2, then</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	percentages of ≥ cutoff1 </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	percentages of ≥ cutoff2 and < cutoff1 </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	percentages of < cutoff2</p>
+                    <p>&nbsp;&nbsp;will be calculated and shown in the plotting area beside the corresponding bee-swarm plots.</p>
+                    <p>After setting all these necessary parameters, click "GO" button at the bottom of this area, the Bee-swarms will be plotted in the plotting area. There are no limits on how many cancer types you want to select. But due to the configuration of your computer, the internet speed and the data sizes need to be transmitted for plotting (several times of the sample sizes), it may take a while to transmit and to load the data for plotting. The more cancer types you want to plot, the longer the response time will it cost. </p>
+                </section>
+                <section id="5.3">
+                    <h2>Plotting area</h2>
+                    <p>Bee-swarm figures will be shown in this area. </p>
+                    <div align="center"><img src="../img/guide/103.png" border="1" width="80%"/></div>
+                    <p>A toolbar will show up at the top right of this plotting area when Bee-swarm plots are created.</p>
+                    <div align="center"><img src="../img/guide/104.png" border="1" width="30%"/></div>
+                    <p>1. Zoom in: Rectangular zoom in tool. This tool allows you to select a region to display at full application size. After clicking this botton, your mouse will turn into a small cross. Then click and hold the left mouse button and drag a rectangle around a portion of the screen and have it zoom in. </p>
+                    <p>2. Zoom out: Zoom back to the status you have up step by cliking it.</p>
+                    <p>3. Restore: Show the plots in the original portion.</p>
+                    <p>4. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <!--need video file-->
+                    <p>5. Data table: If you want to download the sample data in a table, you can click this button.</p>
+                    <p>
+                        Then a table containing all data will show up in the plotting area like the following figure. You can select and copy the whole table or any part of it into a word or excel file by clicking and holding right mouse button as you usally do.
+                    </p>
+                    <p>
+                        You can scroll down to see the information of other samples. You also can click the "close" button at the bottom left of this page to close the table page and go back to the default page with the plotting area.
+
+                    </p>
+                    <div align="center"><img src="../img/guide/105.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual sample will show up when you put your mouse on the corresponding marker. For example: in the following figure, aftering putting the mouse on a marker, a catalog showed up is:</p>
+                    <div align="center"><img src="../img/guide/106.png" border="1" width="30%"/></div>
+                    <p>&rarr; First row: the group message of this sample;</p>
+                    <p>&rarr; Second row: x-axis, y-axis, sample ID:</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x-axis: calculated from a program to separate samples in a bee-swarm like plot, no biological meaning;</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y-axis: mRNA expression, copy number variation values depends on which data type you are working on;</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sample ID: for the data provided by our website which were downloaded from TCGA/GDC public portal, it was given by GDC portal; for your own data, you can name your own sample ID.</p>
+                    <p>Therefore, in this example: the sample ID is TCGA-53-7624-01, and it's mRNA expression value of EGFR in Glioblastoma multiforme is 19967.61133.</p>
+                    <div align="center"><img src="../img/guide/107.png" border="1" width="80%"/></div>
+                </section>
+                <section id="5.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/108.png" border="1" width="80%"/></div>
+                    <h3>1. Figure Downloading area:</h3>
+                    <p> You can specify image format (png or jpg) and size/dimensions for the image to download .
+                        </p>
+                    <h3>2. Figure DIY area:</h3>
+                    <p>You can modify colors, shapes and other details of this figure for you own style.</p>
+                    <p>Select the group whose style you want to modify, then modify the color, shape of the markers, box, static lines here.</p>
+				</section>
+				<section id="5.5">
+                    <h2>Examples:</h2>
+                    <p><b>Example 1</b>: Plotting Bee-swarm of mRNA expression values of EGFR in lung adenocarcinoma tumor samples and calculate the percentages of samples between 1000 and 2000, modify the marker into red diamond. See below:</p>
+                    <div align="center"><img src="../img/guide/109.png" border="1" width="80%"/></div>
+                    <p>In this figure, two cutoff values are given: 1000 and 2000, according to the digital figures in the plot,
+                        we can get to know that for EGFR mRNA expression values in lung adenocarcinoma cancer, the percentages are</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp; ≥2000, 21.67%</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp; <2000 and ≥1000, 27.85%</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp; <1000, 50.48%</p>
+					<br />
+                    <p><b>Example 2</b>: Plotting Beeswarm of mRNA expression values of gene EGFR, KRAS, SOX2, MYC in lung adenocarcinoma tumor samples.</p>
+                    <p>The parameters in Setting area are shown as the following picture. The default setting for the shapes, colors and sizes of markers, boxes and mean lines for all groups are the same.</p>
+					<div align="center"><img src="../img/guide/110.png" border="1" width="80%"/></div>
+                    <p>To make it easier to distinguish groups by a glance, you can use the Figure DIY options to change the color, size and shapes of markers.</p>
+					<div align="center"><img src="../img/guide/111.png" border="1" width="80%"/></div>
+					<br />
+                    <p><b>Example 3</b>: Plotting Bee-swarms of mRNA expression values of gene CPSF3L and KRAS in both lung adenocarcinoma tumor and non-malignant samples and do the t-test between CPSF3L and KRAS tumor samples. </p>
+					<p>Because CPSF3L and KRAS tumor samples are the second and forth groups from the left, separately. Therefore input 2 and 4 in T-Test input boxes, then click 'GO'. The p-value as what is shown in the figure is: 0.567 which means their mRNA expression values in lung adenocarcinoma tumor samples are not significantly different.</p>
+					<div align="center"><img src="../img/guide/112.png" border="1" width="80%"/></div>
+                </section>
+            </section>
+            <section id="6">
+                <h1>Mountain plot</h1>
+                <!-- No demo clip -->
+                <p>Mountain plot, created by Dr. Adi Gazdar and Dr. Kai Song, is a very useful scatter plot for visualizing and analyzing genome-wide variations of copy numbers [1, 2]. It gains its name from the similarity of such a plot to the ups and downs of mountains outlines seen from afar. In Mountain plot, each spot is the median/mean value of concern data types (i.e. copy number etc.) of each gene in a group which can be a batch or a cancer type. The genes are sorted according to their locations. The space between two arms of each chromosome is the location of the corresponding centromere. </p>
+                <div align="center"><video width="70%" controls src="../demo-clips/Mountain.mp4"><p>To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p></video></div>
+                <p>Originally, Mountain plot was used to analyze genome-wide variations of copy numbers. Due to the wonderful visualizing effect, we provide Mountain plot for mRNA expression and methylation values. </p>
+                <p>Because it is used to visualize the variations of copy numbers or other data types, the values of corresponding non-malignant samples are plotted in default if they are available for the given cancer types. When more than one cancer types are specified, all available non-malignant samples of all these cancer types will be combined in one group which means only one spot for each gene in all non-malignant samples from different specified cancer types.</p>
+
+                <section id="6.1">
+                    <h2>Overview</h2>
+                    <p>As we mentioned above, there are three ways to get into the Mountain plot page.</p>
+                    <p>&rarr; Through the Navigation bar at the Home page, select "Mountain plot" under "Data Analysis";</p>
+                    <p>&rarr; Go to "Data Analysis" page, then go to "Data visualization" area, select "Mountain plot";</p>
+                    <p>&rarr; Through the link in the "Link area" at the Home page, go to "Data Analysis" page, then go to "Data visualization" area, select "Mountain plot". </p>
+                    <p>For "Mountain plot" page, there are five areas: </p>
+                    <p>&rarr; Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr; Setting area: You can specify genes, cancer types, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr; Plotting area: The Mountain plot will be plotted in this area. </p>
+                    <p>&rarr; Figure Downloading and DIY area: You can download Mountain plot in certain format and size. You can also customize line color, line shape, marker color, marker shapes through the option buttons in this area. </p>
+                    <p>&rarr; Link area: Necessary links are available for you to switch to other pages or websites. </p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/200.png" border="1" width="80%"/></div>
+                </section>
+                <section id="6.2">
+                    <h2>Setting area</h2>
+                    <div align="center"><img src="../img/guide/201.png" border="1" width="30%"/></div>
+                    <p>1. It reminds you which kind of plot you are working on.</p>
+                    <p>2. You can select mRNA expression, copy number variation. Originally, Mountain plot was used to visualize genome copy number variations. But we expand it to visualize mRNA expression, methylation, and so on.</p>
+                    <p>3. You can a select concern cancer type through the drop-down cancer list here.</p>
+                    <p>In TCGA/GDC dataset, non-malignant samples and tumor samples are not both always available for all cancer types. Available sample types vary for different data type even for the same cancer type. For example, for acute myeloid leukemia (LAML) cancer, no non-malignant samples of mRNA expression values are available, but both non-malignant and tumor samples are available for copy number variation data. Different legends are added before cancer names to tell you which kind of samples of the given cancer types can be available.</p>
+                    <small><i>Note: The gene copy numbers in non-malignant samples are supposed to be 2. But because of so many reasons, they are a little bit different from 2. To make a good comparison, all non-malignant samples are combined together as a super-control. You can select it by selecting "[all-non-malignant]" at the bottom of the cancer list. </i></small>
+                    <p>⚠: without non-malignant which means only tumor samples of this cancer type are available for the data type specified in (2).</p>
+                    <p>❌: not available which means neither tumor samples nor non-malignant samples of this cancer type are available for the data type specified in (2).</p>
+                    <p>In the plotting area, *_T is used as symbols of groups of tumor samples;</p>
+                    <p>4. You can select a concern chromosome through the drop-down list here. Now only 1-22 chromosomes are available.</p>
+                    <p>5. You can specify concern gene here by inputting gene symbols. Only HUGO (Human Genome Organization) symbols are accepted. For example: EGFR, KRAS, TP63…. If you want to input more than one gene symbols, a common and a space should be used to separate two gene symbols.</p>
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+                    <p>6. In Mountain plot, each spot can be median or mean values of each group. You can specific either one of them through this drop-down list.</p>
+                    <p>7. You can specify concern transformation type, whether plot cytoband information or not by checking the small boxes before each of them. Log: after checking this option, log transformation will be applied to the data before Bee-swarm plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p>8. You can input cutoff values here to see whether the median/mean values of each group are above or below them.</p>
+                    <p>After setting all these necessary options, click "GO" button at the bottom of this area, the Mountain plot will be created in the plotting area. There are no limits on how many cancer types you want to plot. But due to the configuration of your computer, the internet speed and the data sizes need to be transmitted for plotting (several times of the sample sizes), it may take a while to transmit and load the data for plotting. The more cancer types you want to plot, the longer the response time will it need. </p>
+                </section>
+                <section id="6.3">
+                    <h2>Plotting area</h2>
+                    <p>Mountain plot figures will be shown in this area. </p>
+                    <p>A toolbar will show up at the top right of this plotting area when a Mountain plot is created.</p>
+                    <div align="center"><img src="../img/guide/202.png" border="1" width="30%"/></div>
+                    <p>1. Zoom in: Rectangular zoom in tool. This tool allows you to select a region to display at full application size. After clicking this botton, your mouse will turn into a small cross. Then click and hold the left mouse button and drag a rectangle around a portion of the screen and have it zoom in. </p>
+                    <p>2. Zoom out: Zoom back to the status you have up step by cliking it.</p>
+                    <p>3. Restore: Show the plots in the original portion.</p>
+                    <p>4. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <!--need video file-->
+                    <p>5. Data table: If you want to download the sample data in a table, you can click this button.</p>
+                    <p>
+                        Then a table containing all data will show up in the plotting area like this:
+                        The first part of this table shows the similiarity scores of different groups to the non-maglinant_median/ non-maglinant_mean group. Please go to the Introduction of curve similiarity to see the details. Then the value and sample ID of each individual case in each group. You can select and copy the whole table or any part of it into a word or excel file by selecting and clicking right mouse button as you usally do.
+                    </p>
+                    <p>
+                        You can scroll down to see the information of other samples. You also can click the "close" button at the bottom left of this page to close the table page and go back to the default page with the plotting area.
+
+                    </p>
+                    <p>
+                        There are two more ways to zoom in:
+
+                    </p>
+                    <p>
+                        &diams;&nbsp; Vertically zoom in: There is a 'zoom bar' at the right edge of the plotting area. Click and hold on either one of the two buttons on it, you can zoom in or zoom out vertically.
+                    </p>
+                    <p>
+                        &diams;&nbsp; Horizontally zoom in: Slide the mouse wheel (for apple magic mouse, slide up or down) up or down, you can zoom in or zoom out horizontally.
+                    </p>
+                    <div align="center"><img src="../img/guide/203.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual sample will show up when you put your mouse on the corresponding marker. </p>
+                    <p>For example: in the above figure, aftering putting the mouse on a marker, a catalog showed up is:</p>
+                    <div align="center"><img src="../img/guide/204.png" border="1" width="80%"/></div>
+                    <p>&rarr; First row: the group message of this sample;</p>
+                    <p>&rarr; Second row: x-axis, y-axis, sample ID</p>
+                    <p>&nbsp;&nbsp;&diams;&nbsp;x-axis: start location of the concern gene in the corresponding chromosome;</p>
+                    <p>&nbsp;&nbsp;&diams;&nbsp;y-axis: median/mean mRNA expression, copy number variation values depends on which data type you are working on;</p>
+                    <p>&nbsp;&nbsp;&diams;&nbsp;gene symbol: HUGO (Human Genome Organization) symbols are used here.
+                    </p>
+                    <p>Therefore, in this example: the gene symbol is SEC61G, its start location in chromosome 7 is 54819939 and the mean value of its copy number variations in Glioblastoma multiforme is 7.2875.</p>
+                </section>
+                <section id="6.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/205.png" border="1" width="80%"/></div>
+                    <h3>1. Figure Downloading area:</h3>
+                    <p> You can specify image format (png or jpg) and size/dimensions for the image to download.
+                        </p>
+                    <h3>2. Figure DIY area:</h3>
+                    <p>You can modify colors, shapes and other details of this figure for you own style.</p>
+                    <p>Y-Limits: To make it easier for comparison by using the same Y-axis limits in the Mountain plots for different chromosomes, you can specify Y-axis limits here. Only the limits broader than the default ones are acceptable. (You can use the zoom bar mentioned above to make the limits narrower.)</p>
+                    <p>Select the group whose style you want to modify, then modify the color, shape of the markers, box, static lines here.</p>
+                </section>
+                <section id="6.5">
+                    <h2>Examples:</h2>
+                    <p><b>Example 1</b>: Plotting Mountain plot of mean values of copy numbers on chromosome 7 of glioblastoma multiforme tumor and non-malignant samples with EGFR highlighted. To get more information about the location of genes, check the cytoBand option to make it plotted in the Mountain plot. Then customize the marker color of tumor samples into blue.</p>
+                    <p>The red circle marker highlighted where EGFR gene is in this Mountain plot. You can get it detailed information by putting your mouse on it and hold.</p>
+                    <div align="center"><img src="../img/guide/206.png" border="1" width="30%"/></div>
+
+                    <p><b>Example 2</b>:  Plotting Mountain plot of copy number variations on chromosome 3 of breast invasive carcinoma, head & neck squamous cell carcinoma, lung adenocarcinoma and lung squamous cell carcinoma tumor and non-malignant samples with SOX2 highlighted. </p>
+                    <div align="center"><img src="../img/guide/207.png" border="1" width="80%"/></div>
+                    <p>You may not like the colors and sizes of the markers plotted in default. Therefore, you can use the Figure DIY options to change the color, size and shapes of markers.</p>
+                    <p>The Setting area and the final plot are shown in the following picture. </p>
+                    <div align="center"><img src="../img/guide/208.png" border="1" width="80%"/></div>
+                    <br />
+                </section>
+            </section>
+            <section id="7">
+                <h1>Manhattan plot</h1>
+                <div align="center"><video width="70%" controls src="../demo-clips/Manhattan.mp4"><p>To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p></video></div>
+                <!-- No demo clip -->
+                <p>Normally, for instance in genome-wide association studies (GWAS), a Manhattan plot is a type of scatter plot, usually used to display data with a large number non-zero amplitude data-points. It gains its name from the similarity of such a plot to the Manhattan skyline. In GWAS Manhattan plots, genomic coordinates are displayed along the X-axis. The negative logarithm of the association P-value for each single nucleotide polymorphism (SNP) are displayed on the Y-axis. Therefore, the stronger the associations between SNP, the larger the Y-axis value. </p>
+                <p>To improve the feasibility and transmitting speed of our global website service and to serve the gene targeting research as best as possible, we did several modifications to the original Manhattan plot: </p>
+                <p>&rarr; For gene targeting research, we plot Manhattan plot for genes rather than for SNPs which means the P-value are calculated for genes in two different group samples.</p>
+                <p>&rarr; To improve the transmitting speed, we used line rather than spots in the original Manhattan plot.</p>
+                <p>&rarr; We expanded the usage of Manhattan plot from mRNA expression values to copy number variations.</p>
+                <p>&rarr; For more options, you can plot Manhattan plot by chromosomes besides by genome. </p>
+                <p>&rarr; Besides regular Manhattan plot, we provided another option to show more information in this plot: Directional Manhattan plot. If the median value of the gene in group is smaller than that in group2, the corresponding line points down from the base line (normally, it's zero line).</p>
+                <section id="7.1">
+                    <h2>Overview</h2>
+                    <p>As we mentioned above, there are three ways to get into the Manhattan plot page.</p>
+                    <p>&rarr; Through the Navigation bar at the Home page, select "Manhattan plot" under "Data Analysis";</p>
+                    <p>&rarr; Go to "Data Analysis" page, then go to "Data visualization" area, select "Manhattan plot";</p>
+                    <p>&rarr; Through the link in the "Link area" at the Home page, go to "Data Analysis" page, then go to "Data visualization" area, select "Manhattan plot". </p>
+                    <p>For "Manhattan plot" page, there are five areas: </p>
+                    <p>&rarr; Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr; Setting area: You can specify genes, cancer types, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr; Plotting area: The Manhattan plot will be plotted in this area.</p>
+                    <p>&rarr; Figure Downloading and DIY area: You can download Manhattan plot in a certain format and size. You can also customize line color and so on through the option buttons in this area.</p>
+                    <p>&rarr; Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/300.png" border="1" width="80%"/></div>
+                </section>
+                <section id="7.2">
+                    <h2>Setting area</h2>
+                    <p>1. It reminds you which kind of plot you are working on.</p>
+                    <p>2. You can select mRNA expression, copy number variation. Originally, Manhattan plot was used to visualize genome mRNA expression values relationships. But we expand it to visualize the relationships of copy number variation, methylation, and so on.</p>
+                    <p>3. In TCGA/GDC dataset, non-malignant samples and tumor samples are not both always available for all cancer types. Available sample types vary for different data type even for the same cancer type. For example, for acute myeloid leukemia (LAML) cancer, no non-malignant samples of mRNA expression values are available, but both non-malignant and tumor samples are available for copy number variation data. Different legends are added before cancer names to tell you which kind of samples of the given cancer types can be available. </p>
+                    <small><i>Note: The gene copy numbers in non-malignant samples are supposed to be 2. But because of so many reasons, they are a little bit different from 2. To make a good comparison, all non-malignant samples are combined together as a super-control. You can select it by selecting "[all-non-malignant]" at the bottom of the cancer list. </i></small>
+                    <p>⚠: without non-malignant which means only tumor samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <p>❌: not available which means neither tumor samples nor non-malignant samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <div align="center"><img src="../img/guide/301.png" border="1" width="30%"/></div>
+                    <p>4. You can specify the first group here by selecting the cancer type through the drop-down list and the sample type by checking one of the circles.</p>
+                    <p>5. You can specify the second group here by selecting the cancer type through the drop-down list and the sample type by checking one of the circles..</p>
+                    <small><i>Note: It needs samples of two different groups to do the t-test, if you select the same cancer type for the first and second group, please make sure the sample types of them are different. Otherwise, an error information will be displayed in the plotting area and no Manhattan plot will be created. </i></small>
+                    <p>6. You can specify a concern chromosome here. You also can select to create a Manhattan plot for chromosomes 1-22. But due to the big data size for transmitting and for t-test calculating (more than 20,000 genes and dozens or hundreds samples), it may take several minutes. So please bear with it! </p>
+                    <p>7. You can input the concern gene symbols here. Then they will be highlighted in Manhattan plot in different colors to make it easier to compare. If you want to input more than one gene symbols, a common and a space should be used to separate two gene symbols. Only HUGO (Human Genome Organization) symbols are accepted. For example: EGFR, KRAS, TP63…. </p>
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+                    <p>8. In Manhattan plot, the color of each line is decided by the mean or median values of the corresponding gene in the specified two groups. You can specify 'mean' or 'median' through this drop-down list.</p>
+                    <p>9. There are two other options here:</p>
+                    <p>&rarr; Directional Manhattan: if you select this option, the directional Manhattan plot will be created in the plotting area. In some cases, except for the difference between the samples of two groups, it is also good to know which group is bigger. Therefore, we compare the median values of samples in each group. If the median value of each gene
+
+                    </p>
+                    <p>&rarr; Log2: You can specify concern transformation type checking this option. Correspondingly, log2 transformation will be applied to the data before Bee-swarm plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).
+
+                    </p>
+                    <p>10. You can input a cutoff value for p-value to see how many gene's P-values are significantly different for each arm. A line at -10log10(cutoff) will be plotted to show the cutoff on the Manhattan plot. For Directional Manhattan plot, two lines will be plotted at -10log10(cutoff) and 10log10(cutoff).</p>
+
+                    <p>After setting all these necessary options, click "GO" button at the bottom of this area, the Manhattan plot will be created in the plotting area. Because the big data size and the calculating time for t-test, it may take seconds or minutes to do the t-test and to create Manhattan plot. The processing time varies according to the internet transmitting speed and the configuration of your computer.  </p>
+                </section>
+                <section id="7.3">
+                    <h2>Plotting area</h2>
+                    <p>Manhattan plot figures will be shown in this area. </p>
+                    <p>A toolbar will show up at the top right of this plotting area when a Manhattan plot is created. </p>
+                    <div align="center"><img src="../img/guide/302.png" border="1" width="30%"/></div>
+                    <p>1. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <!--need video file-->
+                    <p>2. Data table: If you want to download the sample data in a table, you can click this button. Then a table containing all data will show up in the plotting area like this. You can select and copy the whole table or any part of it into a word or excel file by selecting and clicking right mouse button as you usally do. You can scroll down to see the information of other samples. You also can click the "close" button at the bottom left of this page to close the table page and go back to the default page with the plotting area.</p>
+
+                    <div align="center"><img src="../img/guide/303.png" border="1" width="80%"/></div>
+                    <div align="center"><img src="../img/guide/304.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual gene will show up when you put your mouse on the corresponding line. </p>
+                    <p>For example: in the above figure, after putting the mouse on a line, a catalog showed up like this:</p>
+                    <div align="center"><img src="../img/guide/305.png" border="1" width="30%"/></div>
+                    <p>From the left to the right are: gene symbol and p-value of this gene in the corresponding two groups. Therefore, in this example: the gene symbol is FUDC3B, the p-value of it's copy number variations in lung adenocarcinoma and lung squmous cell carcinoma is 1.36e-95 which means it has significantly different copy number variations in these two groups.</p>
+                    <div align="center"><img src="../img/guide/306.png" border="1" width="80%"/></div>
+                </section>
+                <section id="7.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/307.png" border="1" width="80%"/></div>
+                    <h3>1. Figure Downloading area:</h3>
+                    <p>You can specify image format (png or jpg) and size/dimensions for the image to download .</p>
+                    <h3>2. Figure DIY area:</h3>
+                    <p>You can modify colors and Y-Limits of this figure.</p>
+                </section>
+                <section id="7.5">
+                    <h2>Examples:</h2>
+                    <p><b>Example 1</b>: Plotting Manhattan plot of copy numbers on chromosome 3 in lung adenocarcinoma tumor vs non-malignant samples with 0.05 as the cutoff of p-value.</p>
+                    <div align="center"><img src="../img/guide/308.png" border="1" width="80%"/></div>
+                    <p>
+                        From the figure above, we can see that the whole P-arm genes whose copy number variations in lung adenocarcinoma tumor samples and non-malignant samples are significantly different. On the contrary, only 60.43% of the genes on Q-arm are significantly different.
+                    </p>
+                    <p>
+                        After checking the Directional Manhattan box, the figure will turn out to be:
+                    </p>
+                    <div align="center"><img src="../img/guide/309.png" border="1" width="80%"/></div>
+                    <p>
+                        The whole P-arm genes' lines are pointing down which means the lung adenocarcinoma tumor samples has a smaller median copy number variation than that of the corresponding non-malignant samples. From the corresponding Mountain plot, we can see that there is a mild deletion in P-arm which confirms the results we observed above.
+                    </p>
+                    <div align="center"><img src="../img/guide/310.png" border="1" width="80%"/></div>
+
+                    <p><b>Example 2</b>:  Plotting Manhattan plot of copy number variations on chromosome 3 of lung adenocarcinoma tumor samples vs lung squamous cell carcinoma tumor samples with SOX2 and TP63 highlighted. </p>
+                    <div align="center"><img src="../img/guide/311.png" border="1" width="80%"/></div>
+                    <p>We can see there are two lines are highlighted in a different color. When we put and hold our mouse on it, the corresponding information will show up.</p>
+                    <div align="center"><img src="../img/guide/312.png" border="1" width="80%"/></div>
+                    <p>
+                        You may want to know which group has a higher copy number variation median value and you may not like the colors plotted in default. Therefore, you can select the "Directional Manhattan" option and use the Figure DIY options to change the color. The Setting area and the final plot are shown in the following picture.
+                    </p>
+                    <div align="center"><img src="../img/guide/313.png" border="1" width="80%"/></div>
+                </section>
+            </section>
+            <section id="8">
+                <h1>Deflection plot</h1>
+                <!-- No demo clip -->
+                <p>As what we mentioned above, Manhattan plot is a widely used plot to display the results of the genome-wide association meta- analysis. Normally, it is used to show the significance difference (p-value of t-test) between two groups of data. But in some cases, the association between the variations (values in tumor samples compared with the non-malignant) is more important. Therefore, we proposed a new plot: Deflection plot. </p>
+                <div align="center"><video width="70%" controls src="../demo-clips/Deflection.mp4"><p>To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p></video></div>
+                <p>It's also a genome-wide association meta-analysis for mRNA expression values, copy number variations or methylation values in tumor samples and non-malignant samples for two different cancer types. In Deflection plots, genomic coordinates are displayed along the X-axis. Each line stands for a gene. The amplitude of it stands for the negative logarithm of the association P-value for each gene's mRNA expression values in tumor samples in cancer type1 and cancer type2. Therefore, the stronger the associations between gene values, the higher the Y-axis value. If the bigger variation for a gene is a negative one (median value in tumor samples is smaller than what in non-malignant samples), then the corresponding line would point down, other wise, it would point up. Two default colors are assigned to these two cancer types. Color1 indicates that the deflection (tumor vs. non-malignant samples) is greater for cancer type1, whereas color2 indicates that the deflection is greater for cancer type2. A gap within the individual chromosome data indicates the location of the centrosome. For chromosomes 13, 14, 15, 21, and 22 only genes on the q arm were represented on the microarray. Please see the examples. </p>
+                <section id="8.1">
+                    <h2>Overview</h2>
+                    <p>As we mentioned above, there are three ways to get into the Deflection plot page.</p>
+                    <p>&rarr; Through the Navigation bar at the Home page, select "Deflection plot" under "Data Analysis";</p>
+                    <p>&rarr; Go to "Data Analysis" page, then go to "Data visualization" area, select "Deflection plot";</p>
+                    <p>&rarr; Through the link in the "Link area" at the Home page, go to "Data Analysis" page, then go to "Data visualization" area, select "Deflection plot". </p>
+                    <p>For "Deflection plot" page, there are five areas: </p>
+                    <p>&rarr; Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr; Setting area: You can specify genes, cancer types, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr; Plotting area: The Deflection plot will be plotted in this area.</p>
+                    <p>&rarr; Figure Downloading and DIY area: You can download Deflection plot in a certain format and size. You can also customize line color and so on through the option buttons in this area.</p>
+                    <p>&rarr; Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/400.png" border="1" width="80%"/></div>
+                </section>
+                <section id="8.2">
+                    <h2>Setting area</h2>
+                    <p>1. It reminds you which kind of plot you are working on.</p>
+                    <p>2. You can select mRNA expression, copy number variation.</p>
+                    <p>3. In TCGA/GDC dataset, non-malignant samples and tumor samples are not both always available for all cancer types. Available sample types vary for different data type even for the same cancer type. For example, for acute myeloid leukemia (LAML) cancer, no non-malignant samples of mRNA expression values are available, but both non-malignant and tumor samples are available for copy number variation data. Different legends are added before cancer names to tell you which kind of samples of the given cancer types can be available. </p>
+                    <p>⚠: without non-malignant which means only tumor samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <p>❌: not available which means neither tumor samples nor non-malignant samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <div align="center"><img src="../img/guide/401.png" border="1" width="30%"/></div>
+                    <p>4. You can specify the first cancer type here through the drop-down list.</p>
+                    <p>5. You can specify the second cancer type through the drop-down list.</p>
+                    <small><i>Note: It needs samples of two different cancer types whose tumor and non-malignant samples are both available, please make sure of it while you are selecting. Otherwise, an error information will be displayed in the plotting area and no Deflection plot will be created. </i></small>
+                    <p>6. You can specify a concern chromosome here. You also can select to create a Deflection plot for chromosomes 1-22. But due to the big data size for transmitting and for t-test calculating (more than 20,000 genes and dozens or hundreds samples), it may take several minutes. So please bear with it! </p>
+                    <p>7. You can input the concern gene symbols here. Then they will be highlighted in Deflection plot in different colors to make it easier to compare. If you want to input more than one gene symbols, a common and a space should be used to separate two gene symbols. Only HUGO (Human Genome Organization) symbols are accepted. For example: EGFR, KRAS, TP63…. </p>
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+                    <p>8. In Deflection plot, the color of each line is decided by the mean or median values of the corresponding gene in the specified two groups. You can specify 'mean' or 'median' through this drop-down list.</p>
+                    <p>9. There is another option available (Log2): You can specify concern transformation type checking this option. Correspondingly, log2 transformation will be applied to the data before Bee-swarm plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+
+                    <p>10. You can input a cutoff value for p-value to see how many gene's P-values are significantly different for each arm. Two lines at ±10log10(cutoff) will be plotted to show the cutoffs on the Deflection plot. </p>
+
+                    <p>After setting all these necessary options, click "GO" button at the bottom of this area, the Deflection plot will be created in the plotting area. Because the big data size and the calculating time for t-test, it may take seconds or minutes to do the t-test and to create Deflection plot. The processing time varies according to the internet transmitting speed and the configuration of your computer. </p>
+                </section>
+                <section id="8.3">
+                    <h2>Plotting area</h2>
+                    <p>Deflection plot figures will be shown in this area.</p>
+                    <p>A toolbar will show up at the top right of this plotting area when a Deflection plot is created. </p>
+                    <div align="center"><img src="../img/guide/402.png" border="1" width="80%"/></div>
+                    <div align="center"><img src="../img/guide/403.png" border="1" width="30%"/></div>
+                    <p>1. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <!--need video file-->
+                    <p>2. Data table: If you want to download the sample data in a table, you can click this button. Then a table containing all data will show up in the plotting area like this. You can select and copy the whole table or any part of it into a word or excel file by selecting and clicking right mouse button as you usally do. You can scroll down to see the information of other samples. You also can click the "close" button at the bottom left of this page to close the table page and go back to the default page with the plotting area.</p>
+
+                    <div align="center"><img src="../img/guide/404.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual gene will show up when you put your mouse on the corresponding line. </p>
+                    <p>For example: in the above figure, after putting the mouse on a line, a catalog showed up is:</p>
+                    <div align="center"><img src="../img/guide/405.png" border="1" width="30%"/></div>
+                    <p>From the left to the right are: gene symbol and p-value of this gene in the corresponding two cancer types. Therefore, in this example: the gene symbol is PHACTR4, the p-value of its copy number variations in lung adenocarcinoma and lung squmous cell carcinoma tumor samples is 9.32e-15 which means it has significantly different copy number variations in these two groups.</p>
+                    <div align="center"><img src="../img/guide/406.png" border="1" width="80%"/></div>
+                </section>
+                <section id="8.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/407.png" border="1" width="80%"/></div>
+                    <h3>1. Figure Downloading area:</h3>
+                    <p>You can specify image format (png or jpg) and size/dimensions for the image to download .</p>
+                    <h3>2. Figure DIY area:</h3>
+                    <p>You can modify colors and Y-Limits of this figure.</p>
+                </section>
+                <section id="8.5">
+                    <h2>Examples:</h2>
+                    <p><b>Example 1</b>: Plotting Deflection plot of copy number variations on chromosome 1 of lung adenocarcinoma samples vs lung squamous cell carcinoma. </p>
+                    <div align="center"><img src="../img/guide/408.png" border="1" width="80%"/></div>
+                    <p>According to this plot, we can see that
+                    </p>
+                    <p>
+                        &rarr; For most part of P-Arm, LUSC has bigger variations (tumor vs non-malignant), therefore the corresponding color is light blue. The corresponding variations are deletions, therefore, the corresponding lines are pointing down.
+                    </p>
+                    <p>
+                        &rarr; For the whole Q-Arm, LUAD has the bigger variations, the corresponding color is light red. The corresponding variations are amplification, therefore, the corresponding lines are pointing up.
+                    </p>
+                    <p>
+                        The corresponding Mountain plot which is shown below just confirm the results.
+                    </p>
+                    <div align="center"><img src="../img/guide/409.png" border="1" width="80%"/></div>
+                    <p>
+                        You may not like the colors plotted in default. Therefore, you can use the Figure DIY options to change the color. The Setting area and the final plot are shown in the following picture.
+                    </p>
+                    <div align="center"><img src="../img/guide/410.png" border="1" width="80%"/></div>
+
+                    <p><b>Example 2</b>: Plotting Deflection plot of copy number variations on chromosome 3 of lung adenocarcinoma samples vs lung squamous cell carcinoma. </p>
+                    <div align="center"><img src="../img/guide/411.png" border="1" width="80%"/></div>
+                    <p>According to the corresponding Mountain plot, LUSC has the bigger variations across the whole chromosome, therefore, the Deflection plot is in only color2.</p>
+                    <div align="center"><img src="../img/guide/412.png" border="1" width="80%"/></div>
+                </section>
+            </section>
+
+            <section id="9">
+                <h1>Volcano plot</h1>
+                <!-- No demo clip -->
+                <p>A volcano plot is a type of scatter-plot that is used to quickly identify changes in large data sets. It plots significance versus fold-change on the y (-log10 of p value) and x axes, respectively. The dashed red line shows where the cutoff of p-value (normally, p = 0.05) with points above the line having p < cutoff and points below the line having p > cutoff. This plot is colored such that those points having a fold-change less than 2 (log2 = 1, users also can customize it) are shown in one color and those having a fold-changes larger than 2 are shown in another color. </p>
+                <p>In statistics, a volcano plot is a type of scatter-plot that is used to quickly identify changes in large data sets composed of replicate data. [3]</p>
+                <div align="center"><video width="70%" controls src="../demo-clips/Volcano.mp4"><p>To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p></video></div>
+                <p>A volcano plot combines a measure of statistical significance from a statistical test (e.g., a p value from an ANOVA model) with the magnitude of the change, enabling quick visual identification of those data-points (genes, etc.) that display large magnitude changes that are also statistically significant.</p>
+                <p>A volcano plot is constructed by plotting the negative log of the p value on the y axis (usually base 10). This results in data points with low p values (highly significant) appearing toward the top of the plot. The x axis is the log of the fold change between the two conditions. The log of the fold change is used so that changes in both directions appear equidistant from the center. Plotting points in this way results in two regions of interest in the plot: those points that are found toward the top of the plot that are far to either the left- or right-hand sides. These represent values that display large magnitude fold changes (hence being left or right of center) as well as high statistical significance (hence being toward the top).</p>
+                <p>Additional information can be added by coloring the points according to a third dimension of data (such as signal intensity), but this is not uniformly employed. Volcano plots are also used to graphically display a significance analysis of microarrays (SAM) gene selection criterion, an example of regularization.[4, 5]</p>
+                <section id="9.1">
+                    <h2>Overview</h2>
+                    <p>As we mentioned above, there are three ways to get into the Volcano plot page.</p>
+                    <p>&rarr;  Through the Navigation bar at the Home page, select "Volcano plot" under "Data Analysis";</p>
+                    <p>&rarr;  Go to "Data Analysis" page, then go to "Data visualization" area, select "Volcano plot";</p>
+                    <p>&rarr;  Through the link in the "Link area" at the Home page, go to "Data Analysis" page, then go to "Data visualization" area, select "Volcano plot". </p>
+                    <p>For "Volcano plot" page, there are five areas: </p>
+                    <p>&rarr;  	Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr;  	Setting area: You can specify genes, cancer types, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr;  	Plotting area: The Volcano plot will be plotted in this area.</p>
+                    <p>&rarr;  	Figure Downloading and DIY area: You can download Volcano plot in a certain format and size. You can also customize line color and so on through the option buttons in this area.</p>
+                    <p>&rarr;  	Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/500.png" border="1" width="80%"/></div>
+                </section>
+                <section id="9.2">
+                    <h2>Setting area</h2>
+                    <div align="center"><img src="../img/guide/501.png" border="1" width="30%"/></div>
+                    <p>1. It reminds you which kind of plot you are working on.</p>
+                    <p>2. You can select mRNA expression, copy number variation.</p>
+                    <p>3. In TCGA/GDC dataset, non-malignant samples and tumor samples are not both always available for all cancer types. Available sample types vary for different data type even for the same cancer type. For example, for acute myeloid leukemia (LAML) cancer, no non-malignant samples of mRNA expression values are available, but both non-malignant and tumor samples are available for copy number variation data. Different legends are added before cancer names to tell you which kind of samples of the given cancer types can be available. </p>
+                    <p>⚠: without non-malignant which means only tumor samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <p>❌: not available which means neither tumor samples nor non-malignant samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <p>4. You can specify the first cancer type here through the drop-down list.</p>
+                    <p>5. You can specify the second cancer type through the drop-down list.</p>
+                    <small><i>Note: It needs samples of two different groups to do the t-test, if you select the same cancer type for the first and second group, please make sure the sample types of them are different. Otherwise, an error information will be displayed in the plotting area and no Manhattan plot will be created. </i></small>
+                    <p>6. You can input the concern gene symbols here. Then they will be highlighted in Volcano plot in different colors to make it easier to compare. If you want to input more than one gene symbols, a common and a space should be used to separate two gene symbols. Only HUGO (Human Genome Organization) symbols are accepted. For example: EGFR, KRAS, TP63…. </p>
+
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+                    <p>7. There is another option available (Log2): You can specify concern transformation type checking this option. Correspondingly, log2 transformation will be applied to the data before Bee-swarm plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p>8. You can input a cutoff value for p-value to see how many gene's P-values are significantly different for each arm. A line at -10log10(cutoff) will be plotted to show the cutoffs on the Volcano plot.</p>
+                    <p>9. You can input a cutoff value for fold change to see how many genes' amplitudes is greatly variety in two groups. In default, it's 2 (log22=1). Two lines at ±1 will be plotted to show the cutoffs on the Volcano plot.</p>
+
+                    <p>After setting all these necessary options, click "GO" button at the bottom of this area, the Volcano plot will be created in the plotting area. Because the big data size and the calculating time for t-test, it may take seconds or minutes to do the t-test and to create Volcano plot. The processing time varies according to the Internet transmitting speed and the configuration of your computer.</p>
+                </section>
+                <section id="9.3">
+                    <h2>Plotting area</h2>
+                    <p>Volcano plot figures will be shown in this area. </p>
+                    <div align="center"><img src="../img/guide/502.png" border="1" width="80%"/></div>
+                    <p>A toolbar will show up at the top right of this plotting area when a Volcano plot is created.</p>
+                    <div align="center"><img src="../img/guide/503.png" border="1" width="30%"/></div>
+
+                    <p>1. Zoom in: Rectangular zoom in tool. This tool allows you to select a region to display at full application size. After clicking this botton, your mouse will turn into a small cross. Then click and hold the left mouse button and drag a rectangle around a portion of the screen and have it zoom in.
+
+                    </p>
+                    <p>
+                        2. Zoom out: Zoom back to the status it was a step before by cliking it.
+                    </p>
+                    <p>
+                        3. Restore: Show the plots in the original portion.
+                    </p>
+
+                    <p>4 .Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <!--need video file-->
+                    <p>5 .Data table: If you want to download the sample data in a table, you can click this button. Then a table containing all data will show up in the plotting area like this. You can select and copy the whole table or any part of it into a word or excel file by selecting and clicking right mouse button as you usally do. You can scroll down to see the information of other samples. You also can click the "close" button at the bottom left of this page to close the table page and go back to the default page with the plotting area.</p>
+
+                    <div align="center"><img src="../img/guide/504.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual gene will show up when you put your mouse on the corresponding line. </p>
+                    <p>For example: in the above figure, after putting the mouse on a line, a catalog showed up is:</p>
+                    <div align="center"><img src="../img/guide/505.png" border="1" width="30%"/></div>
+
+                    <p>From the left to the right are: gene symbol and p-value of this gene in the corresponding two cancer types. Therefore, in this example: the gene symbol is PHACTR4, the p-value of its copy number variations in lung adenocarcinoma and lung squmous cell carcinoma tumor samples is 9.32e-15 which means it has significantly different copy number variations in these two groups.</p>
+                    <div align="center"><img src="../img/guide/506.png" border="1" width="80%"/></div>
+                </section>
+                <section id="9.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/507.png" border="1" width="80%"/></div>
+                    <h3>1. Figure Downloading area:</h3>
+                    <p>You can specify image format (png or jpg) and size/dimensions for the image to download .</p>
+                    <h3>2. Figure DIY area:</h3>
+                    <p>You can modify colors and Y-Limits of this figure.</p>
+                </section>
+            </section>
+            <section id="10">
+                <h1>Linear regression analysis</h1>
+                <!-- No demo clip -->
+                <p>In statistics, linear regression is a linear approach for modelling the relationship between a scalar dependent variable y and a independent variables x. The case of one explanatory variable is called simple linear regression. </p>
+                <div align="center"><video width="70%" controls src="../demo-clips/Linear.mp4"><p>To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p></video></div>
+                <p>In GWAS, one of the most application is:</p>
+                <p>
+                    Given variables y and x that may be related to y (x, y can be copy number variation or mRNA expression value and so on), linear regression analysis can be applied to quantify the strength of the relationship between y and the x to assess whether x may have no relationship with y at all or contain redundant information about y.
+                </p>
+                <p>
+                    Least squares, ridge regression, lasso and other methods can be used to fitted linear regression models.
+                </p>
+                <p>
+                    Least squares is a standard approach in Linear regression. "Least squares" means that the overall solution minimizes the sum of the squares of the residuals made in the results of every single equation.
+
+                </p>
+                <p>
+                    The best fit in the least-squares sense minimizes the sum of squared residuals (a residual being: the difference between an observed value, and the fitted value provided by a model). When the problem has substantial uncertainties in the independent variable (the x variable), then simple regression and least-squares methods have problems; in such cases, the methodology required for fitting errors-in-variables models may be considered instead of that for least squares. Consequently, advanced least squares methods are developed.
+
+                </p>
+
+                <p>
+                    The Pearson correlation coefficient (PCC), also referred to as Pearson's r, is a most widely used measure of the linear correlation between two variables X and Y. It has a value between +1 and −1, where 1 is total positive linear correlation, 0 is no linear correlation, and −1 is total negative linear correlation. It was developed by Karl Pearson from a related idea introduced by Francis Galton in the 1880s.
+                </p>
+
+                <section id="10.1">
+                    <h2>Overview</h2>
+                    <p>There are three ways to get into the Linear regression analysis page.</p>
+                    <p>&rarr;1) Through the Navigation bar at the Home page, select "Linear regression analysis" under "Data Analysis";</p>
+                    <p>&rarr;2) Go to "Data Analysis" page, then go to "Data visualization" area, select "Volcano plot";</p>
+                    <p>&rarr;3) Through the link in the "Link area" at the Home page, go to "Data Analysis" page, then go to "Data mining" area, select "Linear regression analysis".  </p>
+                    <p>For "Linear regression analysis" page, there are five areas: </p>
+                    <p>&rarr;  	Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr;  	Setting area: You can specify genes, cancer types, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr;  	Plotting area: The Linear model will be plotted in this area.</p>
+                    <p>&rarr;  	Figure Downloading and DIY area: You can download Linear model in a certain format and size. You can also customize line color and so on through the option buttons in this area.</p>
+                    <p>&rarr;  	Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/600.png" border="1" width="80%"/></div>
+                    <div align="center"><img src="../img/guide/601.png" border="1" width="80%"/></div>
+                </section>
+                <section id="10.2">
+                    <h2>Setting area</h2>
+                    <div align="center"><img src="../img/guide/602.png" border="1" width="30%"/></div>
+                    <p>1. It reminds you which kind of data mining analysis you are working on.</p>
+                    <p>2. You can select your concern cancer type here through the drop-down list.</p>
+                    <p>3. In TCGA/GDC dataset, non-malignant samples and tumor samples are not both always available for all cancer types. Available sample types vary for different data type even for the same cancer type. For example, for acute myeloid leukemia (LAML) cancer, no non-malignant samples of mRNA expression values are available, but both non-malignant and tumor samples are available for copy number variation data. Different legends are added before cancer names to tell you which kind of samples of the given cancer types can be available.  </p>
+                    <p>⚠: without non-malignant which means only tumor samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <p>❌: not available which means neither tumor samples nor non-malignant samples of this cancer type are available for the data type specified in (4) and (5).</p>
+                    <p>4. You can specify the first sample group and whether applying log2 transformation here through the drop-down list.</p>
+                    <p>5. You can specify the second sample group and whether applying log2 transformation through the drop-down list.</p>
+                    <small><i>Note: It needs samples of two different groups to do the t-test, if you select the same cancer type for the first and second group, please make sure the sample types of them are different. Otherwise, an error information will be displayed in the plotting area and no Manhattan plot will be created. </i></small>
+                    <p>6. You can input the concern gene symbols here. One gene a time. Only HUGO (Human Genome Organization) symbols are accepted. For example: EGFR, KRAS, TP63…. </p>
+                    <small><i>Note: It needs samples of two different groups to do the linear regression analysis, please make sure the sample types of them are different. Otherwise, an error information will be displayed in the plotting area and no Manhattan plot will be created. Only matched samples in these two groups are used for the linear regression analysis.</i></small>
+                    <p>7. You can specify which sample type to use.</p>
+                    <p>After setting all these necessary options, click "GO" button at the bottom of this area, a linear model will be created in the plotting area. Because the big data size and the calculating time for significance test, it may take seconds or minutes to do linear regression. The processing time varies according to the Internet transmitting speed and the configuration of your computer.  </p>
+                </section>
+                <section id="10.3">
+                    <h2>Plotting area</h2>
+                    <p>Linear model plot figures will be shown in this area. </p>
+                    <div align="center"><img src="../img/guide/603.png" border="1" width="80%"/></div>
+                    <p>A toolbar will show up at the top right of this plotting area when a Linear model is created.</p>
+                    <div align="center"><img src="../img/guide/604.png" border="1" width="30%"/></div>
+                    <p>1. Zoom in: Rectangular zoom in tool. This tool allows you to select a region to display at full application size. After clicking this botton, your mouse will turn into a small cross. Then click and hold the left mouse button and drag a rectangle around a portion of the screen and have it zoom in.
+
+                    </p>
+                    <p>
+                        2. Zoom out: Zoom back to the status it was a step before by cliking it.
+                    </p>
+                    <p>
+                        3. Restore: Show the plots in the original portion.
+                    </p>
+
+                    <p>4. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <!--need video file-->
+                    <p>5. Data table: If you want to download the sample data in a table, you can click this button. Then a table containing all data will show up in the plotting area like this. You can select and copy the whole table or any part of it into a word or excel file by selecting and clicking right mouse button as you usally do. You can scroll down to see the information of other samples. You also can click the "close" button at the bottom left of this page to close the table page and go back to the default page with the plotting area.</p>
+
+                    <div align="center"><img src="../img/guide/605.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual sample will show up when you put your mouse on the corresponding marker. </p>
+                    <p>For example: in the above figure, aftering putting the mouse on a marker, a catalog showed up is:</p>
+                    <div align="center"><img src="../img/guide/606.png" border="1" width="30%"/></div>
+
+                    <p>From the left to the right are: x-axis value, y-axis value and sample ID of this sample in the corresponding two groups. Therefore, in this example: the x-axis value (mRNA expression value) is 466.19479, the y-axis value (copy number variation) is 2.0312 and the sample ID is TCGA-AB-2984-03 in LAML.</p>
+                    <div align="center"><img src="../img/guide/607.png" border="1" width="80%"/></div>
+                </section>
+                <section id="10.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/608.png" border="1" width="80%"/></div>
+                    <h3>1. Figure Downloading area:</h3>
+                    <p>You can specify image format (png or jpg) and size/dimensions for the image to download .</p>
+                    <h3>2. Figure DIY area:</h3>
+                    <p>You can modify colors and Y-Limits of this figure.</p>
+                </section>
+            </section>
+            <section id="11">
+
+
+
+            </section>
+            <h1>Analyze yours</h1>
+            <p>
+                You can analyze your own data using the tools provided in this page. Up to now, the available tools are: Bee-swarm plot, Mountain plot, Manhattan plot and Deflection plot. The brief introductions and example plots are shown in this page for your convenience.
+            </p>
+            <small><i>Note: no data will be saved in our database. As long as you log out, your data will be removed immediately. Therefore, no need to worry about the security of your data. But if you want to analyze your data next time, you have to upload it again.</i></small>
+            <div align="center"><img src="../img/guide/700.png" border="1" width="80%"/></div>
+
+            <p>1.Navigation bar: You can switch to any other pages through the links provided here.</p>
+
+            <p>2. Tool list: The list of available tools provided by our platform for your own data. You can click the corresponding button to skip to the analyze function you want to use.</p>
+
+            <p>3. Overview area: This is an overview area for the introductions and examples of the available tools.</p>
+
+            <p>4. Link area: Necessary links are available for you to switch to other pages or websites.</p>
+
+            <section id="12">
+                <h1>Analyze yours: Bee-swarm plot</h1>
+                <div align="center"><img src="../img/guide/800.png" border="1" width="80%"/></div>
+                <div align="center"><img src="../img/guide/801.png" border="1" width="80%"/></div>
+                <p>In this webpage, you can create Bee-swarm plots of the distributions of your own data. There are two ways to get into the Bee-swarm plot page.</p>
+                <!-- no demo file -->
+                <p>1)	Through the Navigation bar at the Home page, select "Bee-swarm plot" under "Analyze yours";</p>
+                <p>2)	Go to "Analyze yours" page, select "Bee-swarm plot";</p>
+                <p>For 'Bee-swarm plot' page, there are six areas: </p>
+                <section id="12.1">
+                    <h2>Overview</h2>
+                    <p>&rarr;  	Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr;  	Setting area: You can upload your data and set up the cutoff values and other parameters here.</p>
+                    <p>&rarr;  	Plotting area: Bee-swarm plot will be shown in this area.</p>
+                    <p>&rarr;  	Figure Downloading and DIY area: You can download Mountain plot in certain format and size. You can also customize line color, line shape, marker color, and marker shapes through the option buttons in this area.</p>
+                    <p>&rarr;  	Example area: An example of the upload file is given here. You can download it through the link.</p>
+                    <p>&rarr;  	Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                </section>
+                <section id="12.2">
+                    <h2>Setting area</h2>
+                    <div align="center"><img src="../img/guide/802.png" border="1" width="30%"/></div>
+                    <p>1. It reminds you which kind of plot you are working on.</p>
+                    <p>2. You can upload your data in a file through the dialog box here. Only 'xlsx' file is acceptable. Please make sure all data are in the first sheet of this file.</p>
+                    <p>3. You can specify statistical options here. </p>
+                    <p>
+                        &rarr; Log2: by checking this box, log2 transformation will be applied to the data before Bee-swarm plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).
+
+                    </p>
+                    <p>
+                        &rarr; boxplot: by checking this box, a boxplot will shown together with bee-swarm plot for each group of samples.
+
+                    </p>
+                    <p>
+                        &rarr; mean: by checking this box, a line with shown together with the mean value of each group of samples.
+                    </p>
+                    <p>
+                        &rarr; mean±std: by checking this box, two lines with shown together with the mean value of mean+std and mean-std each group of samples.
+                    </p>
+                    <p>
+                        &rarr; mean±2std: by checking this box, two lines with shown together with the mean value of mean+2std and mean-2std each group of samples. 2std means 2 times of the standard deviation of a group of samples
+                    </p>
+
+                    <p>
+                        &rarr; mean±3std: by checking this box, two lines with shown together with the mean value of mean+3std and mean-3std each group of samples. 3std means 3 times of the standard deviation of a group of samples.
+                    </p>
+                    <p>4. When bee-swarms of more than one groups of samples are plotted, unpaired two-tailed Student's significance test can be calculated when you input the group number here. Note: the group number starts from 1 from the left group to the right.  </p>
+                    <p>5. You can input cutoff values here, then the percentage of samples compared with cutoffs will show up in the figures.  </p>
+                    <p>
+                        For one cutoff value, percentages of samples whose values larger and equal (≥) than it and of ones whose values smaller than it will be calculated.
+
+                    </p>
+                    <p>For two cutoff values, if cutoff1 > cutoff2, then</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nabla;&nbsp;&nbsp; percentages of ≥ cutoff1 </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nabla;&nbsp;&nbsp; percentages of ≥ cutoff2 and < cutoff1 </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nabla;&nbsp;&nbsp; percentages of < cutoff2 <br/>
+                        will be calculated and shown in the plotting area beside the corresponding bee-swarm plots.</p>
+                    <p>After setting all these necessary parameters, click "GO" button at the bottom of this area, the Bee-swarms will be plotted in the plotting area. There are no limits on how many groups you want to plot. But due to the configuration of your computer, the internet speed and the data sizes need to be transmitted for plotting (several times of the sample sizes), it may take a while to transmit and to load the data for plotting. The more groups you want to plot, the longer the response time it will cost. </p>
+                </section>
+                <section id="12.3">
+                    <h2>Plotting area</h2>
+                    <p>Bee-swarm figures will be plotted in this area as follows. </p>
+                    <div align="center"><img src="../img/guide/803.png" border="1" width="80%"/></div>
+                    <div align="center"><img src="../img/guide/804.png" border="1" width="30%"/></div>
+                    <p>A toolbar will show up at the top right of this plotting area when Bee-swarm plots are created.</p>
+                    <p>1. Zoom in: Rectangular zoom in tool. This tool allows you to select a region to display at full application size. After selecting this botton, your mouse will turn into a small cross. Then click and hold the left mouse button and drag a rectangle around a portion of the screen and have it zoomed in. </p>
+                    <p>2. Zoom out: Zoom back to the status it was a step before by cliking it.</p>
+                    <p>3. Restore: Show the plots in the original portion.</p>
+                    <p>4. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <h3>There are two more ways to zoom in:</h3>
+                    <p>Vertically zoom in: There is a zoom bar at the right edge of the plotting area. Click and hold on either one of the two buttons on it, you can zoom in or zoom out vertically.</p>
+                    <p>Horizontally zoom in: Slide the mouse wheel (for apple magic mouse, slide up or down) up or down, you can zoom in or zoom out horizontally.</p>
+                    <p>For your convinence, the sample ID and other details of each individual sample will show up when you put your mouse on the corresponding marker. For example: in the following figure, aftering putting the mouse on a marker, a catalog showed up is:</p>
+                    <div align="center"><img src="../img/guide/805.png" border="1" width="30%"/></div>
+
+                    <p>&diams; First row: the group message of this sample;</p>
+                    <p>&diams; Second row: x-axis, y-axis, sample ID:</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;x-axis: calculated from a program to separate samples in a bee-swarm like plot, no biological meaning;</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;y-axis: the values in your uploaded table;</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;sample ID: the sample IDs in your uploaded table.</p>
+                </section>
+                <section id="12.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <p>
+                        Select the group whose style you want to modify, then modify the color, shape of the markers, box, static lines here.
+                    </p>
+                    <div align="center"><img src="../img/guide/806.png" border="1" width="80%"/></div>
+                    <h3>1.Figure Downloading area:</h3>
+                    <p> You can specify image format (png or jpg) and size/dimensions for the image to download . </p>
+                    <h3>Figure DIY area:</h3>
+                    <p>You can modify color, shape and other details of this figure for you own style.</p>
+                </section>
+                <section id="12.5">
+                    <h2>Example data area</h2>
+                    <div align="center"><img src="../img/guide/807.png" border="1" width="80%"/></div>
+                    <p>Only 'xlsx' file type is acceptable! The default sheet is the first sheet of each '*.xlsx' file.
+                        This area shows the table format for you to arrange your data. You also can download the example file and use it to try the functions provided in this page.
+                    </p>
+                    <p>&rarr; There are MUST be two columns for each group. The first column is consisted of the values of the samples in this group and the second one is consisted of their corresponding IDs. If there is more than one group, the first two columns are for the first group, the second two columns are for the second group, and so on.
+
+                    </p>
+                    <p>&rarr; As what has been mentioned above, the details of sample will show up when you put your mouse on a specific one. Therefore, the sample ID is necessary information. If you don't have any sample ID, PLEASE number them as their IDs and put them on the second column.
+
+                    </p>
+                    <p>&rarr; It not necessary for each group to have the same number of samples which means the sample sizes of all groups are not necessary to be same to each other.
+                    </p>
+                </section>
+                <section id="12.6">
+                    <h2>Examples:</h2>
+                    <div align="center"><img src="../img/guide/808.png" border="1" width="80%"/></div>
+                    <p>In this figure, two cutoff values are given: 12 and 6. According to the digital figures in the plot, we can get to know that for the uploaded data, the percentages are</p>
+                    <p>
+                        ≥12: group 1, 5.8%; group 2, 3.46%
+                    </p>
+                    <p>
+                        <6 and ≥12: group 1, 92.46%; group 2, 96.54%
+                    </p>
+                    <p>
+                        <6: group 1, 1.74%; group 2, 0%
+                    </p>
+                    <p>
+                        To make it easier to distinguish groups by a glance, you can use the Figure DIY options to change the color, size and shape of markers.
+
+                    </p>
+                    <p>
+                        The p value shown in the figure is 5.68e-16 which means in samples in these two groups are significantly different.
+                    </p>
+                </section>
+
+            </section>
+            <section id="13">
+                <h1>Analyze yours: Mountain plot</h1>
+                <p>Mountain plot, created by Dr. Adi Gazdar and Dr. Kai Song, is a very useful scatter plot for visualizing and analyzing genome-wide variations of copy numbers [1, 2]. It gains its name from the similarity of such a plot to the ups and downs of mountains outlines seen from afar. In Mountain plot, each spot is the median/mean value of concern data types (i.e. copy number etc.) of each gene in a group which can be a batch or a cancer type. The genes are sorted according to their locations. The space between two arms of each chromosome is the location of the corresponding centromere. </p>
+                <!-- no demo file -->
+
+                <p>Originally, Mountain plot was used to analyze genome-wide variations of copy numbers. Due to the wonderful visualizing effect, we provide Mountain plot for mRNA expression and methylation values. </p>
+                <p>
+                    Because it is used to visualize the variations of copy numbers or other data types, the values of corresponding non-malignant samples are plotted in default if they are available for the given cancer types. When more than one cancer types are specified, all available non-malignant samples of all these cancer types will be combined in one group which means only one spot for each gene in all non-malignant samples from different specified cancer types.
+                </p>
+
+                <section id="13.1">
+                    <h2>Overview</h2>
+                    <p>
+                        As we mentioned above, there are two ways to get into the Mountain plot page.
+                    </p>
+                    <p>
+                        1)	Through the Navigation bar at the Home page, select "Mountain plot" under "Analyze yours";
+
+                    </p>
+                    <p>
+                        2)	Go to "Analyze yours" page, then select "Mountain plot";
+
+                    </p>
+                    <P>
+                        For "Mountain plot" page, there are six areas:
+                    </P>
+                    <p>&rarr;  	 	Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr;  	 	Setting area: You can specify highlighted genes, chromosome, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr;  	 	Plotting area: The Mountain plot will be plotted in this area.</p>
+                    <p>&rarr;  	  	Figure Downloading and DIY area: You can download Mountain plot in certain format and size. You can also customize line color, line shape, marker color, marker shapes through the option buttons in this area.</p>
+                    <p>&rarr;  	 	Example area: Examples of the upload files are given here. You can download them through the link.</p>
+                    <p>&rarr;  	 	Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/900.png" border="1" width="80%"/></div>
+                    <div align="center"><img src="../img/guide/901.png" border="1" width="80%"/></div>
+                </section>
+                <section id="13.2">
+                    <h2>Setting area</h2>
+                    <p>1. It reminds you which kind of plot you are working on.</p>
+                    <p>2. You can upload your data in a file through the dialog box here. Only 'xlsx' file is acceptable. Please make sure all data are in the first sheet of this file. If there are more than one group of samples, please put them into separate files.</p>
+                    <div align="center"><img src="../img/guide/902.png" border="1" width="30%"/></div>
+                    <p>3. You need to specify the datatype here to tell us how to do log transformation (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p>4. You need to specify the chromosome through this drop-down list to provide us the necessary information about the location of the centromere. Now only 1-22 chromosomes are available. </p>
+                    <p>5. You can specify concern gene here by inputting gene symbols. Only symbols provided in your files are accepted. If you want to input more than one gene symbols, a common and a space should be used to separate two gene symbols. </p>
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+                    <p>6. In Mountain plot, each spot can be median or mean values of each group. You can specific either one of them through this drop-down list.</p>
+                    <p>7. Log2: after checking this option, log transformation will be applied to the data for Mountain plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p>8. You can input cutoff values here to see whether the median/mean values of each group are above or below them.</p>
+                    <p>After setting all these necessary options, click "GO" button at the bottom of this area, the Mountain plot will be created in the plotting area. There are no limits on how many groups of samples you want to plot. But due to the configuration of your computer, the internet transfering speed and the data sizes need to be transmitted for plotting (several times of the sample sizes), it may take a while to transmit and load the data for plotting. The more cancer types you want to plot, the longer the response time will it need. </p>
+                </section>
+                <section id="13.3">
+                    <h2>Plotting area</h2>
+                    <p>Mountain plot figures will be shown in this area. </p>
+                    <div align="center"><img src="../img/guide/903.png" border="1" width="80%"/></div>
+                    <p>A toolbar will show up at the top right of this plotting area when a Mountain plot is created.</p>
+                    <div align="center"><img src="../img/guide/904.png" border="1" width="30%"/></div>
+                    <p>1. Zoom in: Rectangular zoom in tool. This tool allows you to select a region to display at full application size. After selecting this botton, your mouse will turn into a small cross. Then click and hold the left mouse button and drag a rectangle around a portion of the screen and have it zoomed in. </p>
+                    <p>2. Zoom out: Zoom back to the status it was a step before by cliking it.</p>
+                    <p>3. Restore: Show the plots in the original portion.</p>
+                    <p>4. Save as Image: You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <h3>There are two more ways to zoom in:</h3>
+                    <p>&rarr; Vertically zoom in: There is a zoom bar at the right edge of the plotting area. Click and hold on either one of the two buttons on it, you can zoom in or zoom out vertically.</p>
+                    <p>&rarr; Horizontally zoom in: Slide the mouse wheel (for apple magic mouse, slide up or down) up or down, you can zoom in or zoom out horizontally.</p>
+                    <div align="center"><img src="../img/guide/905.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual gene will show up when you put your mouse on the corresponding marker. </p>
+                    <div align="center"><img src="../img/guide/906.png" border="1" width="30%"/></div>
+                    <p>
+                        For example: in the above figure, aftering putting the mouse on a marker, a catalog showed up is:
+                    </p>
+
+                    <p>&diams; First row: the group message of this sample;</p>
+                    <p>&diams; Second row: x-axis, y-axis, gene symbol</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;x-axis: start location of the concern gene in the corresponding chromosome;</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;y-axis: median/mean mRNA expression, copy number variation values depends on which data type you are working on;</p>
+                    <p>&nbsp;&nbsp;&Delta;&nbsp;&nbsp;gene symbol: a symbol provided in your uploaded file.</p>
+                    <p>Therefore, in this example: the gene symbol is LCE3C, its start location in chromosome 7 is 152573137 and the mean value of its copy number variations in group 1 is 2.793.</p>
+                </section>
+                <section id="13.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/907.png" border="1" width="80%"/></div>
+                    <h3>1.Figure Downloading area:</h3>
+                    <p> You can specify image format (png or jpg) and size/dimensions for the image to download .</p>
+                    <h3>Figure DIY area:</h3>
+                    <p>You can modify color, shapes and other details of this figure for you own style.</p>
+
+                    <p>
+                        Y-Limits: To make it easier for comparison by using the same Y-axis limits in the Mountain plots for different chromosomes, you can specify Y-axis limits here. Only the limits broader than the default ones are acceptable. (You can use the zoom bar mentioned above to make the limits narrower.)
+                    </p>
+                    <p>
+                        Select the group whose style you want to custermize, then modify the color, shape of the markers here.
+                    </p>
+                </section>
+                <section id="13.5">
+                    <h2>Example data area</h2>
+                    <p>
+                        Only 'xlsx' file type is acceptable! The default sheet is the first sheet of each '*.xlsx' file.
+                        This area shows the table format for you to arrange your data. You also can download the example files and use them to try the functions provided in this page.
+                    </p>
+                    <div align="center"><img src="../img/guide/908.png" border="1" width="80%"/></div>
+
+                    <p>&rarr; Please make sure that per group per '*.xlsx' file.
+
+                    </p>
+                    <p>&rarr; Please put gene symbols of each group in the first column. If you don't have them, please use numbers or something as symbols. In Mountain plot, the corresponding gene symbol will show up when you put your mouse on any markers. If there are more than one groups, only genes that are common in all groups will be plotted. Therefore, they are necessary information for creating the plot.
+
+                    </p>
+                    <p>&rarr; Please put the start location for the genes in the second column. They will be used as the x-axis values in the Mountain plot.
+                    </p>
+                    <p>&rarr; Please put the values in the rest of the table.
+                    </p>
+                </section>
+                <section id="13.6">
+                    <h2>Examples1:</h2>
+                    <p>Plotting Mountain plot of mean values of copy numbers in the samples of two groups. The data are in 'mountain1.xlsx' and 'mountian2.xlsx'. Then customize the marker color of group2 samples into blue.</p>
+                    <p>
+                        You may not like the colors and sizes of the markers plotted in default. Therefore, you can use the Figure DIY options to change the color, size and shapes of markers.
+                    </p>
+                    <div align="center"><img src="../img/guide/909.png" border="1" width="80%"/></div>
+                </section>
+            </section>
+            <section id="14">
+                <h1>Analyze yours: Manhattan plot</h1>
+                <p>Normally, for instance in genome-wide association studies (GWAS), a Manhattan plot is a type of scatter plot, usually used to display data with a large number non-zero amplitude data-points. It gains its name from the similarity of such a plot to the Manhattan skyline. In GWAS Manhattan plots, genomic coordinates are displayed along the X-axis. The negative logarithm of the association P-value for each single nucleotide polymorphism (SNP) are displayed on the Y-axis. Therefore, the stronger the associations between SNP, the larger the Y-axis value.
+                    To improve the feasibility and transmitting speed of our global website service and to serve the gene targeting research as best as possible, we did several modifications to the original </p>
+                <!-- no demo file -->
+
+                <p>Manhattan plot: </p>
+                <p>&rarr;  For gene targeting research, we plot Manhattan plot for genes rather than for SNPs which means the P-value are calculated for genes in two different group samples.
+                </p>
+                <p>&rarr;  To improve the transmitting speed, we used line rather than spots in the original Manhattan plot.
+                </p>
+                <p>&rarr;  For more options, you can plot Manhattan plot by chromosomes besides by genome.
+                </p>
+                <p>&rarr;  Besides regular Manhattan plot, we provided another option to show more information in this plot: Directional Manhattan plot. If the median value of the gene in group is smaller than that in group2, the corresponding line points down from the base line (normally, it's zero line). Please see below for the details.
+                </p>
+
+                <section id="14.1">
+                    <h2>Overview</h2>
+                    <p>
+                        As we mentioned above, there are two ways to get into the Manhattan plot page.
+                    </p>
+                    <p>
+                        1)	Through the Navigation bar at the Home page, select "Manhattan plot" under "Analyze yours";
+
+                    </p>
+                    <p>
+                        2)	Go to "Analyze yours" page, then select "Manhattan plot";
+                    </p>
+                    <P>
+                        For "Manhattan plot" page, there are six areas:
+                    </P>
+                    <p>&rarr;  	 	Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr;  	 	Setting area: You can specify genes, cancer types, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr;  	 	Plotting area: The Manhattan plot will be plotted in this area.</p>
+                    <p>&rarr;  	  	Figure Downloading and DIY area: You can download Manhattan plot in a certain format and size. You can also customize line color and so on through the option buttons in this area.</p>
+                    <p>&rarr;  	 	Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/1000.png" border="1" width="80%"/></div>
+                    <div align="center"><img src="../img/guide/1001.png" border="1" width="80%"/></div>
+                </section>
+                <section id="14.2">
+                    <h2>Setting area</h2>
+                    <p> 1. It reminds you which kind of plot you are working on.</p>
+                    <p> 2. You need to specify the datatype here to tell us how to do log transformation (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p> 3. You need to specify the chromosome through this drop-down list to provide us the necessary information about the location of the centromere. Now only 1-22 chromosomes are available.</p>
+
+                    <p> 4. You can specify concern gene here by inputting gene symbols. Only symbols provided in your files are accepted. If you want to input more than one gene symbols, a common and a space should be used to separate two gene symbols.</p>
+                    <div align="center"><img src="../img/guide/1002.png" border="1" width="30%"/></div>
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+                    <p> 5. In Manhattan plot, the color of each line is decided by the mean or median values of the corresponding gene in the specified two groups. You can specify 'mean' or 'median' through this drop-down list.</p>
+                    <p> 6. There are two other options here:
+                    </p>
+                    <p>&rarr;  Directional Manhattan: if you select this option, the directional Manhattan plot will be created in the plotting area. In some cases, except for the difference between the samples of two groups, it is also good to know which group is bigger. Therefore, we compare the median values of samples in each group. If the median value of each gene
+                    </p>
+                    <p>&rarr;  Log2: You can specify concern transformation type checking this option. Correspondingly, log2 transformation will be applied to the data before Bee-swarm plot (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).
+                    </p>
+                    <p> 7. You can input a cutoff value for p-value to see how many gene's P-values are significantly different for each arm. A line at -10log10(cutoff) will be plotted to show the cutoff on the Manhattan plot. For Directional Manhattan plot, two lines will be plotted at -10log10(cutoff) and 10log10(cutoff).
+
+                    </p>
+                    <p> 8. You can upload your data in two files through the dialog box here. Only 'xlsx' files are acceptable. Please make sure all data are in the first sheet of these files.
+                    </p>
+                    <small><i>Note: It needs samples of two different groups to do the t-test, please make sure to put them into two different files. </i></small>
+
+                    <p>After setting all these necessary options, click "GO" button at the bottom of this area, the Manhattan plot will be created in the plotting area. Because the big data size and the calculating time for t-test, it may take seconds or minutes to do the t-test and to create Manhattan plot. The processing time varies according to the internet transmitting speed and the configuration of your computer.  </p>
+                </section>
+                <section id="14.3">
+                    <h2>Plotting area</h2>
+                    <p>Manhattan plot figures will be shown in this area. </p>
+                    <p>The 'Save as Image' button will show up at the top right of this plotting area when a Manhattan plot is created. You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <div align="center"><img src="../img/guide/1003.png" border="1" width="80%"/></div>
+                    <p>For your convinence, the sample ID and other details of each individual gene will show up when you put your mouse on the corresponding line. </p>
+                    <p>
+                        For example: in the above figure, after putting the mouse on a line, a catalog showed up like this:
+                    </p>
+                    <div align="center"><img src="../img/guide/1004.png" border="1" width="30%"/></div>
+                    <p>
+                        From the left to the right are: gene symbol and p-value of this gene in the corresponding two groups. Therefore, in this example: the gene symbol is AIM1L, the p-value of it's copy number variations in the two group samples uploaded by the user is 4.18e-15 which means it has significantly different copy number variations in these two groups.
+                    </p>
+                    <div align="center"><img src="../img/guide/1005.png" border="1" width="80%"/></div>
+                </section>
+                <section id="14.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/1006.png" border="1" width="80%"/></div>
+                    <h3>1.Figure Downloading area:</h3>
+                    <p> You can specify image format (png or jpg) and size/dimensions for the image to download .</p>
+
+                    <h3>Figure DIY area:</h3>
+                    <p>You can modify colors and Y-Limits of this figure.</p>
+
+                </section>
+                <section id="14.5">
+                    <h2>Example data area</h2>
+                    <p>
+                        Only 'xlsx' file type is acceptable! The default sheet is the first sheet of each '*.xlsx' file.
+                        This area shows the table format for you to arrange your data. You also can download the example files and use them to try the functions provided in this page.
+
+                    </p>
+                    <p>&rarr;  Please make sure that per group per '*.xlsx' file.
+
+                    </p>
+                    <p>&rarr;  Please put gene symbols of each group in the first column. If you don't have them, please use numbers or something as symbols. In Mountain plot, the corresponding gene symbol will show up when you put your mouse on any markers. If there are more than one groups, only genes that are common in all groups will be plotted. Therefore, they are necessary information for creating the plot.
+
+                    </p>
+                    <div align="center"><img src="../img/guide/1007.png" border="1" width="80%"/></div>
+                    <p>&rarr;  Please put the start location for the genes in the second column. They will be used as the x-axis values in the Mountain plot.
+                    </p>
+                    <p>&rarr;  Please put the values in the rest of the table.
+                    </p>
+                </section>
+                <section id="14.6">
+                    <h2>Examples1:</h2>
+                    <p>Plotting Directional Directional Manhattan plot of copy numbers in the example files with 0.05 as the cutoff of p-value. Then change the color of P-are lines into red. The corresponding Directional Manhattan plot, the setting area and Figure DIY area are shown below. </p>
+                    <p>
+                        From the figure below, we can see that almost the whole chromosome genes whose copy number variations in these two groups are significantly different.
+                    </p>
+                    <p>
+                        Since the Directional Manhattan box is checked, the positive y-axis values of them means the mean values of the copy numbers of genes in group are all bigger than what in group2.
+                    </p>
+                    <div align="center"><img src="../img/guide/1008.png" border="1" width="80%"/></div>
+                </section>
+            </section>
+            <section id="15">
+                <h1>Analyze yours: Deflection plot</h1>
+                <p>As what we mentioned above, Manhattan plot is a widely used plot to display the results of the genome-wide association meta- analysis. Normally, it is used to show the significance difference (p-value of t-test) between two groups of data. But in some cases, the association between the variations (values in tumor samples compared with the non-malignant) is more important. Therefore, we proposed a new plot: Deflection plot. </p>
+                <!-- no demo file -->
+
+                <p>It's also a genome-wide association meta-analysis for mRNA expression values, copy number variations or methylation values in tumor samples and non-malignant samples for two different cancer types. In Deflection plots, genomic coordinates are displayed along the X-axis. Each line stands for a gene. The amplitude of it stands for the negative logarithm of the association P-value for each gene's mRNA expression values in tumor samples in cancer type1 and cancer type2. Therefore, the stronger the associations between gene values, the higher the Y-axis value. If the bigger variation for a gene is a negative one (median value in tumor samples is smaller than what in non-malignant samples), then the corresponding line would point down, other wise, it would point up. Two default colors are assigned to these two cancer types. Color1 indicates that the deflection (tumor vs. non-malignant samples) is greater for cancer type1, whereas color2 indicates that the deflection is greater for cancer type2. A gap within the individual chromosome data indicates the location of the centrosome. For chromosomes 13, 14, 15, 21, and 22 only genes on the q arm were represented on the microarray. Please see the examples. </p>
+                <section id="15.1">
+                    <h2>Overview</h2>
+                    <p>
+                        As we mentioned above, there are two ways to get into the Deflection plot page.
+                    </p>
+                    <p>
+                        1)	Through the Navigation bar at the Home page, select "Deflection plot" under "Analyze yours";
+
+                    </p>
+                    <p>
+                        2)	Go to "Analyze yours" page, then select "Deflection plot";
+
+                    </p>
+                    <P>
+                        For "Deflection plot" page, there are six areas:
+                    </P>
+                    <p>&rarr;  	 	Navigation bar: You can switch to other pages through this navigation bar.</p>
+                    <p>&rarr;  	 	Setting area: You can specify genes, cancer types, data types, cutoff values and other parameter details here.</p>
+                    <p>&rarr;  	 	Plotting area: The Deflection plot will be plotted in this area.</p>
+                    <p>&rarr;  	  	Figure Downloading and DIY area: You can download Deflection plot in a certain format and size. You can also customize line color and so on through the option buttons in this area.</p>
+                    <p>&rarr;  	 	Example area: Examples of the upload files are given here. You can download them through the link.</p>
+                    <p>&rarr;  	 	Link area: Necessary links are available for you to switch to other pages or websites.</p>
+                    <small><i>Note: quick help can be available through putting your mouse on the small question marks besides certain options in this pages.</i></small>
+                    <div align="center"><img src="../img/guide/1100.png" border="1" width="80%"/></div>
+                    <div align="center"><img src="../img/guide/1101.png" border="1" width="80%"/></div>
+                </section>
+                <section id="15.2">
+                    <h2>Setting area</h2>
+                    <div align="center"><img src="../img/guide/1102.png" border="1" width="30%"/></div>
+                    <p>1. It reminds you which kind of plot you are working on.</p>
+                    <p>2. You need to specify the datatype here to tell us how to do log transformation (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p>3. You need to specify the chromosome through this drop-down list to provide us the necessary information about the location of the centromere. Now only 1-22 chromosomes are available.</p>
+
+                    <p>4. You can specify concern gene here by inputting gene symbols. Only symbols provided in your files are accepted. If you want to input more than one gene symbols, a common and a space should be used to separate two gene symbols. </p>
+                    <small><i>Note: small case and big case are all acceptable. For example, kRAS, kras, KRas, KRAS are all treated as the same gene. </i></small>
+
+                    <p>5. In Deflection plot, the color of each line is decided by the mean or median values of the corresponding gene in the specified two groups. You can specify 'mean' or 'median' through this drop-down list.</p>
+                    <p>6. There is another option available (Log2): You can specify concern transformation type checking this option. Correspondingly, log2 transformation will be applied to the data before plotting (for mRNA expression values, it's log2 transformation; for CNV (copy number variation) values, it's log2(CNV/2) transformation).</p>
+                    <p>7. You can input a cutoff value for p-value to see how many gene's P-values are significantly different for each arm. Two lines at ±10log10(cutoff) will be plotted to show the cutoffs on the Deflection plot.</p>
+                    <p>
+                        You can specify the second cancer type through the drop-down list.
+                    </p>
+                    <small><i>Note: It needs samples of two different cancer types whose tumor and non-malignant samples are both available, please make sure of it while you are selecting. Otherwise, an error information will be displayed in the plotting area and no Deflection plot will be created. </i></small>
+                    <p>8.  According to the definition of the Deflection plot, it takes four groups of samples to create it (group, group_reference, group2, group2_reference). You can select the corresponding four files through the dialog boxes here.
+                    </p>
+                    <p> After setting all these necessary options, click "GO" button at the bottom of this area, the Deflection plot will be created in the plotting area. Because the big data size and the calculating time for t-test, it may take seconds or minutes to do the t-test and to create Deflection plot. The processing time varies according to the internet transmitting speed and the configuration of your computer.  </p>
+                </section>
+                <section id="15.3">
+                    <h2>Plotting area</h2>
+                    <p>Deflection plot figures will be shown in this area. </p>
+                    <p>The 'Save as Image' button will show up at the top right of this plotting area when a Deflection plot is created. You can click it to swich into a image saving webpage then click right mouse button to save this image. You also can specify the image format and size by selecting the options in the Figure downloading and DIY area.</p>
+                    <div align="center"><img src="../img/guide/1103.png" border="1" width="80%"/></div>
+
+                    <p>For your convinence, the sample ID and other details of each individual gene will show up when you put your mouse on the corresponding line. </p>
+                    <p>
+                        For example: in the above figure, aftering putting the mouse on a line, a catalog showed up is:
+                    </p>
+                    <div align="center"><img src="../img/guide/1104.png" border="1" width="30%"/></div>
+                    <p>
+                        From the left to the right are: gene symbol and p-value of this gene in the corresponding two cancer types. Therefore, in this example: the gene symbol is GLRX2, the p-value of its copy number variations in two groups is 1.38e-10 which means it has significantly different copy number variations in these two groups.
+                    </p>
+                    <div align="center"><img src="../img/guide/1105.png" border="1" width="80%"/></div>
+                </section>
+                <section id="15.4">
+                    <h2>Figure downloading and DIY area</h2>
+                    <div align="center"><img src="../img/guide/1106.png" border="1" width="80%"/></div>
+                    <h3>1.Figure Downloading area:</h3>
+                    <p> You can specify image format (png or jpg) and size/dimensions for the image to download .</p>
+                    <h3>Figure DIY area:</h3>
+                    <p>You can modify colors and Y-Limits of this figure.</p>
+                </section>
+                <section id="15.5">
+                    <h2>Example data area</h2>
+                    <p>
+                        Only 'xlsx' file type is acceptable! The default sheet is the first sheet of each '*.xlsx' file.
+                        This area shows the table format for you to arrange your data. You also can download the example files and use them to try the functions provided in this page.
+                    </p>
+
+                    <p>
+                        &rarr;  Please make sure that per group per '*.xlsx' file.
+                    </p>
+                    <p>
+                        &rarr;  Please put gene symbols of each group in the first column. If you don't have them, please use numbers or something as symbols. In Mountain plot, the corresponding gene symbol will show up when you put your mouse on any markers. If there are more than one groups, only genes that are common in all groups will be plotted. Therefore, they are necessary information for creating the plot.
+                    </p>
+                    <div align="center"><img src="../img/guide/1107.png" border="1" width="80%"/></div>
+                    <p>
+                        &rarr;  Please put the start location for the genes in the second column. They will be used as the x-axis values in the Deflection plot.
+                    </p>
+                    <p>
+                        &rarr;  Please put the values in the rest of the table.
+                    </p>
+                </section>
+            </section>
+
+
+            <div class="goToTop"><a href="javascript:scrollTo(0,0);"><img src="../img/gotop.gif" width="68px" title="return to top"/></a></div>
+        </div>
+    </div>
+    <!--footer-->
+    <div class="footer" id="component_footer"></div>
+	
+</div>
+</body>
+
+</html>

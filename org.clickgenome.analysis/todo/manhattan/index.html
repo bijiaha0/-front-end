@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+    <title>Manhattan | ClickGWAS</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/todo.css" />
+</head>
+
+<body active="home">
+    <script src="../../js/cache.js"></script>
+    <script src="../../js/manhattan.js"></script>
+    <script type="text/javascript" src="../../js/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/base_component.js"></script>
+    <script type="text/javascript" src="../../js/echarts.min.js"></script>
+    <!--navigation-->
+    <div class="container-fluid navigation"></div>
+
+    <div class="container-fluid pagetitle">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h3><strong>Plot | Manhattan</strong></h3>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+    <!-- ploting main section -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <!--左功能区-->
+                <div class="col-md-3 left-contral-area">
+
+                    <label class="col-md-12">DataType :</label>
+                    <select id="dataType" class="col-md-12 form-control">
+                        <option class="col-md-12" value="c">✅Copy number variations</option>
+                        <option class="col-md-12" value="e">✅mRNA expression</option>
+                        <!--<option class="col-md-12" value="m" disabled="disabled">❌Methylation values</option>-->
+                        <!--<option class="col-md-12" value="mu" disabled="disabled">❌mutations</option>-->
+                    </select>
+                    <label class="col-md-12">Update :</label>
+                    <select id="newOrOld" class="col-md-12 form-control">
+                        <option class="col-md-12" value="new">✅new [10/01/2018]</option>
+                        <option class="col-md-12" value="old">✅old [10/05/2016]</option>
+                    </select>
+
+                    <p class="col-md-12">⚠️:Without non-malignant <a href=# title="The non-malignant samples of this cancer type haven’t been available yet."><img src="../../img/image1.png" alt="image1" height="20"></a></p>
+                    <p class="col-md-12">❌:Not available <a href=# title="Samples of this cancer type haven’t been available yet."><img src="../../img/image1.png" alt="image1" height="20"></a></p>
+                    <label class="col-md-12">Cancer1 :<a href=# title="Please select a cancer type."><img src="../../img/image1.png" alt="image1" height="20"></a></label>
+                    <input class="col-md-12 form-control" id="cancer_1" placeholder="GBM" />
+                    <select class="col-md-12 form-control" id="cancername_1" onchange="addToCancerList1(this.options[this.options.selectedIndex].value);"></select>
+
+
+                    <label class="col-md-12">SampleType1 :</label>
+                    <div class='col-md-12'>
+                        <div class="col-md-12">
+                            <input type="radio" id="simple_nonmalignant1" class="col-md-2" name="SampleType1"/> Non-malignant
+                        </div>
+                        <div class="col-md-12">
+                            <input type="radio" class="col-md-2" id="simple_tumor1" checked="checked" name="SampleType1"/> Tumor
+                        </div>
+                    </div>
+                    <label class="col-md-12">Cancer2 :<a href=# title="Please select a cancer type."><img src="../../img/image1.png" alt="image1" height="20"></a></label>
+                    <input class="col-md-12 form-control" id="cancer_2" placeholder="GBM" />
+                    <select class="col-md-12 form-control" id="cancername_2" onchange="addToCancerList2(this.options[this.options.selectedIndex].value);"></select>
+                    <label class="col-md-12">SampleType2 :</label>
+                    <div class='col-md-12'>
+                        <div class="col-md-12">
+                            <input type="radio" id="simple_nonmalignant2" class="col-md-2" name="SampleType2"/> Non-malignant
+                        </div>
+                        <div class="col-md-12">
+                            <input type="radio" class="col-md-2" id="simple_tumor2" checked="checked" name="SampleType2"/> Tumor
+                        </div>
+                    </div>
+
+                    <label class="col-md-12">Chromosomes :</label>
+                    <select class="col-md-12 form-control" id="chromosome"></select>
+
+                    <label class="col-md-12">HighlightedGenes :</label>
+                    <input class="col-md-12 form-control" id="genes" placeholder="CPSF3L" />
+
+                    <label class="col-md-12">Statistics :</label>
+                    <select class="col-md-12 form-control" id="showType">
+                        <option class="col-md-12" value="mid">Median</option>
+                        <option class="col-md-12" value="mean">Mean</option>
+                    </select>
+
+                    <label class="col-md-12">Others :</label>
+                    <div class='col-md-12'>
+                        <div class="col-md-12">
+                            <input type="checkbox" class="col-md-2" id="isAbsolute" /> Directional Manhattan
+                        </div>
+                    </div>
+
+                    <div class='col-md-12'>
+                        <div class="col-md-12">
+                            <input type="checkbox" class="col-md-2" id="islog" /> log<sub>2</sub>
+                        </div>
+                    </div>
+
+                    <label class="col-md-12">αlpha_ttest (&ge;):</label>
+                    <div class='col-md-12' id="cutoff">
+                        <input class="col-md-12" id="line1" placeholder="line1" />
+                    </div>
+                    <button class="col-md-12 btn btn-primary" id="bt_draw">GO</button>
+                </div>
+
+                <!--绘图区-->
+                <div class="col-md-9 echarts" style="margin-top: 2%;">
+
+                    <div id="echarts" class="col-md-12">
+                        <h1>Ploting Here</h1>
+                    </div>
+                </div>
+
+                <!--底部功能区-->
+                <div class="col-md-12 bottom-contral-area" id="tool_bar">
+                    <!--下载图片 选择区-->
+                    <div class="col-md-3 image-control">
+                        <strong class="col-md-12">Figure Downloading</strong>
+
+                        <div class="col-md-12">
+                            <span class="col-md-4">Format:</span>
+                            <div class="col-md-8">
+                                <select id="saveType_select"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="col-md-8">Size: (<span id="pic_width">640</span>&nbsp;&times;&nbsp;<span id="pic_height">480</span>) &nbsp;&nbsp;&times; </span>
+                            <div class="col-md-4">
+                                <select id="pixelRatio_select"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--样式 选择区-->
+                    <div class="col-md-9 style-control">
+                        <div class="col-md-12 style-control-group">
+                            <div class="col-md-12">
+                                <strong>Figure DIY:</strong>&nbsp;&nbsp;Modify colors, shapes and other details of this figure for your own style.
+                            </div>
+                            <span class="col-md-1">Group:</span>
+                            <div class="col-md-3">
+                                <select class="col-md-12 float-right" id="manhattan_which_select"></select>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 style-control-marker">
+                            <strong class="col-md-12">Style</strong>
+
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <input id="Color_select" value="blue" type="hidden" />
+                                    <div class="col-md-12">
+                                        <span class="col-md-4">Color: </span>
+                                        <button id="point_color_selector_btn" style="background: blue;border:none;border-radius: 4px;height: 1em;width:1em;padding: 0;margin-top: 0.2em;"></button>
+                                        <div class="col-md-12" id="color_selector" style="display: none;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 style-control-marker">
+                            <div class="col-md-12">
+                                <strong>Y-Limits</strong> (Only the limits broader than the default ones are acceptable.)
+                            </div>
+                            <div class='col-md-12' id="yLimit">
+                                <input class="col-md-4" id="yLimitMin" placeholder="min" style="padding: 1px";/>
+                                <input class="col-md-4" id="yLimitMax" placeholder="max" style="padding: 1px";/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 style-control">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-3" id="btn_Rerender">
+                            <button class="btn btn-primary form-control">GO</button>
+                        </div>
+                    </div>
+
+                </div>
+                <!--底部功能区结束-->
+            </div>
+        </div>
+    </div>
+
+    <!--以下为绘图部分js-->
+    <!--<script>-->
+        <!--var cookie_token = getCookie("utoken");-->
+        <!--if (cookie_token) {-->
+        <!--} else {-->
+            <!--alert("Please register or login first!");-->
+            <!--window.location.href = "http://portal.clickgenome.org/";-->
+        <!--}-->
+    <!--</script>-->
+
+    <script type="text/javascript">
+        var addToCancerList1 = function(value) {
+            $("#cancer_1").val(value.toUpperCase());
+        };
+        var addToCancerList2 = function(value) {
+            $("#cancer_2").val(value.toUpperCase());
+        }
+    </script>
+
+    <script type="text/javascript">
+        var color_arr = ["Black", "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "Feldspar", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateBlue", "LightSlateGray", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "VioletRed", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
+        for(var i = 0; i < color_arr.length; i++) {
+            $("#color_selector").append("<div style='width:1em;height:1em;background: " + color_arr[i] + ";border-radius: 4px;margin-left: 1px;margin-top: 1px;float: left;'></div>");
+        }
+        var pointColor_select_open = false;
+        $("#point_color_selector_btn").click(function() {
+            if(pointColor_select_open == false) {
+                $("#color_selector").css("display", "block");
+                pointColor_select_open = true;
+            } else {
+                $("#color_selector").css("display", "none");
+                pointColor_select_open = false;
+            }
+        });
+        $("#color_selector").find("div").click(function() {
+            $("#Color_select").val($(this).css("background-color"));
+            $("#point_color_selector_btn").css("background", $(this).css("background-color"));
+            $("#color_selector").css("display", "none");
+            pointColor_select_open = false;
+        });
+    </script>
+
+    <script>
+        manhattan.View.init();
+        $("#pic_width").html($("#echarts").css("width"));
+        $("#pic_height").html($("#echarts").css("height"));
+
+        $("#chromosome").html("");
+        for(var i = 1; i <= 22; i++) {
+            $("#chromosome").append("<option class='col-md-12' value='" + i + "'>" + i + "</option>");
+        }
+
+        $("#bt_draw").click(function() {
+            var cancerType1 = $("#cancer_1").val();
+            var cancerType2 = $("#cancer_2").val();
+            var dataType = $("#dataType").val();
+            var normal1="t";
+            var normal2="t";
+            if($("#simple_nonmalignant1").is(':checked')){
+                normal1="n";
+            }
+            if($("#simple_nonmalignant2").is(':checked')){
+                normal2="n";
+            }
+            var chrom = $("#chromosome").val();
+            var highlightedGene = $("#genes").val().replace(/, /g, ",");
+            var showType = $("#showType").val();
+            manhattan.OPERATE.getmanhattan(cancerType1.toLowerCase(), cancerType2.toLowerCase(), normal1, normal2, dataType, chrom, highlightedGene.toUpperCase(),showType);
+            // addManhattanLog(cancerType1,dataType);
+        });
+    </script>
+    <!--footer-->
+    <div class="container-fluid footer"></div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+---
+name: 禅道补丁
+code: zentaopatch
+type: patch
+copyright: >
+  青岛易软天创网络科技有限公司
+  2012
+site: http://www.zentao.net
+author: 'azhi<congzhi@cnezsoft.com>'
+abstract: 禅道8.3版本补丁。
+desc: 禅道8.3版本补丁。
+install:
+releases:
+  8.3.2:
+    charge: free
+    license: LGPL
+    changelog: 修复主题切换问题。
+    date: 2016-11-18
+    zentao:
+      compatible: 8.3.1
+      incompatible:
+    depends: null
+    conflicts: null

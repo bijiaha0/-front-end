@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<title>Submit Data | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="js/base_component.js"></script>
+		<script type="text/javascript" src="js/log.js"></script>
+
+        <link rel="stylesheet" href="css/home.css" />
+        <style type="text/css">
+            #analysis_function a {
+
+                color: #429aff;
+
+                text-decoration: none;
+
+            }
+
+            #analysis_function a:hover   { color: #ff813d;  text-decoration:underline}
+
+            #anchorPoint a{
+                text-decoration: none;color: #429aff;font-size: 16px
+            }
+
+        </style>
+	</head>
+
+    <body active="home">
+    <!--navigation-->
+    <div class="container-fluid navigation"></div>
+    <div class="container-fluid header">
+        <div class="row title">
+            <div class="col-md-12">
+                <h1>Anlayze your own data!</h1>
+                <!--<p>Including gene expression, copy number variation&lt;!&ndash;, methylation and mutation&ndash;&gt; data categories. bee-swarm plot, Manhattan plot, Volcano plot, Mountain plot, Deflection plot, Linear regression analysis&lt;!&ndash;, significance test and ..&ndash;&gt;.</p>-->
+                <p>Including gene expression, copy number variation data categories. bee-swarm plot, Manhattan plot, Volcano plot, Mountain plot, Deflection plot and Linear regression analysis.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="padding-left: 5%;margin-bottom: 5%;margin-top: 5%">
+        <h3 style="color: #78787c">Available methods :</h3>
+        <div id="anchorPoint" style="padding-left: 17%">
+
+            <a href="#Beeswarm">Bee-swarm plot、</a>
+            <a href="#Mountain">Mountain plot、</a>
+            <a href="#Manhattan">Manhattan plot、</a>
+            <a href="#Deflection">Deflection plot</a>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="container-fluid analysismethod" id="analysis_function">
+
+
+    </div>
+
+    <script type="text/javascript">
+        // $("#analysis_function").append('<div class="row title"><div class="titleborder"></div><h4>Data visualization</h4><div class="titleborder"></div></div>');
+
+        var data_plots_info = [{
+            name: 'Beeswarm',
+            title: 'Bee-swarm plot',
+            img: 'beeswarm.png',
+            info: 'The bee-swarm plot is a one-dimensional scatter plot like "stripchart", but with closely-packed, non-overlapping points. Here, the bee-swarm plots with or without box plot are provided. It’s very helpful to see the distributions of certain genes in different ways. With <a href="http://analysis.clickgenome.org/todo/beeswarm/byGene/">“bee-swarm plot _ By Gene”</a> method, bee-swarm plots for given genes across different cancer types can be created; with <a href="http://analysis.clickgenome.org/todo/beeswarm/byCancer/">“bee-swarm plot _ By Cancer”</a> method, bee-swarm plots for different genes in the same given cancer can be created.',
+            url_demo: '#',
+            url_analysis: 'http://analysis.clickgenome.org/todo/fileInput/beeswarmIndex.html'
+        }, {
+            name: 'Mountain',
+            title: 'Mountain plot',
+            img: 'moutain.png',
+            info: 'Mountain plot is named by Dr. Kai Song because its ups and downs look like mountains outlines seen from afar. It is a very useful scatter plot, created by Dr. Adi Gazdar and Dr. Kai Song, for visualizing and analyzing genome-wide variations of copy numbers. In Mountain plot, each spot is the median/mean value of copy numbers of each gene in a group which can be a batch or a cancer type. The genes are sorted according to their locations. The space between two arms of each chromosome is the location of the corresponding centromere.',
+            url_demo: '#',
+            url_analysis: 'http://analysis.clickgenome.org/todo/fileInput/mountainIndex.html'
+        }, {
+            name: 'Manhattan',
+            title: 'Manhattan plot',
+            img: 'manhattan.png',
+            info: 'A Manhattan plot is a type of scatter plot used to display genomic coordinates along X-axis with the negative logarithm of the association P-value or ratios of Median/mean values for each single gene displayed on the Y-axis. It means that each dot on the Manhattan plot signifies a gene. It gains its name from the similarity of such a plot to the Manhattan skyline: a profile of skyscrapers towering above the lower level “buildings” which very around a lower height.',
+            tip: '( Gene expression and copy number variations only )',
+            url_demo: '#',
+            url_analysis: 'http://analysis.clickgenome.org/todo/fileInput/manhattanIndex.html'
+        }, {
+            name: 'Deflection',
+            title: 'Deflection plot',
+            img: 'deflection.png',
+            info: 'A Deflection plot is an advanced Manhattan plot between the gene expression or copy number variations (CNVs) of two types of cancer (A and B). As what a Manhattan plot does, X-axis shows the genomic coordinate of each gene along the whole genome and Y-axis shows the negative logarithm of the association P-value or ratios of Median/mean values for each single gene. But different fro a Manhattan plot, the sign of Y-axis shows the direction of gene expression or CNVs of A compared with that of B. For gene expression, positive Y-axis value means gene is over-expressed in A compared with B, negative one means it’s under-expression in A; for CNVs, positive Y-axis value means gene is amplified in A than it is in B, negative one means it’s lost in A.',
+            tip: '( Gene expression and copy number variations only )',
+            url_demo: '#',
+            url_analysis: 'http://analysis.clickgenome.org/todo/fileInput/deflectionIndex.html'
+        }];
+        $.each(data_plots_info, function(i, data) {
+            var analysis_tip = (typeof(data.tip) == "undefined" || data.tip == "") ? "" : "<em style='font-size: 14px;'>" + data.tip + "</em>";
+            var analysis_url_demo = (data.url_demo == "#" || data.url_demo == "") ? "" : "<a href='" + data.url_demo + "'>Demo</a>";
+            var analysis_url_analysis = (data.url_analysis == "#" || data.url_analysis == "") ? "<a class='float-right'>Coming soon&nbsp;&gt;&gt;</a>" : "<a href='" + data.url_analysis + "'>Analyze yours&nbsp;&gt;&gt;</a>";
+            var analysis_url = analysis_url_demo + analysis_url_analysis;
+
+                var append_con = '<div>' +
+                    // '<div class="col-md-1"></div>' +
+                    '<div class="col-md-6 info" style="padding-left: 5%;padding-right: 5%">' +
+                    '<div class="con">' +
+                    '<a name= "'+ data.name +'" style="text-decoration: none"><h3>' + data.title + analysis_tip + '</h3></a>' +
+                    '<p>' + data.info + '</p>' +
+                    '<div class="img"><img src="img/home-chart-demo/' + data.img + '" /></div>' +
+                    '<div class="link">' + analysis_url + '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+
+            $("#analysis_function").append(append_con);
+        });
+
+    </script>
+    <!--footer-->
+    <div class="container-fluid footer"></div>
+
+    </body>
+
+</html>

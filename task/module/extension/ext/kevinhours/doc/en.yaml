@@ -1,0 +1,30 @@
+---
+name: Kevin Project Hours
+code: kevinhours
+type: extension
+copyright: Kevin
+site:
+author: 'kevin<3301647@qq.com>'
+abstract: >
+  Base on todo,record man hours, project
+  hours.
+desc: >
+  Base on todo,record man hours, project
+  hours.
+install: >
+  Install through the buildin extension
+  manager.
+releases:
+  1.7:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: Move to Kevin Plugin Menu
+    date: 2016-11-27
+    zentao:
+      compatible: 8.2.2
+      incompatible:
+    depends:
+      kevincalendar:
+        min: 1.6
+        max:
+    conflicts: null

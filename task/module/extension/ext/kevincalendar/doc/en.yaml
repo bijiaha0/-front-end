@@ -1,0 +1,38 @@
+---
+name: Kevin calendar
+code: kevincalendar
+type: extension
+copyright: Kevin
+site:
+author: 'kevin<3301647@qq.com>'
+abstract: define calenar view.show todo lists
+desc: define calenar view.show todo lists
+install: |
+  1. Install through the buildin extension manager.
+    1.1 Login to zentao system as administrator, visit the admin->extension
+    1.2 Go to the obtain page, search this plug in.
+    1.3 Click the AutoInstall and begin the installation.
+  2. Manual install. Unzip this package and copy files under module directory to the zentao/module.
+releases:
+  1.4.1:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: fix bug of list.
+    date: 2015-12-18
+    zentao:
+      compatible: all
+      incompatible:
+    depends:
+      kevincom:
+        min: 1.4
+        max:
+    conflicts: null
+  1.5:
+    zentao:
+      compatible: all
+      incompatible:
+    depends:
+      kevincom:
+        min: 1.6
+        max:
+    conflicts: null

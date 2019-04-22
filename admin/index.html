@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <meta charset="utf-8"/>
+    <title>ClickGWAS Backstage Management System</title>
+    <meta name="description"
+          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <script src="resources/js/app.v2.js"></script>
+    <script src="resources/admin.js"></script>
+    <link rel="stylesheet" href="resources/css/app.v2.css" type="text/css"/>
+</head>
+<body>
+<section class="vbox">
+    <header class="bg-dark dk header navbar navbar-fixed-top-xs">
+        <div class="navbar-header aside-md"><a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen"
+                                               data-target="#nav"> <i class="fa fa-bars"></i> </a> <a href="#"
+                                                                                                      class="navbar-brand"
+                                                                                                      data-toggle="fullscreen"><img
+                src="resources/images/logo.png" class="m-r-sm">ClickGWAS</a> <a class="btn btn-link visible-xs"
+                                                                                data-toggle="dropdown"
+                                                                                data-target=".nav-user"> <i
+                class="fa fa-cog"></i> </a></div>
+        <ul class="nav navbar-nav hidden-xs">
+            <li class="dropdown">
+                <section class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt"></section>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right hidden-xs nav-user">
+            <li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle dker" data-toggle="dropdown"><i
+                    class="fa fa-fw fa-search"></i></a>
+                <section class="dropdown-menu aside-xl animated fadeInUp">
+                    <section class="panel bg-white">
+                        <form role="search">
+                            <div class="form-group wrapper m-b-none">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="search">
+                                    <span class="input-group-btn">
+                  <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                  </span></div>
+                            </div>
+                        </form>
+                    </section>
+                </section>
+            </li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span
+                    class="thumb-sm avatar pull-left"> <img src="resources/images/avatar.jpg"> </span> ClickGWAS <b
+                    class="caret"></b> </a>
+                <ul class="dropdown-menu animated fadeInRight">
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Notifications</a></li>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" onclick="Logout();">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <aside class="bg-dark lter aside-md hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f scrollable">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="5px" data-color="#333333">
+                            <nav class="nav-primary hidden-xs">
+                                <ul class="nav">
+                                    <li class="active"><a href="index.html" class="active"> <i
+                                            class="fa fa-dashboard icon"> <b class="bg-danger"></b> </i>
+                                        <span>HomePage</span> </a></li>
+                                    <li><a href="#"> <i class="fa fa-columns icon"> <b class="bg-warning"></b>
+                                    </i><span>User Management</span> </a></li>
+                                    <li><a href="#"> <i class="fa fa-book icon"> <b class="bg-success"></b> </i> <span
+                                            class="pull-right"> <i class="fa fa-angle-down text"></i> <i
+                                            class="fa fa-angle-up text-active"></i> </span> <span>Log Management</span>
+                                    </a>
+                                        <ul class="nav lt">
+                                            <li><a href="LoginLog.html"> <span>Login Log</span> </a></li>
+                                            <li><a href="AccessLog.html"> <span>Access Log</span> </a></li>
+                                            <li><a href="#"> <i class="fa fa-angle-down text"></i> <i
+                                                    class="fa fa-angle-up text-active"></i> <span>Operation Log</span>
+                                            </a>
+                                                <ul class="nav bg">
+                                                    <li><a href="BeeswarmGLog.html"> <span>Beeswarm plot ByGene</span>
+                                                    </a></li>
+                                                    <li><a href="BeeswarmCLog.html"> <span>Beeswarm plot ByCancer</span>
+                                                    </a></li>
+                                                    <li><a href="MountainLog.html"> <span>Mountain plot</span> </a></li>
+                                                    <li><a href="ManhattanLog.html"> <span>Manhattan plot</span> </a>
+                                                    </li>
+                                                    <li><a href="#"> <span>Deflection plot</span> </a></li>
+                                                    <li><a href="#"> <span>Lego plot</span> </a></li>
+                                                    <li><a href="VolcanoLog.html"> <span>Volcano plot</span> </a></li>
+                                                    <li><a href="#"> <span>Heatmap</span> </a></li>
+                                                    <li><a href="LinearLog.html">
+                                                        <span>Linear regression analysis</span> </a></li>
+                                                    <li><a href="#"> <span>Significance test</span> </a></li>
+                                                    <li><a href="#"> <span>Survival analysis</span> </a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#"> <span>System Log</span> </a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#"> <i class="fa fa-file-text icon"> <b class="bg-primary"></b>
+                                    </i><span>Paper Management</span> </a></li>
+                                    <li><a href="#"> <i class="fa fa-cogs icon"> <b class="bg-primary dker"></b> </i>
+                                        <span>Module Management</span> </a></li>
+                                    <li><a href="#"> <i class="fa fa-pencil icon"> <b class="bg-info"></b> </i> <span>Data Management</span>
+                                    </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <section id="content" style="background-color: rgba(247,247,247,1.00)">
+                <section class="vbox">
+                    <section class="scrollable padder">
+                        <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+                            <li><a href="index.html"><i class="fa fa-home"></i>HomePage</a></li>
+                        </ul>
+                        <div class="m-b-md">
+                            <h3 class="m-b-none">HomePage</h3>
+                            <small>Welcome back,</small>
+                        </div>
+                        <div class="col-sm-6 col-md-3 padder-v b-r b-light"><span
+                                class="fa-stack fa-2x pull-left m-r-sm"> <i
+                                class="fa fa-circle fa-stack-2x text-info"></i> <i
+                                class="fa fa-male fa-stack-1x text-white"></i> </span> <a class="clear" href="#"> <span
+                                class="h3 block m-t-xs"><strong>100</strong></span>
+                            <small class="text-muted text-uc">Today's PV</small>
+                        </a></div>
+                        <div class="col-sm-6 col-md-3 padder-v b-r b-light"><span
+                                class="fa-stack fa-2x pull-left m-r-sm"> <i
+                                class="fa fa-circle fa-stack-2x text-info"></i> <i
+                                class="fa fa-male fa-stack-1x text-white"></i> </span> <a class="clear" href="#"> <span
+                                class="h3 block m-t-xs"><strong>5000</strong></span>
+                            <small class="text-muted text-uc">Registrations</small>
+                        </a></div>
+                        <section class="comment-list block" style="float: right">
+                            <article id="comment-id-1" class="comment-item"><span class="fa-stack pull-left m-l-xs"> <i
+                                    class="fa fa-circle text-info fa-stack-2x"></i> <i
+                                    class="fa fa-play-circle text-white fa-stack-1x"></i> </span>
+                                <section class="comment-body m-b-lg">
+                                    <header><a href="#"><strong>XXX</strong></a>#<span class="text-muted text-xs"> 24 minutes ago </span>
+                                    </header>
+                                    <div>#</div>
+                                </section>
+                            </article>
+                            <!-- .comment-reply -->
+                            <article id="comment-id-2" class="comment-reply">
+                                <article class="comment-item"><a class="pull-left thumb-sm"> <img
+                                        src="resources/images/avatar_default.jpg" class="img-circle"> </a>
+                                    <section class="comment-body m-b-lg">
+                                        <header><a href="#"><strong>#</strong></a> #<span class="text-muted text-xs"> 26 minutes ago </span>
+                                        </header>
+                                        <div>#</div>
+                                    </section>
+                                </article>
+                                <article class="comment-item"><a class="pull-left thumb-sm"> <img
+                                        src="resources/images/avatar_default.jpg" class="img-circle"> </a>
+                                    <section class="comment-body m-b-lg">
+                                        <header><a href="#"><strong>#</strong></a> #<span class="text-muted text-xs"> 26 minutes ago </span>
+                                        </header>
+                                        <div>#</div>
+                                    </section>
+                                </article>
+                            </article>
+                            <!-- / .comment-reply -->
+                            <article id="comment-id-2" class="comment-item"><span class="fa-stack pull-left m-l-xs"> <i
+                                    class="fa fa-circle text-danger fa-stack-2x"></i> <i
+                                    class="fa fa-file-o text-white fa-stack-1x"></i> </span>
+                                <section class="comment-body m-b-lg">
+                                    <header><a href="#"><strong>#</strong></a># <span class="text-muted text-xs"> 1 hour ago </span>
+                                    </header>
+                                    <div>#</div>
+                                </section>
+                            </article>
+                            <article id="comment-id-2" class="comment-item"><span class="fa-stack pull-left m-l-xs"> <i
+                                    class="fa fa-circle text-success fa-stack-2x"></i> <i
+                                    class="fa fa-check text-white fa-stack-1x"></i> </span>
+                                <section class="comment-body m-b-lg">
+                                    <header><a href="#"><strong>#</strong></a>#<span class="text-muted text-xs"> 1 hour ago </span>
+                                    </header>
+                                    <div>#</div>
+                                </section>
+                            </article>
+                        </section>
+                        <div class="col-md-6" style="float: left">
+                            <section class="panel panel-default">
+                                <header class="panel-heading font-bold">Operation Record Statistics</header>
+                                <div><br/>
+                                    <nobr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</nobr>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </div>
+                        </div>
+                    </section>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</section>
+</body>
+</html>

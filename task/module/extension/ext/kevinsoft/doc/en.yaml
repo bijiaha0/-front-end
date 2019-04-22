@@ -1,0 +1,26 @@
+---
+name: Kevin Soft
+code: kevinsoft
+type: extension
+copyright: Kevin
+site:
+author: kevin
+abstract: Kevin Soft
+desc: Kevin Soft
+releases:
+  1.4:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: Move to Kevin Plugin Menu
+    date: 2016-08-04
+    zentao:
+      compatible: all
+      incompatible:
+    depends:
+      kevindevice:
+        min: 1.4
+        max:
+    kevincom:
+      min: 1.9
+      max:
+    conflicts: null

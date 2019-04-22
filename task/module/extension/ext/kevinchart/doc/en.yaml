@@ -1,0 +1,27 @@
+---
+name: kevin chart
+code: kevinchart
+type: extension
+copyright: Kevin
+site:
+author: 'Kevin<3301647@qq.com>'
+abstract: kein chart
+desc: kein chart
+install: |
+  1. Install through the buildin extension manager.
+    1.1 install kevincom plugin
+    1.2 install this plugin
+releases:
+  1.3:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: Move to Kevin Plugin Menu
+    date: 2016-11-27
+    zentao:
+      compatible: all
+      incompatible:
+    depends:
+      kevincom:
+        min: 1.9
+        max:
+    conflicts: null

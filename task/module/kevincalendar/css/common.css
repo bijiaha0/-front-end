@@ -1,0 +1,11 @@
+#kevincalendar {margin: 0 auto;}
+
+.kevincalendar-Title-W{ background:yellowgreen;}
+.kevincalendar-Title-S{ background:yellow;}
+.kevincalendar-day-W{ background:yellowgreen;}
+.kevincalendar-day-H{ background:pink;}
+.kevincalendar-day-S{ background:yellow;}
+.kevincalendar-day-otherMonth{ background:whitesmoke;}
+.div-kevincalendar-day{border:1px solid #F00;min-height:80px;height:100%;margin:0;} 
+.fc-event {opacity: 0.9; transition: none; border-radius: 3px;background:#00FFFF;border:1px solid;}
+.kevin-div-desc{ background:whitesmoke;}

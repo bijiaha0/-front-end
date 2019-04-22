@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>LOGIN | ClickGWAS</title>
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/materialize.min.css" />
+    <style type="text/css">
+        * {
+            font-family: tahoma
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        html {
+            display: table;
+            margin: auto;
+        }
+        
+        body {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        
+        .margin {
+            margin: 0 !important;
+        }
+    </style>
+</head>
+
+<body class="bgcolor-5" style="background-color: #6c92c2;">
+    <div id="login-page" class="row">
+        <div class="col s12 z-depth-6 card-panel">
+            <div style="width:720px; ">
+                <div style="float:left;width:300px;padding: 4em;text-align: center;">
+                    <img id="appavatar" class="col-md-12" src="img/logo.gif" style="width: 120px;" alt="" class="responsive-img valign profile-image-login">
+                    <div class="col-md-12">
+                        <br>
+                        <hr>
+                        <strong id="appname" class="col-md-12">授权第三方应用名称</strong>
+                        <p style="font-weight: lighter;">This app can get your：</p>
+                        <span style="font-weight: lighter;font-size: 0.8em;" class="col-md-12">avatar</span><br>
+                        <span style="font-weight: lighter;font-size: 0.8em;" class="col-md-12">name</span><br>
+                        <span style="font-weight: lighter;font-size: 0.8em;" class="col-md-12">email</span><br>
+                        <span style="font-weight: lighter;font-size: 0.8em;" class="col-md-12">phone</span><br>
+                    </div>
+                    <hr>
+                    <p>By clicking on, you agree to this authorization！</p>
+                </div>
+                <form class="login-form" style="float:left;width: 360px;">
+                    <div class="row">
+                        <div class="input-field col s12 center">
+                            <img src="img/logo.gif" style="width: 120px;" alt="" class="responsive-img valign profile-image-login">
+                            <p class="center login-form-text">Login in with ClickGWAS</p>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="input-field col s12">
+                            <i class="mdi-social-person-outline prefix"></i>
+                            <input class="validate" id="email" type="email">
+                            <label for="email" class="center-align">Email</label>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="input-field col s12">
+                            <i class="mdi-action-lock-outline prefix"></i>
+                            <input id="password" type="password">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m12 l12  login-text">
+                            <input type="checkbox" id="remember-me" />
+                            <label for="remember-me">Remember Me</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+                        <script type="text/javascript" src="js/materialize.min.js"></script>
+                        <script src="js/auth.js"></script>
+                        <script>
+                            Auth.View.init();
+                        </script>
+                        <div class="input-field col s12">
+                            <a href="#" onclick="javascript:Auth.Operate.login();" class="btn waves-effect waves-light col s12">LOGIN</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6 m6 l6">
+                            <p class="margin medium-small">
+                                <a href="register.html">Register Now !</a>
+                            </p>
+                        </div>
+                        <div class="input-field col s6 m6 l6">
+                            <p class="margin right-align medium-small">
+                                <a href="forgot-password.html">Forgot Password ?</a>
+                            </p>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

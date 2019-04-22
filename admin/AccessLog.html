@@ -1,0 +1,617 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <meta charset="utf-8"/>
+    <title>Access Log</title>
+    <meta name="description"
+          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="resources/css/app.v2.css" type="text/css"/>
+    <link rel="stylesheet" href="resources/js/datatables/datatables.css"
+          type="text/css">
+    <script src="resources/js/app.v2.js"></script>
+    <script type="text/javascript" src="resources/jquery-2.2.1.min.js"></script>
+    <script>
+        var jQuery_New = $.noConflict(true);
+    </script>
+    <script type="text/javascript" src="resources/highcharts.js"></script>
+    <!-- Bootstrap -->
+    <!-- App -->
+    <!-- datatables -->
+    <script type="text/javascript" src="resources/jquery.dataTables.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="resources/js/ie/html5shiv.js" cache="false"></script>
+    <script src="resources/js/ie/respond.min.js" cache="false"></script>
+    <script src="resources/js/ie/excanvas.js" cache="false"></script> <![endif]-->
+    <script type="text/javascript" src="resources/moment.min.js"></script>
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="resources/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="resources/daterangepicker.css"/>
+    <script src="resources/admin.js"></script>
+    <script>
+        //预定义各个变量
+        var dateStart = moment().subtract(29, 'days').format("YYMMDD");
+        var dateEnd = moment().format("YYMMDD");
+        var account = "";
+        var ip = "";
+        var page = "";
+        var source = "";
+        var browser = "";
+        var oTable;
+        var PVByDayChart;
+        var temp;
+    </script>
+    <script>
+        function getForm() {
+            $.get(BASE_URL + "log/data/PV/day?dateStart=" + dateStart + "&dateEnd=" + dateEnd + "&id=" + uid + "&token=" + token, function (data) {
+                //为PV By Day图表处理值
+                var finalData=[];
+                for(var i=0;i<data.data.length;i++){
+                    finalData[i]=[data.data[i].day,data.data[i].pv];
+                }
+                console.log(finalData);
+                PVByDayChart.series[0].setData(finalData);
+            });
+        }
+    </script>
+</head>
+<body>
+<section class="vbox">
+    <header class="bg-dark dk header navbar navbar-fixed-top-xs">
+        <div class="navbar-header aside-md">
+            <a class="btn btn-link visible-xs"
+               data-toggle="class:nav-off-screen" data-target="#nav"> <i
+                    class="fa fa-bars"></i>
+            </a> <a href="#" class="navbar-brand" data-toggle="fullscreen"><img
+                src="resources/images/logo.png" class="m-r-sm">ClickGWAS</a> <a
+                class="btn btn-link visible-xs" data-toggle="dropdown"
+                data-target=".nav-user"> <i class="fa fa-cog"></i>
+        </a>
+        </div>
+        <ul class="nav navbar-nav hidden-xs">
+            <li class="dropdown">
+                <section
+                        class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
+                </section>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right hidden-xs nav-user">
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                    data-toggle="dropdown"> <span class="thumb-sm avatar pull-left">
+							<img src="resources/images/avatar.jpg">
+            </span> ClickGWAS<b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu animated fadeInRight">
+                    <span class="arrow top"></span>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#">Notifications</a></li>
+                    <li><a href="docs.html">Help</a></li>
+                    <li class="divider"></li>
+                    <li><a href="modal.lockme.html" data-toggle="ajaxModal" onClick="Logout();">Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-dark lter aside-md hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f scrollable">
+                        <div class="slim-scroll" data-height="auto"
+                             data-disable-fade-out="true" data-distance="0" data-size="5px"
+                             data-color="#333333">
+                            <!-- nav -->
+                            <nav class="nav-primary hidden-xs">
+                                <ul class="nav">
+                                    <li><a href="index.html"> <i class="fa fa-dashboard icon">
+                                        <b class="bg-danger"></b>
+                                    </i> <span>HomePage</span>
+                                    </a></li>
+                                    <li><a href="#"> <i class="fa fa-columns icon"> <b
+                                            class="bg-warning"></b>
+                                    </i><span>User Management</span>
+                                    </a></li>
+                                    <li class="active"><a href="#Log ManageMent"
+                                                          class="active"> <i class="fa fa-book icon"> <b
+                                            class="bg-success"></b>
+                                    </i> <span class="pull-right"> <i
+                                            class="fa fa-angle-down text"></i> <i
+                                            class="fa fa-angle-up text-active"></i>
+											</span> <span>Log ManageMent</span>
+                                    </a>
+                                        <ul class="nav lt">
+                                            <li><a href="LoginLog.html"> <span>Login Log</span>
+                                            </a></li>
+                                            <li class="active"><a href="AccessLog.html" class="active">
+                                                <span>Access Log</span>
+                                            </a></li>
+                                            <li><a href="#"> <i class="fa fa-angle-down text"></i>
+                                                <i class="fa fa-angle-up text-active"></i> <span>Analysis
+															Log</span>
+                                            </a>
+                                                <ul class="nav bg">
+                                                    <li><a href="BeeswarmGLog.html"> <span>Beeswarm
+																	plot ByGene</span>
+                                                    </a></li>
+                                                    <li><a href="BeeswarmCLog.html"> <span>Beeswarm
+																	plot ByCancer</span>
+                                                    </a></li>
+                                                    <li><a href="MountainLog.html"> <span>Mountain
+																	plot</span>
+                                                    </a></li>
+                                                    <li><a href="ManhattanLog.html"> <span>Manhattan
+																	plot</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Deflection plot</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Lego plot</span>
+                                                    </a></li>
+                                                    <li><a href="VolcanoLog.html"> <span>Volcano
+																	plot</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Heatmap</span>
+                                                    </a></li>
+                                                    <li><a href="LinearLog.html"> <span>Linear
+																	regression analysis</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Significance test</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Survival analysis</span>
+                                                    </a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#"> <span>System Log</span>
+                                            </a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#"> <i class="fa fa-file-text icon">
+                                        <b class="bg-primary"></b>
+                                    </i><span>Paper Management</span>
+                                    </a></li>
+                                    <li><a href="#"> <i class="fa fa-cogs icon"> <b
+                                            class="bg-primary dker"></b>
+                                    </i> <span>Module Management</span>
+                                    </a></li>
+                                    <li><a href="#"> <i class="fa fa-pencil icon"> <b
+                                            class="bg-info"></b>
+                                    </i> <span>Data Management</span>
+                                    </a></li>
+                                </ul>
+                            </nav>
+                            <!-- / nav -->
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="vbox">
+                    <section class="scrollable padder">
+                        <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+                            <li><a href="index"><i class="fa fa-home"></i> HomePage</a></li>
+                            <li><a href="#">Log Management</a></li>
+                            <li class="active">Access Log</li>
+                        </ul>
+                        <div class="m-b-md">
+                            <h3 class="m-b-none">Access Log</h3>
+                        </div>
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <form class="form-inline" role="form">
+                                        <div class="row" style="margin: 15px 0">
+                                            <div class="col-md-3">
+
+                                                <label>Account</label> <input type="text"
+                                                                              class="form-control" placeholder="account"
+                                                                              id="account">
+                                            </div>
+                                            <div class="col-md-3">
+
+                                                <label>IP</label> <input type="text" class="form-control"
+                                                                         placeholder="IP" id="IP">
+                                            </div>
+                                            <div class="col-md-3">
+
+                                                <label>Browser</label> <input type="text"
+                                                                              class="form-control" placeholder="browser"
+                                                                              id="browser">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="form-group">
+                                    <form class="form-inline" role="form">
+                                        <div class="row" style="margin: 15px 0">
+                                            <div class="col-md-3">
+                                                <label>Source</label> <input type="text"
+                                                                             class="form-control" placeholder="source"
+                                                                             id="source">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Page</label> <input type="text" class="form-control"
+                                                                           placeholder="page" id="page">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>Time</label>
+                                                <div id="reportrange" class="form-control"
+                                                     style="background: #fff; cursor: pointer; padding: 7px 10px; border: 1px solid #ccc; width: 100%">
+                                                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                                    <span id="time"></span> <b class="caret"></b>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <label></label> <a class="btn btn-s-md btn-default"
+                                                                   onclick="searchFunction()">Search</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <script>
+                                    //查询并重绘图表
+                                    function searchFunction() {
+                                        account = document
+                                            .getElementById("account").value;
+                                        ip = document.getElementById("IP").value;
+                                        source = document
+                                            .getElementById("source").value;
+                                        browser = document
+                                            .getElementById("browser").value;
+                                        page = document
+                                            .getElementById("page").value;
+
+                                        dateStart = moment(
+                                            $('#reportrange span')
+                                                .html()
+                                                .split(" - ")[0])
+                                            .format("YYMMDD");
+                                        dateEnd = moment(
+                                            $('#reportrange span')
+                                                .html()
+                                                .split(" - ")[1])
+                                            .format("YYMMDD");
+                                        getForm();
+                                        oTable.fnClearTable();
+                                        oTable.fnDestroy();
+                                        $.get(BASE_URL + "log/data/accessLog?account=" + account
+                                            + "&page="
+                                            + page
+                                            + "&source="
+                                            + source
+                                            + "&browser="
+                                            + browser
+                                            + "&ip="
+                                            + ip
+                                            + "&dateStart="
+                                            + dateStart
+                                            + "&dateEnd="
+                                            + dateEnd + "&id=" + uid + "&token=" + token, function (data) {
+                                            for (i = 0; i < data.data.length; i++) {
+                                                var time = new Date(data.data[i].time * 1000);
+                                                mm = time.getMonth() + 1;
+                                                data.data[i].time = time.getFullYear() + "-" + mm + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()
+                                            }
+                                            oTable = $("#datatable")
+                                                .dataTable(
+                                                    {
+                                                        "bFilter": false,
+                                                        "bLengthChange": false,
+                                                        "bProcessing": true,
+                                                        "aaData": data.data,
+                                                        "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                                                        "sPaginationType": "full_numbers",
+                                                        "aoColumns": [
+                                                            {
+                                                                "mData": "account"
+                                                            },
+                                                            {
+                                                                "mData": "ip"
+                                                            },
+                                                            {
+                                                                "mData": "time"
+                                                            },
+                                                            {
+                                                                "mData": "browser"
+                                                            },
+                                                            {
+                                                                "mData": "source"
+                                                            },
+                                                            {
+                                                                "mData": "page"
+                                                            }],
+                                                        "bDestroy": true,
+                                                        "retrieve": true,
+                                                        "order": [[
+                                                            2,
+                                                            "desc"]]
+                                                    });
+                                        });
+                                    }
+                                </script>
+
+                            </div>
+                            <script type="text/javascript">
+                                //daterangepicker控件，不要修改！
+                                $(function () {
+                                    var start = moment().subtract(29,
+                                        'days');
+                                    var end = moment();
+
+                                    function cb(start, end) {
+                                        $('#reportrange span')
+                                            .html(
+                                                start
+                                                    .format('YYYY/MM/DD')
+                                                + ' - '
+                                                + end
+                                                    .format('YYYY/MM/DD'));
+                                    }
+
+                                    $('#reportrange')
+                                        .daterangepicker(
+                                            {
+                                                startDate: start,
+                                                endDate: end,
+                                                minDate: '03/18/2017',
+                                                maxDate: moment(),
+                                                ranges: {
+                                                    'Today': [
+                                                        moment(),
+                                                        moment()],
+                                                    'Yesterday': [
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'days'),
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'days')],
+                                                    'Last 7 Days': [
+                                                        moment()
+                                                            .subtract(
+                                                                6,
+                                                                'days'),
+                                                        moment()],
+                                                    'Last 30 Days': [
+                                                        moment()
+                                                            .subtract(
+                                                                29,
+                                                                'days'),
+                                                        moment()],
+                                                    'This Month': [
+                                                        moment()
+                                                            .startOf(
+                                                                'month'),
+                                                        moment()
+                                                            .endOf(
+                                                                'month')],
+                                                    'Last Month': [
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'month')
+                                                            .startOf(
+                                                                'month'),
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'month')
+                                                            .endOf(
+                                                                'month')]
+                                                }
+                                            }, cb);
+
+                                    cb(start, end);
+
+                                });
+                            </script>
+                        </section>
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading font-bold">Access Log</header>
+                            <div class="table-responsive">
+                                <script>
+                                    //网站加载时调用admin.js中$(document).ready的function，若utoken为管理员的token则调用此方法，否则提示登陆
+                                    function show() {
+                                        $.get(BASE_URL + "log/data/accessLog?account=" + account
+                                            + "&page="
+                                            + page
+                                            + "&source="
+                                            + source
+                                            + "&browser="
+                                            + browser
+                                            + "&ip="
+                                            + ip
+                                            + "&dateStart="
+                                            + dateStart
+                                            + "&dateEnd="
+                                            + dateEnd + "&id=" + uid + "&token=" + token, function (data) {
+                                            //将后台传来的时间戳转为时间
+                                            for (i = 0; i < data.data.length; i++) {
+                                                var time = new Date(data.data[i].time * 1000);
+                                                mm = time.getMonth() + 1;
+                                                data.data[i].time = time.getFullYear() + "-" + mm + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()
+                                            }
+                                            //dataTable绘制
+                                            oTable = $(
+                                                "#datatable")
+                                                .dataTable(
+                                                    {
+                                                        "bFilter": false,
+                                                        "bLengthChange": false,
+                                                        "bProcessing": true,
+                                                        "aaData": data.data,
+                                                        "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                                                        "sPaginationType": "full_numbers",
+                                                        "aoColumns": [
+                                                            {
+                                                                "mData": "account"
+                                                            },
+                                                            {
+                                                                "mData": "ip"
+                                                            },
+                                                            {
+                                                                "mData": "time"
+                                                            },
+                                                            {
+                                                                "mData": "browser"
+                                                            },
+                                                            {
+                                                                "mData": "source"
+                                                            },
+                                                            {
+                                                                "mData": "page"
+                                                            }],
+                                                        "bDestroy": true,
+                                                        "retrieve": true,
+                                                        "order": [[
+                                                            2,
+                                                            "desc"]]
+                                                    });
+                                        });
+                                        //PVByDay Highcharts绘制
+                                        Highcharts.setOptions({
+                                            global: {
+                                                useUTC: false
+                                            }
+                                        });
+                                        $(function () {
+                                            PVByDayChart = new Highcharts.Chart({
+                                                chart: {
+                                                    renderTo: 'PVByDay'
+                                                },
+                                                credits: {
+                                                    enabled: false
+                                                },
+                                                legend: {
+                                                    enabled: false
+                                                },
+                                                style: {
+                                                    fontFamily: "",
+                                                    fontSize: '12px',
+                                                    fontWeight: 'bold',
+                                                    color: '#006cee'
+                                                },
+                                                title: {
+                                                    text: 'System PV (Daily)'
+                                                },
+                                                xAxis: {
+                                                    type: 'datetime',
+                                                    dateTimeLabelFormats: {
+                                                        day: '%Y<br/>%m-%d',
+                                                    }
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: 'PV'
+                                                    }
+                                                },
+                                                series: [{
+                                                    name: 'PV',
+                                                    data: []
+                                                }]
+                                            });
+                                        });
+                                        $(document).ready(function () {
+                                            getForm();
+                                        });
+                                        //PVByMonth Highchart绘制（近12个月）
+                                        $.get(
+                                            BASE_URL + "log/data/PV/month?id=" + uid + "&token=" + token,
+                                            function (data) {
+                                                var category = new Array();
+                                                var pv = new Array();
+                                                for (i = 0; i < data.data.length; i++) {
+                                                    category[i] = data.data[i].day;
+                                                    pv[i] = data.data[i].pv;
+                                                }
+                                                $(function () {
+                                                    PVByMonthChart = new Highcharts.Chart(
+                                                        {
+                                                            chart: {
+                                                                type: 'column',
+                                                                renderTo: 'PVByMonth'
+                                                            },
+                                                            credits: {
+                                                                enabled: false
+                                                            },
+                                                            legend: {
+                                                                enabled: false
+                                                            },
+                                                            style: {
+                                                                fontFamily: "",
+                                                                fontSize: '12px',
+                                                                fontWeight: 'bold',
+                                                                color: '#006cee'
+                                                            },
+                                                            title: {
+                                                                text: 'System PV (Monthly)'
+                                                            },
+                                                            xAxis: {
+                                                                type: 'category',
+                                                                categories: category
+                                                            },
+                                                            yAxis: {
+                                                                title: {
+                                                                    text: 'PV'
+                                                                }
+                                                            },
+                                                            series: [{
+                                                                name: 'PV',
+                                                                data: pv
+                                                            }]
+                                                        });
+                                                });
+                                            });
+                                    }
+                                </script>
+                                <!--datatable-->
+                                <table class="table table-striped m-b-none" cellpadding="0"
+                                       cellspacing="0" border="0" class="display" id="datatable">
+                                    <thead>
+                                    <tr>
+                                        <th width="20%">account</th>
+                                        <th width="15%">ip</th>
+                                        <th width="20%">time</th>
+                                        <th width="15%">browser</th>
+                                        <th width="20%">source</th>
+                                        <th width="10%">page</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <section class="panel panel-default">
+                            <header class="panel-heading font-bold">System PV
+                                (Daily)
+                            </header>
+                            <div>
+                                <div id="PVByDay" style="width: 100%"></div>
+                            </div>
+                        </section>
+                        <section class="panel panel-default">
+                            <header class="panel-heading font-bold">System PV
+                                (Monthly)
+                            </header>
+
+                            <div>
+                                <div id="PVByMonth" style="min-width: 400px;"></div>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+    <title>Home | clickgenome</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/home.css"/>
+</head>
+
+<body page="home" onmousewheel="return false;">
+<script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+<script type="text/javascript">
+    var isnew = getCookie("isnew");
+    if (isnew != "0") {
+        window.location.href = "welcome/";
+    }
+</script>
+<div class="warning">
+    <div class="container">
+        <div class="title">
+            <h1>Warning</h1>
+        </div>
+        <div class="info">
+            <p>You are accessing a non-profit web site which is based on GDC data portal hosted by National Cancer
+                Institute, USA. All data was downloaded from GDC public database. Please make sure you are aware of and
+                obey the policy of GDC data portal. Please go to
+                <a href="./guide/" target="_blank">User`s Guide</a> for more information.</p>
+            <p>Unauthorized users of this web site should have no expectation of privacy regarding any communications or
+                data processed by this web site.</p>
+            <p>Anyone accessing this web site expressly consents to monitoring of their actions and all communication or
+                data transiting or stored on or related to this web site and is advised that if such monitoring reveals
+                possible evidence of criminal activity, we may provide that evidence to law enforcement officials.</p>
+            <p>Unauthorized attempts to upload information, change information, or use of this web site may result in
+                disciplinary action, civil, and/or criminal penalties. Please be advised that any research publication
+                using the results made by our provided function should mention the URL in the “Materials and Methods”
+                section and in the ”Acknowledgement” section.</p>
+            <!--<p>Contact-->
+                <!--<a href="#">Click Support</a> for more information.</p>-->
+        </div>
+        <div class="accept">
+            <button id="accept">Accept</button>
+        </div>
+    </div>
+</div>
+<script>
+    if (getCookie("isread") != "1") {
+        $(".warning").fadeIn(700);
+    } else {
+        $("body").attr("onmousewheel", "return true;");
+    }
+    $("#accept").bind("click", function () {
+        $(".warning").fadeOut(500);
+        $("body").attr("onmousewheel", "return true;");
+        addCookie("isread", "1", "");
+    });
+</script>
+
+<!--page header-->
+<div class="page-header" id="component_page_header"></div>
+<!--navigation-->
+<div class="header" id="component_nav"></div>
+
+<!--banner-->
+<div class="banner" style="background-color: #fefefe !important;">
+    <div class="container">
+        <div class="banner-img flexslider">
+            <ul class="slides">
+                <li>
+                    <img src="img/banner/banner00.png"/>
+                </li>
+                <li>
+                    <img src="img/banner/banner01.png"/>
+                </li>
+                <li>
+                    <img src="img/banner/banner02.jpg"/>
+                </li>
+                <!--<li>
+                    <img src="img/banner/banner03.jpg"/>
+                </li>
+                <li>
+                    <img src="img/banner/banner04.jpg"/>
+                </li>
+                <li>
+                    <img src="img/banner/banner05.png"/>
+                </li>
+                <li>
+                    <img src="img/banner/banner06.png"/>
+                </li>-->
+            </ul>
+        </div>
+        <div class="banner-info"></div>
+    </div>
+    <div class="donation">
+        We Accept Donations <a href="https://www.paypal.me/KaiSong"><img src="https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png" style="height: 30px;margin: 0 20px;" /></a>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script>
+    $(window).load(function () {
+        var bannerinfo = [
+        {
+            title: "In memoriam: Adi F. Gazdar",
+            info: "<div>" +
+                "<p>What a great loss!</p>"+
+                "<p>Adi F. Gazdar, MD passed away at 12/29/2018</p>"+
+                "<p>Department of Pathology, University of Texas Southwestern Medical Center, Dallas, Texas, USA</p>" +
+                "<p>During his long career, Adi Gazdar had published about 800 articles, book chapters, commentaries etc., and been cited over 110,000 times, ranking him among the top 1% of active scientists in the biomedical field. He had been a long standing and enthusiastic supporter of cancer research and scientific collaboration. <a href='http://www.clickgenome.org/about/PI'><font style='color: #fefefe'>&nbsp;(detail) >>&nbsp;</font></a></p>"+
+                "</div>",
+            link: "#",
+        }, {
+            title: "Data Plots",
+            info:
+                "<p>Bee-swarm plot (cross-cancers, cross-genes), Mountain plot (Copy number only), Manhattan plot, Deflection plot, Lego plot (mutation data only), Volcano plot, Heatmap are provided by our website. Users can created any of them by only mouse-clicking. Necessary information (including sample ID, gene ID etc) will show up as long as the mouse is putted on the corresponding spot.</p>",
+            link: "#",
+        },{
+            title: "Data mining",
+            info:
+
+                "<p>Simple Linear regression between gene expression, DNA copy number variation or DNA methylation, two-class classification and cox-model based survival analysis are provided.</p><p>More sophisticated data mining are available on request by contacting us!</p>",
+                link: "#",
+        }/*,{
+            title: "About Data ",
+            info: "<p>Until now, all data was downloaded from the &quot;Legacy GDC portal&quot; which was updated before 10/05/2016. </p><p>Gene expression is the level 3 data preprocessed by TCGA which was measured which was measured by the platform Illumina HiSeq 2000 RNA Sequencing Version 2.</p><p>The level 3 CNV (Copy Number Variation) data was measured by Affymetrix Genome-Wide Human SNP Array 6.0</p><p>The level 2 Methylation data was collected via the HumanMethylation 450 platform.</p>",
+            link: "#",
+        },
+            {
+            title: "Science news",
+            info: "<p>Led by Tianjin University (TJU) Professor Ying-Jin Yuan, TJU's synthetic biology team has completed the synthesis of redesigned yeast chromosomes synV and synX with the two studies published in Science (Science 355, eaaf4706 (2017); Science 355, eaaf4704 (2017)) on March 10, 2017.</p><p>The publications are part of the effort to chemically synthesize the designer yeast genome (Sc 2.0), in collaboration with NYU and John Hopkins in the US, Tsinghua University, BGI-Shenzhen in China, the University of Edinburgh in the UK, and the Institut Pasteur and Sorbonne Universités in France, as well as industry partners.</p>",
+            link: "#",
+        }, {
+            title: "About US",
+            info: "<p>&quot;<i style='color:#FFFFFF'>In silico</i> biology and process control&quot; is a lab focusing on using cyber techniques, data mining techniques to analysis DNA sequencing data, protein data and metabolic data for the development of disease treatment.</p><p>This lab is supported by Dr. Kai Song of Tianjin University,China.We gave our great appreciations to Dr. Adi F. Gazdar and Dr. John Minna of UT Southwestern medical center,USA.</p>",
+            link: "#",
+        }, {
+            title: "About clickgenome",
+            info: "<p>clickgenome is an interactive online data analysis website for researchers to transform, visualize, download, and analyze certain kind of TCGA/GDC public database including Gene expression, DNA methylation, DNA copy number, DNA mutation (more than 30 cancer types and more than 10,000 cases) and so on. Researchers can process fundamental GWAS (genome-wide association study) by themselves only by mouse-clicking. All kinds of analysis are also available to researchers' in-house data which is submitted to our website for analysis. More sophisticated analysis are also available on request.</p>",
+            link: "#",
+        }, */];
+        $(".banner-info").append("<h2>" + bannerinfo[0].title + "</h2>" +
+            "<div><p>" + bannerinfo[0].info + "</p></div>");
+        $('.flexslider').flexslider({
+            directionNav: true, //(true/false)是否显示左右控制按钮
+            pauseOnAction: true,////Boolean:  highly recommended.
+            slideshowSpeed: 5000,//自动播放速度毫秒
+            before: function () {// before: function() {}, Callback: function(slider) - 每张幻灯片切换动画之前的回调
+                $(".banner-info").fadeOut(400, function () {//300指的是规定褪色效果的速度。
+                    var nav = $(".flex-control-paging > li > a");
+                    $.each(nav, function (i, info) {
+                        if ($(info).hasClass("flex-active")) {
+                            $(".banner-info > h2").text(bannerinfo[i].title);
+                            $(".banner-info > div").html(bannerinfo[i].info)
+                        }
+                    })
+                });
+                $(".banner-info").fadeIn(400)
+            },
+        })
+    });
+</script>
+
+
+<!--<script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+<script type="text/javascript">
+    var isnew = getCookie("isnew");
+    if (isnew != "0") {
+        window.location.href = "welcome/";
+    }
+</script>
+<script type="text/javascript" src="js/base_component.js"></script>-->
+
+
+<!--footer-->
+<div class="footer" id="component_footer"></div>
+<script type="text/javascript" src="js/base_component.js"></script>
+</body>
+
+</html>

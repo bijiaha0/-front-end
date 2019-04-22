@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Mouse-Clicking">
+		<title>Analysis | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/home.css" />
+	</head>
+	<body active="home">
+    <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/base_component.js"></script>
+		<!--navigation-->
+		<div class="container-fluid navigation"></div>
+
+		<div class="container-fluid header">
+			<div class="row title">
+				<div class="col-md-12">
+					<h1>Do genomic analysis by yourself by Mouse-Clicking</h1>
+					<!--<p>Including gene expression, copy number variation, methylation and mutation data categories. bee-swarm plot, Manhattan plot, Volcano plot, Mountain plot, Deflection plot, Linear regression analysis, significance test and ...</p>-->
+                    <p>Including gene expression, copy number variation data categories. Bee-swarm plot, Manhattan plot, Volcano plot, Mountain plot, Deflection plot, Linear regression analysis.</p>
+				</div>
+			</div>
+
+			<div class="row tips">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<a href="#how_to_start">How to Start</a>
+				</div>
+				<div class="col-md-5">
+					<a href="#analysis_function">Go to Analyze</a>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+
+			<div class="row chart">
+				<div class="col-md-1"></div>
+				<div class="col-md-10" style="text-align: center">
+					<img src="img/home_top_chart.png" />
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+        <div class="donation">
+            We Accept Donations <a href="https://www.paypal.me/KaiSong"><img src="https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png" style="height: 30px;margin: 0 20px;" /></a>
+        </div>
+		<!--<div class="container-fluid data_summary">-->
+			<!--<div class="row">-->
+				<!--<div class="col-md-1"></div>-->
+				<!--<div class="col-md-10">-->
+					<!--<div class="info">-->
+						<!--<div class="num">127</div>-->
+						<!--<div class="text">Cases</div>-->
+					<!--</div>-->
+					<!--<div class="info">-->
+						<!--<div class="num">37</div>-->
+						<!--<div class="text">Cancer<br />Type</div>-->
+					<!--</div>-->
+					<!--<div class="info">-->
+						<!--<div class="num">153</div>-->
+						<!--<div class="text">Gene<br />Symble</div>-->
+					<!--</div>-->
+					<!--<div class="info">-->
+						<!--<div class="num">312</div>-->
+						<!--<div class="text">Alterations</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="col-md-1"></div>-->
+			<!--</div>-->
+		<!--</div>-->
+
+		<div class="container-fluid start" id="how_to_start">
+			<div class="row title">
+				<div class="titleborder"></div>
+				<h4>HOW TO GET STARTED</h4>
+				<div class="titleborder"></div>
+			</div>
+
+			<div class="row instructions">
+				<div class="col-md-1 col-sm-1"></div>
+				<div class="col-md-5 col-sm-10">
+					<div class="stepcon active">
+						<div class="step">
+							<div class="stepnum">
+								<div class="num">1</div>
+							</div>
+							<div class="steptext">
+								<div class="text">
+                                <a id="login"href="http://portal.clickgenome.org">SIGN UP</a>
+                                </div>
+                                <p>Create a click account, then you can enjoy our data analysis services.</p>
+                            </div>
+						</div>
+					</div>
+					<div class="stepcon">
+						<div class="step">
+							<div class="stepnum">
+								<div class="num">2</div>
+							</div>
+							<div class="steptext">
+								<div class="text">CHOOSE A METHOD</div>
+								<p>Choose the data analysis method that you need:</p>
+                                <span>
+                                <a href="#Beeswarm">Bee-swarm plot、&nbsp;</a>
+                                <a href="#Mountain">Mountain plot、&nbsp;</a>
+                                <a href="#Manhattan">Manhattan plot、&nbsp;</a>
+                                <a href="#Deflection">Deflection plot、&nbsp;</a>
+                                <!--<a href="#Lego">Lego plot、&nbsp;</a>-->
+                                <a href="#Volcano">Volcano plot、&nbsp;</a>
+                                <!--<a href="#Heatmap">Heatmap、&nbsp;</a>-->
+                                <a href="#Linear">Linear regression analysis、&nbsp;</a>
+                                <!--<a href="#Significance">Significance test、&nbsp;</a>-->
+                                <!--<a href="#Survival">Survival analysis</a>-->
+                                </span>
+                            </div>
+                        </div>
+					</div>
+
+					<div class="stepcon">
+						<div class="step">
+							<div class="stepnum">
+								<div class="num">3</div>
+							</div>
+							<div class="steptext">
+								<div class="text">ENJOY DATA ANALYSIS</div>
+                                <p>Start creating plots or mining your data. You can customize the color-code, marker shapes and other properties of each figure and download it in a specific format.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5 col-sm-10 stepimg">
+					<div class="showimg">
+						<img src="img/step/step1.png" />
+					</div>
+					<div>
+						<img src="img/step/step2.png" />
+					</div>
+					<div>
+						<img src="img/step/step3.png" />
+					</div>
+				</div>
+				<div class="col-md-1 col-sm-1"></div>
+			</div>
+
+			<script>
+				$(".start > .instructions > div > .stepcon").bind("mouseover", function() {
+					$(".start > .instructions > div > div").removeClass("active");
+					var index = $(".start > .instructions > div > div").index($(this));
+					$(".start > .instructions > .stepimg > div").removeClass("showimg");
+					$(this).addClass("active");
+					$(".start > .instructions > .stepimg > div").eq(index).addClass("showimg");
+				});
+			</script>
+		</div>
+
+		<div class="container-fluid analysismethod" id="analysis_function"></div>
+		<script type="text/javascript">
+			$("#analysis_function").append('<div class="row title"><div class="titleborder"></div><h4>Data visualization</h4><div class="titleborder"></div></div>');
+
+            var data_plots_info = [{
+                name: 'Beeswarm',
+                title: 'Bee-swarm plot',
+                img: 'beeswarm.png',
+                info: 'The bee-swarm plot is a one-dimensional scatter plot like "stripchart", but with closely-packed, non-overlapping points. Here, the bee-swarm plots with or without box plot are provided. It’s very helpful to see the distributions of certain genes in different ways. With “bee-swarm plot By Gene” method, bee-swarm plots for given genes across different cancer types can be created; with “bee-swarm plot By Cancer” method, bee-swarm plots for different genes in the same given cancer can be created.',
+                url_demo: '#',
+                url_analysis: 'http://analysis.clickgenome.org/todo/beeswarm/'
+            }, {
+                name: 'Mountain',
+                title: 'Mountain plot',
+                img: 'moutain.png',
+                info: 'Mountain plot is named by Dr. Kai Song because its ups and downs look like mountains outlines seen from afar. It is a very useful scatter plot, created by Dr. Adi Gazdar and Dr. Kai Song, for visualizing and analyzing genome-wide variations of copy numbers. In Mountain plot, each spot is the median/mean value of copy numbers of each gene in a group which can be a batch or a cancer type. The genes are sorted according to their locations. The space between two arms of each chromosome is the location of the corresponding centromere.',
+                url_demo: '#',
+                url_analysis: 'http://analysis.clickgenome.org/todo/mountain/'
+            }, {
+                name: 'Manhattan',
+                title: 'Manhattan plot',
+                img: 'manhattan.png',
+                info: 'A Manhattan plot is a type of scatter plot used to display genomic coordinates along X-axis with the negative logarithm of the association P-value or ratios of Median/mean values for each single gene displayed on the Y-axis. It means that each dot on the Manhattan plot signifies a gene. It gains its name from the similarity of such a plot to the Manhattan skyline: a profile of skyscrapers towering above the lower level “buildings” which very around a lower height.',
+                tip: '( Gene expression and copy number variations only )',
+                url_demo: '#',
+                url_analysis: 'http://analysis.clickgenome.org/todo/manhattan/'
+            }, {
+                name: 'Deflection',
+                title: 'Deflection plot',
+                img: 'deflection.png',
+                info: 'A Deflection plot is an advanced Manhattan plot between the gene expression or copy number variations (CNVs) of two types of cancer (A and B). As what a Manhattan plot does, X-axis shows the genomic coordinate of each gene along the whole genome and Y-axis shows the negative logarithm of the association P-value or ratios of Median/mean values for each single gene. But different fro a Manhattan plot, the sign of Y-axis shows the direction of gene expression or CNVs of A compared with that of B. For gene expression, positive Y-axis value means gene is over-expressed in A compared with B, negative one means it’s under-expression in A; for CNVs, positive Y-axis value means gene is amplified in A than it is in B, negative one means it’s lost in A.',
+                tip: '( Gene expression and copy number variations only )',
+                url_demo: '#',
+                url_analysis: 'http://analysis.clickgenome.org/todo/deflection/'
+            }, {
+                name: 'Volcano',
+                title: 'Volcano plot',
+                img: 'volcano.png',
+                info: 'A volcano plot is constructed by plotting the negative log of the p_value on the Y-axis (usually base 10). X-axis is the log2 of the fold change between gene expressions, copy number variations or methylation values of genes across the whole genome. Therefore, the genes with both statistical significance and biological significance will be located in the upper left and upper right of the volcano plot.',
+                url_demo: '#',
+                url_analysis: 'http://analysis.clickgenome.org/todo/volcano/'
+            }/*,{
+                name: 'Lego',
+                title: 'Lego plot',
+                img: 'lego.jpg',
+                info: 'There are 12 types of one nucleotide mutation or 6 types without considering the strand-bias effect and 192 types of three nucleotides mutation (without strand-bias, there are 96 types).',
+                tip: '( Mutation data only )',
+                url_demo: '#',
+                url_analysis: '#'
+            }, {
+                name: 'Heatmap',
+                title: 'Heatmap',
+                img: 'heatmap.jpg',
+                info: 'A <strong>heat</strong> map (<strong>or heatmap</strong>) is a graphical representation of data where the individual values contained in a matrix are represented as colors. Tree maps calculated by a Hierarchy Clustering Analysis is used along with a heatmap to show the similiarities among samples or genes.',
+                url_demo: '#',
+                url_analysis: '#'
+            }*/];
+			$.each(data_plots_info, function(i, data) {
+				var analysis_tip = (typeof(data.tip) == "undefined" || data.tip == "") ? "" : "<em style='font-size: 14px;'>" + data.tip + "</em>";
+				var analysis_url_demo = (data.url_demo == "#" || data.url_demo == "") ? "" : "<a href='" + data.url_demo + "'>Demo</a>";
+                var analysis_url_analysis = (data.url_analysis == "#" || data.url_analysis == "") ? "<a class='float-right'>Coming soon&nbsp;&gt;&gt;</a>" : "<a href='" + data.url_analysis + "'>Go to analyze&nbsp;&gt;&gt;</a>";
+                var analysis_url = analysis_url_demo + analysis_url_analysis;
+				if(i % 2 == 0) {
+                    var append_con = '<div class="row method"><div class="col-md-1"></div><div class="col-md-5 info"><div class="con"><a name= "'+ data.name +'" style="text-decoration: none"><h3>' + data.title + analysis_tip + '</h3></a><p>' + data.info + '</p><div class="link">' + analysis_url + '</div></div></div><div class="col-md-5 img"><img src="img/home-chart-demo/' + data.img + '" /></div><div class="col-md-1"></div></div>';
+				} else {
+					var append_con = '<div class="row method"><div class="col-md-1"></div><div class="col-md-5 img"><img src="img/home-chart-demo/' + data.img + '"/></div><div class="col-md-5 info"><div class="con"><a name= "'+ data.name +'" style="text-decoration: none"><h3>' + data.title + analysis_tip + '</h3></a><p>' + data.info + '</p><div class="link">' + analysis_url + '</div></div></div><div class="col-md-1"></div></div>';
+				}
+				$("#analysis_function").append(append_con);
+			});
+
+			$("#analysis_function").append('<div class="row title"><div class="titleborder"></div><h4>Data mining</h4><div class="titleborder"></div></div>');
+            var data_mining_info = [{
+                name: 'Linear',
+                title: 'Linear regression analysis',
+                img: 'linear_regression.png',
+                info: 'A line with a correlation coefficient value as the slope is created to show the linear regression between two categories of values for one gene in a specific cancer type.<br /><br /> The correlation coefficients and the p-value for testing the hypothesis that there is no relationship between the observed phenomena (null hypothesis) are also shown in this figure.',
+                url_demo: '#',
+                url_analysis: 'http://analysis.clickgenome.org/todo/linear_regression/'
+            }/*, {
+                name: 'Significance',
+                title: 'Significance test',
+                img: 'significance_test.jpg',
+                info: 'In statistical hypothesis testing,[1][2] statistical significance (or a statistically significant result) is attained whenever the observed p-value of a test statistic is less than the significance level defined for the study.[3][4][5][6][7][8][9] The p-value is the probability of obtaining results at least as extreme as those observed, given that the null hypothesis is true. The significance level, α, is the probability of rejecting the null hypothesis, given that it is true.[10] This statistical technique for testing the significance of results was developed in the early 20th century.<br /><br /> The term significance does not imply importance and the term statistical significance is not the same as research, theoretical, or practical significance.[1][2][16] For example, the term clinical significance refers to the practical importance of a treatment effect.',
+                url_demo: '#',
+                url_analysis: '#'
+            }, {
+                name: 'Survival',
+                title: 'Survival analysis',
+                img: 'survival_analysis.jpg',
+                info: 'Survival analysis is a branch of statistics for analyzing the expected duration of time until one or more events happen, such as death in biological organisms and failure in mechanical systems. This topic is called reliability theory or reliability analysis in engineering, duration analysis or duration modelling in economics, and event history analysis in sociology.<br /><br /> More generally, survival analysis involves the modelling of time to event data; in this context, death or failure is considered an "event" in the survival analysis literature – traditionally only a single event occurs for each subject, after which the organism or mechanism is dead or broken. Recurring event or repeated event models relax that assumption. The study of recurring events is relevant in systems reliability, and in many areas of social sciences and medical research.',
+                url_demo: '#',
+                url_analysis: '#'
+            }*/ ];
+			$.each(data_mining_info, function(i, data) {
+				var analysis_tip = (typeof(data.tip) == "undefined" || data.tip == "") ? "" : "<em style='font-size: 14px;'>" + data.tip + "</em>";
+				var analysis_url_demo = (data.url_demo == "#" || data.url_demo == "") ? "" : "<a href='" + data.url_demo + "'>Demo</a>";
+                var analysis_url_analysis = (data.url_analysis == "#" || data.url_analysis == "") ? "<a class='float-right'>Coming soon&nbsp;&gt;&gt;</a>" : "<a  href='" + data.url_analysis + "'>Go to analyze&nbsp;&gt;&gt;</a>";
+                var analysis_url = analysis_url_demo + analysis_url_analysis;
+				if(i % 2 == 0) {
+					var append_con = '<div class="row method"><div class="col-md-1"></div><div class="col-md-5 info"><div class="con"><a name= "'+ data.name +'" style="text-decoration: none" ><h3>' + data.title + analysis_tip + '</h3></a><p>' + data.info + '</p><div class="link">' + analysis_url + '</div></div></div><div class="col-md-5 img"><img src="img/home-chart-demo/' + data.img + '" /></div><div class="col-md-1"></div></div>';
+				} else {
+					var append_con = '<div class="row method"><div class="col-md-1"></div><div class="col-md-5 img"><img src="img/home-chart-demo/' + data.img + '"/></div><div class="col-md-5 info"><div class="con"><a name= "'+ data.name +'" style="text-decoration: none"><h3>' + data.title + analysis_tip + '</h3></a><p>' + data.info + '</p><div class="link">' + analysis_url + '</div></div></div><div class="col-md-1"></div></div>';
+				}
+				$("#analysis_function").append(append_con);
+			});
+		</script>
+		<!--footer-->
+		<div class="container-fluid footer"></div>
+
+
+	</body>
+
+</html>

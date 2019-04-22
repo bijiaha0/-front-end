@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en" class="login-content" data-ng-app="materialAdmin">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Login | Forum | ClickGWAS</title>
+
+		<!-- Vendor CSS -->
+		<link href="css/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet" type="text/css">
+		<!-- CSS -->
+		<link href="css/app.min.1.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="css/loader.css" />
+	</head>
+
+	<body class="login-content" data-ng-controller="loginCtrl as lctrl">
+		<!--登录模块-->
+		<div class="lc-block" id="l-login" data-ng-class="{'toggled':lctrl.login === 1}">
+			<h1 class="lean">Click&nbsp;GWAS</h1>
+			<p class="text-left">Log in to the forum using username and password</p>
+			<div class="loader">
+				<div class="loader-inner ball-pulse">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+				<div class="fg-line">
+					<input type="text" class="form-control" placeholder="Username" name="login-u" regex="" />
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+				<div class="fg-line">
+					<input type="password" class="form-control" placeholder="Password" name="login-p" regex="" />
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="checkbox" style="text-align:right;">
+				<label><a href="http://123.56.157.171/click/public/index.php/getLogin">Login by Click</a></label>
+			</div>
+			<a onclick="login()" href="" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a><br />
+			<ul class="login-navigation">
+				<li class="bgm-red" data-ng-click="lctrl.login = 0; lctrl.register = 1">Register</li>
+				<li data-block="#l-forget-password" class="bgm-orange" data-ng-click="lctrl.login = 0; lctrl.forgot = 1">Forgot Password?</li>
+			</ul>
+		</div>
+
+		<!--注册模块-->
+		<div class="lc-block" id="l-register" data-ng-class="{ 'toggled': lctrl.register === 1 }" data-ng-if="lctrl.register === 1">
+			<h1 class="lean">Click&nbsp;GWAS</h1>
+			<p class="text-left">Register</p>
+			<div class="loader">
+				<div class="loader-inner ball-pulse">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+				<div class="fg-line">
+					<input name="register-u" type="text" class="form-control" placeholder="Username" regex="^\w{6,20}$" />
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-mood"></i></span>
+				<div class="fg-line">
+					<input name="register-n" type="text" class="form-control" placeholder="Nickname" regex="^\w{1,50}$" />
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+				<div class="fg-line">
+					<input name="register-e" type="text" class="form-control" placeholder="Email Address" regex="^\w+@\w+\.[a-zA-Z]+(\.[a-zA-Z]+)?$" />
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
+				<div class="fg-line">
+					<input name="register-p" type="password" class="form-control" placeholder="Password" regex="^\w{6,20}$" />
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
+				<div class="fg-line">
+					<input name="register-c" type="password" class="form-control" placeholder="Confirm Password" regex="^\w{6,20}$" />
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="checkbox" style="display: none;">
+				<label><input name="register-l" type="checkbox"/><i class="input-helper"></i>Accept the license agreement</label>
+			</div>
+			<a onclick="register()" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+			<a id="send-code" style="display: none;" class="btn btn-login btn-danger btn-float" data-block="#l-verify-password" data-ng-click="lctrl.register = 0; lctrl.verify = 1"><i class="zmdi zmdi-arrow-forward"></i></a>
+			<ul class="login-navigation">
+				<li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.register = 0; lctrl.login = 1">Login</li>
+				<li data-block="#l-forget-password" class="bgm-orange" data-ng-click="lctrl.register = 0; lctrl.forgot = 1">Forgot Password?</li>
+			</ul>
+		</div>
+
+		<!--找回模块-->
+		<div class="lc-block" id="l-forget-password" data-ng-class="{ 'toggled': lctrl.forgot === 1 }" data-ng-if="lctrl.forgot === 1">
+			<h1 class="lean">Click&nbsp;GWAS</h1>
+			<p class="text-left">Forgot password</p>
+			<div class="loader">
+				<div class="loader-inner ball-pulse">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+				<div class="fg-line">
+					<input type="text" class="form-control" placeholder="Email Address" regex="^\w+@\w+\.[a-zA-Z]+(\.[a-zA-Z]+)?$" />
+				</div>
+			</div>
+			<a href="" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+			<ul class="login-navigation">
+				<li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.forgot = 0; lctrl.login = 1">Login</li>
+				<li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.forgot = 0; lctrl.register = 1">Register</li>
+			</ul>
+		</div>
+
+		<!--验证码模块-->
+		<div class="lc-block" id="l-verify-password" data-ng-class="{ 'toggled': lctrl.verify === 1 }" data-ng-if="lctrl.verify === 1">
+			<h1 class="lean">Click&nbsp;GWAS</h1>
+			<div class="loader">
+				<div class="loader-inner ball-pulse">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<p class="text-left">The verification code expires for 600 seconds</p>
+			<div class="input-group m-b-20">
+				<span class="input-group-addon"><i class="zmdi zmdi-shield-check"></i></span>
+				<div class="fg-line">
+					<input name="verify-code" type="text" class="form-control" placeholder="Email Verification code" regex="^\w{6,6}$" />
+				</div>
+			</div>
+			<a onclick="email_verify()" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+		</div>
+	</body>
+
+	<script src="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
+	<!-- Angular -->
+	<script src="js/bower_components/angular/angular.min.js"></script>
+	<script src="js/bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="js/bower_components/angular-animate/angular-animate.min.js"></script>
+
+	<!-- Angular Modules -->
+	<script src="js/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="js/bower_components/angular-loading-bar/src/loading-bar.js"></script>
+	<script src="js/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+	<script src="js/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+	<!-- Common js -->
+	<script src="js/bower_components/angular-nouislider/src/nouislider.min.js"></script>
+	<script src="js/bower_components/ng-table/dist/ng-table.min.js"></script>
+
+	<!-- Placeholder for IE9 -->
+	<!--[if IE 9 ]>
+	    <script src="js/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+	<![endif]-->
+	<!-- App level -->
+	<script src="js/app.js"></script>
+	<script src="js/controllers/main.js"></script>
+	<script src="js/controllers/ui-bootstrap.js"></script>
+
+	<!-- Template Modules -->
+	<script src="js/modules/form.js"></script>
+	<script type="text/javascript">
+//		var __API__ = "http://172.23.71.155/click/public/index.php/";
+		var __API__ = "http://123.56.157.171/click/public/index.php/";
+		var UserInfo = {};
+
+		function login() {
+			var u = $("input[name='login-u']").val();
+			var p = $("input[name='login-p']").val();
+			if(u == "" || p == "") {
+				alert("Please complete the form");
+				return;
+			}
+			$(".loader").fadeIn();
+			$.post(__API__ + "userLogin", {
+				userName: u,
+				passwd: p
+			}, function(data) {
+				var info = eval("(" + data + ")");
+				if(info.state) {
+					addCookie("token", info.data.token, "");
+					addCookie("username", info.data.userName, "");
+					window.location.href = "../";
+				} else {
+					alert("Login failed, please check user name and password");
+					$(".loader").fadeOut();
+				}
+			});
+		}
+
+		function register() {
+			var u = $.trim($("input[name='register-u']").val());
+			var n = $.trim($("input[name='register-n']").val());
+			var e = $.trim($("input[name='register-e']").val());
+			var p = $.trim($("input[name='register-p']").val());
+			var c = $.trim($("input[name='register-c']").val());
+			if(u == "" || n == "" || e == "" || p == "" || c == "") {
+				alert("Please complete the form");
+				return;
+			}
+			if(u.length < 6 || u.length > 20) {
+				alert("The username is 6 to 20 characters long");
+				return;
+			}
+			var email_reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/;
+			if(!email_reg.test(e)) {
+				alert('Please enter a valid email address');
+				return;
+			}
+			if(p.length < 6 || p.length > 20) {
+				alert("The password is 6 to 20 characters long");
+				return;
+			}
+			if(p != c) {
+				alert("The password does not match");
+				return;
+			}
+			UserInfo.userName = u;
+			UserInfo.nickName = n;
+			UserInfo.email = e;
+			UserInfo.passwd = p;
+			$(".loader").fadeIn();
+			$.post(__API__ + "verifySend", {
+				email: e
+			}, function(data) {
+				var info = eval("(" + data + ")");
+				if(info.state) {
+					$("#send-code").click();
+				} else {
+					alert("Verification code failed to send");
+				}
+				$(".loader").fadeOut();
+			});
+
+		}
+
+		function email_verify() {
+			var v = $.trim($("input[name='verify-code']").val());
+			if(v.length != 6) {
+				alert("Please enter a 6-digit verification code");
+				return;
+			}
+			$(".loader").fadeIn();
+			UserInfo.verify = v;
+			$.post(__API__ + "userRegister", UserInfo, function(data) {
+				var info = eval("(" + data + ")");
+				if(info.state) {
+					alert("registration success");
+					window.location.reload();
+				} else {
+					alert("registration failed");
+					window.location.reload();
+				}
+				$(".loader").fadeOut();
+			});
+		}
+	</script>
+
+</html>

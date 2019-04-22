@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <meta charset="utf-8"/>
+    <title>Beeswarm plot (ByGene) Log</title>
+    <meta name="description"
+          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="resources/css/app.v2.css" type="text/css"/>
+    <link rel="stylesheet" href="resources/js/datatables/datatables.css"
+          type="text/css">
+    <script type="text/javascript" src="resources/jquery-2.2.1.min.js"></script>
+    <script src="resources/js/app.v2.js"></script>
+    <!-- Bootstrap -->
+    <!-- App -->
+    <!-- datatables -->
+    <script src="resources/jquery.dataTables.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/ie/html5shiv.js" cache="false"></script>
+    <script src="js/ie/respond.min.js" cache="false"></script>
+    <script src="js/ie/excanvas.js" cache="false"></script> <![endif]-->
+    <script type="text/javascript" src="resources/moment.min.js"></script>
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="resources/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="resources/daterangepicker.css"/>
+    <script src="resources/js/fuelux/fuelux.js"></script>
+    <script src="resources/admin.js"></script>
+    <script>
+        //预定义各个变量
+        var account = "";
+        var ip = "";
+        var dateStart = moment().subtract(29, 'days').format("YYMMDD");
+        var dateEnd = moment().format("YYMMDD");
+        var cancerType = "";
+        var geneName = "";
+        var dataType = "";
+        var simpleType = "";
+        var boxplot = ""
+        var isLog = "";
+        var oTable;
+    </script>
+</head>
+<body>
+<section class="vbox">
+    <header class="bg-dark dk header navbar navbar-fixed-top-xs">
+        <div class="navbar-header aside-md">
+            <a class="btn btn-link visible-xs"
+               data-toggle="class:nav-off-screen" data-target="#nav"> <i
+                    class="fa fa-bars"></i>
+            </a> <a href="#" class="navbar-brand" data-toggle="fullscreen"><img
+                src="resources/images/logo.png" class="m-r-sm">ClickGWAS</a> <a
+                class="btn btn-link visible-xs" data-toggle="dropdown"
+                data-target=".nav-user"> <i class="fa fa-cog"></i>
+        </a>
+        </div>
+        <ul class="nav navbar-nav hidden-xs">
+            <li class="dropdown">
+                <section
+                        class="dropdown-menu aside-xl on animated fadeInLeft no-borders lt">
+                </section>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right hidden-xs nav-user">
+            <li class="dropdown hidden-xs"><a href="#"
+                                              class="dropdown-toggle dker" data-toggle="dropdown"><i
+                    class="fa fa-fw fa-search"></i></a>
+                <section class="dropdown-menu aside-xl animated fadeInUp">
+                    <section class="panel bg-white">
+                        <form role="search">
+                            <div class="form-group wrapper m-b-none">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="search">
+                                    <span class="input-group-btn">
+											<button type="submit" class="btn btn-info btn-icon">
+												<i class="fa fa-search"></i>
+											</button>
+										</span>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </section>
+            </li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                    data-toggle="dropdown"> <span class="thumb-sm avatar pull-left">
+							<img src="resources/images/avatar.jpg">
+					</span> ClickGWAS<b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu animated fadeInRight">
+                    <span class="arrow top"></span>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="profile">Profile</a></li>
+                    <li><a href="#">Notifications</a></li>
+                    <li><a href="docs">Help</a></li>
+                    <li class="divider"></li>
+                    <li><a href="modal.lockme" data-toggle="ajaxModal" onClick="Logout();">Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <section>
+        <section class="hbox stretch">
+            <aside class="bg-dark lter aside-md hidden-print" id="nav">
+                <section class="vbox">
+                    <section class="w-f scrollable">
+                        <div class="slim-scroll" data-height="auto"
+                             data-disable-fade-out="true" data-distance="0" data-size="5px"
+                             data-color="#333333">
+                            <nav class="nav-primary hidden-xs">
+                                <ul class="nav">
+                                    <li><a href="index.html"> <i class="fa fa-dashboard icon">
+                                        <b class="bg-danger"></b>
+                                    </i> <span>HomePage</span>
+                                    </a></li>
+                                    <li><a href="#"> <i class="fa fa-columns icon"> <b
+                                            class="bg-warning"></b>
+                                    </i><span>User Management</span>
+                                    </a></li>
+                                    <li class="active"><a href="#Log Management"
+                                                          class="active"> <i class="fa fa-book icon"> <b
+                                            class="bg-success"></b>
+                                    </i> <span class="pull-right"> <i
+                                            class="fa fa-angle-down text"></i> <i
+                                            class="fa fa-angle-up text-active"></i>
+											</span> <span>Log Management</span>
+                                    </a>
+                                        <ul class="nav lt">
+                                            <li><a href="LoginLog.html"> <span>Login Log</span>
+                                            </a></li>
+                                            <li><a href="AccessLog.html"> <span>Access Log</span>
+                                            </a></li>
+                                            <li class="active"><a href="#" class="active"> <i
+                                                    class="fa fa-angle-down text"></i> <i
+                                                    class="fa fa-angle-up text-active"></i> <span>Analysis
+															Log</span>
+                                            </a>
+                                                <ul class="nav bg">
+                                                    <li class="active"><a href="BeeswarmGLog.html"
+                                                                          class="active">
+                                                        <span>Beeswarm plot ByGene</span>
+                                                    </a></li>
+                                                    <li><a href="BeeswarmCLog.html"> <span>Beeswarm
+																	plot ByCancer</span>
+                                                    </a></li>
+                                                    <li><a href="MountainLog.html"> <span>Mountain
+																	plot</span>
+                                                    </a></li>
+                                                    <li><a href="ManhattanLog.html"> <span>Manhattan
+																	plot</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Deflection plot</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Lego plot</span>
+                                                    </a></li>
+                                                    <li><a href="VolcanoLog.html"> <span>Volcano
+																	plot</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Heatmap</span>
+                                                    </a></li>
+                                                    <li><a href="LinearLog.html"> <span>Linear
+																	regression analysis</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Significance test</span>
+                                                    </a></li>
+                                                    <li><a href="#"> <span>Survival analysis</span>
+                                                    </a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#"> <span>System Log</span>
+                                            </a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#"> <i class="fa fa-file-text icon">
+                                        <b class="bg-primary"></b>
+                                    </i><span>Paper Management</span>
+                                    </a></li>
+                                    <li><a href="#"> <i class="fa fa-cogs icon"> <b
+                                            class="bg-primary dker"></b>
+                                    </i> <span>Module Management</span>
+                                    </a></li>
+                                    <li><a href="#"> <i class="fa fa-pencil icon"> <b
+                                            class="bg-info"></b>
+                                    </i> <span>Data Management</span>
+                                    </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <section id="content">
+                <section class="vbox">
+                    <section class="scrollable padder">
+                        <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+                            <li><a href="index.html"><i class="fa fa-home"></i> HomePage</a></li>
+                            <li><a href="#">Log Management</a></li>
+                            <li><a href="#">Analysis Log</a></li>
+                            <li class="active">Beeswarm plot ByGene</li>
+                        </ul>
+                        <div class="m-b-md">
+                            <h3 class="m-b-none">Beeswarm plot ByGene</h3>
+                        </div>
+                        <section class="panel panel-default">
+                            <div class="form-group">
+                                <div class="row" style="margin: 15px 0">
+                                    <div class="col-md-2">
+                                        <nobr>
+                                            <label>Account</label>
+                                        </nobr>
+                                        <input id="account" type="text" class="form-control"
+                                               placeholder="account">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <nobr>
+                                            <label>IP</label>
+                                        </nobr>
+                                        <input id="ip" type="text" class="form-control"
+                                               placeholder="IP">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <nobr>
+                                            <label>Time</label>
+                                        </nobr>
+                                        <div id="reportrange" class="form-control"
+                                             style="background: #fff; cursor: pointer; padding: 7px 10px; border: 1px solid #ccc; width: 100%">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                            <span></span> <b class="caret"></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <nobr>
+                                            <label>CancerType</label>
+                                        </nobr>
+                                        <input id="cancerType" type="text" class="form-control"
+                                               placeholder="cancerType">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <nobr>
+                                            <label>GeneName</label>
+                                        </nobr>
+                                        <input id="geneName" type="text" class="form-control"
+                                               placeholder="geneName">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>DataType</label> <select id="dataType"
+                                                                        class="form-control">
+                                        <option value="">All</option>
+                                        <option value="1">Copy number variations</option>
+                                        <option value="2">Methylation values</option>
+                                        <option value="3">mutations</option>
+                                        <option value="4">mRNA expression</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>SimpleType</label> <select id="simpleType"
+                                                                          class="form-control">
+                                        <option value="">All</option>
+                                        <option value="1">Non-malignant</option>
+                                        <option value="2">Tumor</option>
+                                        <option value="3">NULL</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label> <input id="boxplot_checkbox" type="checkbox"
+                                                       value="" onclick="boxplotFunc()"> boxplot
+                                        </label> <select id="boxplot" class="form-control" disabled=true>
+                                        <option value="">All</option>
+                                        <option value="1">mean</option>
+                                        <option value="2">mean±1std</option>
+                                        <option value="3">mean±2std</option>
+                                        <option value="4">mean±3std</option>
+                                    </select>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="checkbox">
+                                            <label> <input id="isLog" type="checkbox" value="">
+                                                isLog
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label></label>
+                                        <button type="submit" class="btn btn-s-md btn-default"
+                                                onclick="onclickFunc()">search
+                                        </button>
+                                    </div>
+                                    <script type="text/javascript">
+                                        //查询并重绘图表
+                                        function boxplotFunc() {
+                                            if (document
+                                                    .getElementById("boxplot_checkbox").checked == false) {
+                                                document
+                                                    .getElementById("boxplot").disabled = true;
+                                            } else {
+                                                document
+                                                    .getElementById("boxplot").disabled = false;
+                                            }
+                                        }
+
+                                        function onclickFunc() {
+                                            account = document
+                                                .getElementById("account").value;
+                                            ip = document
+                                                .getElementById("ip").value;
+                                            cancerType = document
+                                                .getElementById("cancerType").value;
+                                            geneName = document
+                                                .getElementById("geneName").value;
+                                            dataType = document
+                                                .getElementById("dataType").value;
+                                            simpleType = document
+                                                .getElementById("simpleType").value;
+                                            dateStart = moment(
+                                                $('#reportrange span')
+                                                    .html().split(
+                                                    " - ")[0])
+                                                .format("YYMMDD");
+                                            dateEnd = moment(
+                                                $('#reportrange span')
+                                                    .html().split(
+                                                    " - ")[1])
+                                                .format("YYMMDD");
+                                            if (document
+                                                    .getElementById("isLog").checked == false) {
+                                                isLog = "";
+                                            } else {
+                                                isLog = "1";
+                                            }
+                                            if (document
+                                                    .getElementById("boxplot_checkbox").checked == false) {
+                                                boxplot = ""
+                                            } else {
+                                                boxplot = document
+                                                    .getElementById("boxplot").value;
+                                            }
+                                            oTable.clear();
+                                            oTable.destroy();
+                                            $.get(BASE_URL + "log/data/beeswarmLog/byGene?account="
+                                                + account
+                                                + "&ip="
+                                                + ip
+                                                + "&dateStart="
+                                                + dateStart
+                                                + "&dateEnd="
+                                                + dateEnd
+                                                + "&cancerType="
+                                                + cancerType
+                                                + "&geneName="
+                                                + geneName
+                                                + "&dataType="
+                                                + dataType
+                                                + "&simpleType="
+                                                + simpleType
+                                                + "&isLog="
+                                                + isLog
+                                                + "&boxplot="
+                                                + boxplot + "&id=" + uid + "&token=" + token, function (data) {
+                                                for (i = 0; i < data.data.length; i++) {
+                                                    var time = new Date(data.data[i].time * 1000);
+                                                    mm = time.getMonth() + 1;
+                                                    data.data[i].time = time.getFullYear() + "-" + mm + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()
+                                                }
+                                                oTable = $('#beeswarmG')
+                                                    .DataTable(
+                                                        {
+                                                            "searching": false,
+                                                            "lengthChange": false,
+                                                            "processing": true,
+                                                            "data": data.data,
+                                                            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                                                            "pagingType": "full_numbers",
+                                                            "columns": [
+                                                                {
+                                                                    "data": "account"
+                                                                },
+                                                                {
+                                                                    "data": "ip"
+                                                                },
+                                                                {
+                                                                    "data": "time"
+                                                                },
+                                                                {
+                                                                    "data": "cancerType"
+                                                                },
+                                                                {
+                                                                    "data": "geneName"
+                                                                },
+                                                                {
+                                                                    "data": "dataType"
+                                                                },
+                                                                {
+                                                                    "data": "simpleType"
+                                                                },
+                                                                {
+                                                                    "data": "isLog"
+                                                                },
+                                                                {
+                                                                    "data": "boxplot"
+                                                                }],
+                                                            "destroy": true,
+                                                            "retrieve": true,
+                                                            "order": [[
+                                                                2,
+                                                                "desc"]]
+                                                        });
+                                            });
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                //daterangepicker控件，不要修改！
+                                $(function () {
+
+                                    var start = moment().subtract(29,
+                                        'days');
+                                    var end = moment();
+
+                                    function cb(start, end) {
+                                        $('#reportrange span')
+                                            .html(
+                                                start
+                                                    .format('YYYY/MM/DD')
+                                                + ' - '
+                                                + end
+                                                    .format('YYYY/MM/DD'));
+                                    }
+
+                                    $('#reportrange')
+                                        .daterangepicker(
+                                            {
+                                                startDate: start,
+                                                endDate: end,
+                                                minDate: '03/18/2017',
+                                                maxDate: moment(),
+                                                ranges: {
+                                                    'Today': [
+                                                        moment(),
+                                                        moment()],
+                                                    'Yesterday': [
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'days'),
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'days')],
+                                                    'Last 7 Days': [
+                                                        moment()
+                                                            .subtract(
+                                                                6,
+                                                                'days'),
+                                                        moment()],
+                                                    'Last 30 Days': [
+                                                        moment()
+                                                            .subtract(
+                                                                29,
+                                                                'days'),
+                                                        moment()],
+                                                    'This Month': [
+                                                        moment()
+                                                            .startOf(
+                                                                'month'),
+                                                        moment()
+                                                            .endOf(
+                                                                'month')],
+                                                    'Last Month': [
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'month')
+                                                            .startOf(
+                                                                'month'),
+                                                        moment()
+                                                            .subtract(
+                                                                1,
+                                                                'month')
+                                                            .endOf(
+                                                                'month')]
+                                                }
+                                            }, cb);
+
+                                    cb(start, end);
+
+                                });
+                            </script>
+                        </section>
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                Beeswarm ByGene <i class="fa fa-info-sign text-muted"
+                                                   data-toggle="tooltip" data-placement="bottom"
+                                                   data-title="ajax to load the data."></i>
+                            </header>
+                            <div class="table-responsive">
+                                <script>
+                                    //关闭错误提醒
+                                    $.fn.dataTable.ext.errMode = function (s, h, m) {
+                                    }
+                                    //网页加载时admin.js调用画表
+                                    function show() {
+                                        $.get(BASE_URL + "log/data/beeswarmLog/byGene?account="
+                                            + account
+                                            + "&ip="
+                                            + ip
+                                            + "&dateStart="
+                                            + dateStart
+                                            + "&dateEnd="
+                                            + dateEnd
+                                            + "&cancerType="
+                                            + cancerType
+                                            + "&geneName="
+                                            + geneName
+                                            + "&dataType="
+                                            + dataType
+                                            + "&simpleType="
+                                            + simpleType
+                                            + "&isLog="
+                                            + isLog
+                                            + "&boxplot="
+                                            + boxplot + "&id=" + uid + "&token=" + token, function (data) {
+                                            for (i = 0; i < data.data.length; i++) {
+                                                var time = new Date(data.data[i].time * 1000);
+                                                mm = time.getMonth() + 1;
+                                                data.data[i].time = time.getFullYear() + "-" + mm + "-" + time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()
+                                            }
+                                            oTable = $(
+                                                '#beeswarmG')
+                                                .DataTable(
+                                                    {
+                                                        "searching": false,
+                                                        "lengthChange": false,
+                                                        "processing": true,
+                                                        "data": data.data,
+                                                        "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                                                        "pagingType": "full_numbers",
+                                                        "columns": [
+                                                            {
+                                                                "data": "account"
+                                                            },
+                                                            {
+                                                                "data": "ip"
+                                                            },
+                                                            {
+                                                                "data": "time"
+                                                            },
+                                                            {
+                                                                "data": "cancerType"
+                                                            },
+                                                            {
+                                                                "data": "geneName"
+                                                            },
+                                                            {
+                                                                "data": "dataType"
+                                                            },
+                                                            {
+                                                                "data": "simpleType"
+                                                            },
+                                                            {
+                                                                "data": "isLog"
+                                                            },
+                                                            {
+                                                                "data": "boxplot"
+                                                            }],
+                                                        "destroy": true,
+                                                        "retrieve": true,
+                                                        "order": [[
+                                                            2,
+                                                            "desc"]]
+                                                    });
+                                        });
+                                    }
+                                </script>
+                                <table id="beeswarmG" class="table table-striped m-b-none">
+                                    <thead>
+                                    <tr>
+                                        <th width="10%">account</th>
+                                        <th width="10%">ip</th>
+                                        <th width="10%">time</th>
+                                        <th width="15%">cancerType</th>
+                                        <th width="15%">geneName</th>
+                                        <th width="10%">dataType</th>
+                                        <th width="10%">simpleType</th>
+                                        <th width="10%">isLog</th>
+                                        <th width="10%">boxplot</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+</body>
+</html>

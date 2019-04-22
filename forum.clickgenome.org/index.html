@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Home | Forum | ClickGWAS</title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/default.js"></script>
+	</head>
+
+	<body>
+		<nav class="navbar">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+					<a class="navbar-brand" href="./">Forum | ClickGWAS</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="./">Home</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="http://www.clickgenome.org/about/">Contact Us</a>
+						</li>
+						<li>
+							<a href="publish/">Publish Article</a>
+						</li>
+						<li class="dropdown">
+							<a id="login" href="#" data-login="0" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loading...</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="u/">Me</a>
+								</li>
+								<li role="separator" class="divider"></li>
+								<li>
+									<a href="#" id="logout">Logout</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row main-body">
+					<div class="col-md-12">
+						<h1>Welcome to ClickGWAS Forum</h1>
+					</div>
+					<div class="col-md-12 article-con">
+						<div class="loader">
+							<div class="loader-inner ball-pulse">
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 news-con">
+						<div class="loader">
+							<div class="loader-inner ball-pulse">
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-6 category-con">
+							<div class="loader">
+								<div class="loader-inner ball-pulse">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 labels-con">
+							<div class="loader">
+								<div class="loader-inner ball-pulse">
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<footer>
+			<p>Copyright&nbsp;&copy;&nbsp;
+				<a href="http://www.clickgenome.morg" target="_blank">www.clickgenome.org</a>&nbsp;2017
+			</p>
+		</footer>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var url_token = GetQueryString("utoken");
+				if(url_token){
+					addCookie("token",url_token);
+				}
+				$.post(__API__ + "homepage", {
+					token: getCookie("token")
+				}, function(data) {
+					var info = eval("(" + data + ")");
+					console.log(info);
+					//登录信息
+					if(info.isLogin == 1) {
+						$("#login").attr("data-login", "1");
+						$("#login").empty();
+						$("#login").append(info.data.userInfo.userName + ' <span class="caret"></span>');
+					} else {
+						$("#login").empty();
+						$("#login").append('Login');
+					}
+					//文章列表
+					var article_list = info.data.latestArticle;
+					var ar = '<table class="table table-striped table-bordered"><caption class="table-caption">Article List</caption><tr><th>Category</th><th>Title</th><th>Author</th><th>Public Time</th><th>Views</th></tr>';
+					$.each(article_list, function(i, obj) {
+						ar += '<tr><td><span class="label label-info">' + obj.category + '</span></td><td><a target="_blank" href="article/single.html?target=' + obj.id + '">' + obj.title + '</a></td><td>' + obj.userName + '</td><td>' + obj.time + '</td><td>' + obj.views + '</td></tr>';
+					});
+					ar += '</table>';
+					$(".article-con").empty();
+					$(".article-con").append(ar);
+					//标签列表
+					var label_list = info.data.tag;
+					var la = '<table class="table table-striped table-bordered"><caption class="table-caption">Labels</caption>';
+					$.each(label_list, function(i, obj) {
+						la += '<tr><td><a href="#">' + obj + '</a></td></tr>';
+					});
+					$(".labels-con").empty();
+					$(".labels-con").append(la);
+					//分类列表
+					var category_list = info.data.category;
+					var ca = '<table class="table table-striped table-bordered"><caption class="table-caption">Categories</caption>';
+					$.each(category_list, function(i, obj) {
+						ca += '<tr><td><a href="#">' + obj.name + '</a></td></tr>';
+					});
+					$(".category-con").empty();
+					$(".category-con").append(ca);
+					//新闻列表
+					var news_list = info.data.news;
+					var ne = '<table class="table table-striped table-bordered"><caption class="table-caption">News</caption>';
+					$.each(news_list, function(i, obj) {
+						ne += '<tr><td><a href="#">' + obj.title + '</a></td><td width="20%">' + obj.date + '</td></tr>';
+					});
+					$(".news-con").empty();
+					$(".news-con").append(ne);
+				});
+				$("#logout").click(function() {
+					deleteAllCookie();
+					window.location.reload();
+				});
+				$("#login").click(function(event) {
+					var s = event.currentTarget.dataset.login;
+					if(s == 0 && getCookie("token") == "") {
+						window.location.href = "login/";
+					}
+				})
+			});
+		</script>
+	</body>
+
+</html>

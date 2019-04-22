@@ -1,0 +1,146 @@
+@import url("loader.css");
+@import url("//at.alicdn.com/t/font_wrcigb4503eg66r.css");
+
+/*公共样式*/
+
+* {
+	font-size: 14px;
+	box-sizing: border-box;
+	color: #333;
+	font-weight: normal;
+}
+
+body {
+	background-color: #f0f0f0;
+}
+
+.main {
+	width: 1200px;
+	margin: 0 auto;
+	min-height: 500px;
+}
+
+.labels {
+	padding: 10px;
+	border-left: 1px solid #D1D1D1;
+}
+
+.labels a {
+	display: inline-block;
+	margin-right: 0.8em;
+	margin-bottom: 0.4em;
+}
+
+.labels a:hover {
+	text-decoration: none;
+}
+
+.categorys {
+	padding: 10px;
+	border-left: 1px solid #D1D1D1;
+}
+
+.categorys button {
+	margin-bottom: 10px;
+}
+
+.categorys .badge {
+	margin-left: 4px;
+}
+
+footer {
+	margin-top: 3em;
+	background-color: #2a2730;
+	padding: 2em 0 1em;
+	line-height: 1.75;
+	text-align: center;
+}
+
+footer p,
+footer p a {
+	color: #ccc;
+}
+
+
+/*覆盖boot样式*/
+
+.navbar,
+.navbar .dropdown-menu {
+	background-color: #447ab2;
+}
+
+.navbar-brand {
+	color: #fff;
+}
+
+.navbar-brand:hover {
+	color: #fff;
+}
+
+.navbar-nav a,
+.navbar .dropdown-menu a {
+	color: #fff;
+}
+
+.navbar-nav li a:hover,
+.navbar-nav li a:active,
+.nav .open>a,
+.nav .open>a:focus,
+.nav .open>a:hover {
+	color: #fff;
+	background-color: #658fbf;
+}
+
+.navbar-nav .caret {
+	color: #fff;
+}
+
+.navbar-nav .active {
+	background-color: #658fbf;
+}
+
+.table {
+	background-color: #fff;
+}
+
+
+.table>tbody>tr>th {
+	font-weight: bolder;
+}
+
+.table>tbody>tr>td {
+	padding: 10px;
+}
+
+.main .main-body {
+	background-color: #edf8fe;
+	padding: 20px 0;
+}
+
+.main .main-body div h1 {
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+.table-caption{
+	font-size: 20px;
+	color: #fff;
+	background-color: #6f99ca;
+	text-align: center;
+	font-weight: bolder;
+	padding: 10px 0;
+}
+
+.article-con .page-header{
+	border: none;
+}
+.appreciate-active{
+	color: #e20000;
+}
+.appreciate{
+	cursor: pointer;
+}
+.appreciate-num{
+	font-size: 12px;
+	margin-left: 4px;
+}

@@ -1,0 +1,39 @@
+[{
+	title: "Bioinformatics for cancer research",
+	data: [
+		{con: "1)&nbsp;Zhe-Wei Qiu, Jia-Hao Bi, Adi Gazdar, *Kai Song, Genome-wide copy number variation pattern analysis and a classification signature for nonsmall cell lung cancer, Genes, Chromosomes and Cancer, 2017, 4, DOI: 10.1002/gcc.22460"},
+		{con: "2)&nbsp;Sabine Windhorst, Kai Song, Adi Gazdar, Inositol-1,4,5-trisphosphate 3-kinase-A (ITPKA) is frequently over-expressed and functions as an oncogene in several tumor types, Biochemical Pharmacology, 2017, 4, DOI: 10.1016/j.bcp.2017.03.023"},
+		{con: "3)&nbsp;Kelsie L. Thu, Mahboubeh Papari-Zareei, Victor Stastny, Kai Song, et. al. A comprehensively characterized cell line panel highly representative of clinical ovarian high-grade serous carcinomas, Oncotarget, 2016, 6, DOI: 10.18632/oncotarget.9929"},
+		{con: "4)&nbsp;Yu-An Zhang, Yunyun Zhou, Xin Luo, Kai Song, et. al. SHOX2 is a Potent Independent Biomarker to Predict Survival of WHO Grade II–III Diffuse Gliomas, EBioMedicine , 2016, 13: 80-89"},
+		{con: "5)&nbsp;Yu-an Zhang,…,Kai Song,…, Adi Gazdar: Validation of SCT Methylation as a Hallmark Biomarker for Lung Cancers, Journal of Thoracic Oncology, 2016, 11(3) : 346-360"},
+		{con: "6)&nbsp;Kai Song, Fei Zhang, et al: Copy number variations distinguish lung adenocarcinomas from squamous cell carcinomas, Genomics, under review."},
+		{con: "7)&nbsp;Chunying Zhang, Luc Girard, Amit Das, Sun Chen, Guangqiang Zheng, and Kai Song: Nonlinear Quantitative Radiation Sensitivity Prediction Model Based on NCI-60 Cancer Cell Lines, The Scientific World Journal, Volume 2014 (2014), Article ID 903602"},
+	]
+},{
+	title: "Bioinformatics for bacteria research",
+	data: [
+		{con: "8)&nbsp;Kai Song Tuopeng Tong Fang Wu: Predicting essential genes in prokaryotic genomes using a linear method: ZUPLS. Integr. Biol., 2014, 6(4):460-9, DOI:10.1039/C3IB40241J. "},
+		{con: "9)&nbsp;Sun Chen, Chun-ying Zhang and Kai Song: Recognizing short coding sequences of prokaryotic genome using a novel iteratively adaptive sparse partial least squares algorithm, Biology Direct 2013, 8:23 doi:10.1186/1745-6150-8-23"},
+		{con: "10)&nbsp;Kai Song：Recognition of prokaryotic promoters based on a novel variable-window Z-curve method, Nucleic Acids Research, 2012, 40(3): 963-971"},
+		{con: "11)&nbsp;Kai Song, Ze Zhang, Tuo-peng Tong, Fang Wu: Classifier assessment and feature selection for recognizing short coding sequences of human genes, Journal of Computational Biology, 2012,19(3): 251-260 "},
+	]
+},{
+	title: "Other bioinformatics ",
+	data: [
+		{con: "12)&nbsp;Kai Song, Xia Li, Yingjin Yuan: OSC-KPCA based metabolomics pattern analysis for Arabidopsis thaliana genotype discrimination, Journal of Chemical Industry and Engineering (in Chinese), 2007, 58(9): 2341-2346"},
+		{con: "13)&nbsp;Zhu Yajuan, Song Kai,Li Ping,Wang Hui : Feedback Control of the Genetic Networks with Time Delay，Proceedings of Fifth World Congress on Intelligent Control and Automation, Hangzhou, China, 2004, 5549-5553."},
+	]
+},{
+	title: "Others",
+	data: [
+		{con: "14)&nbsp;Ze Zhang, Kai Song, Tuo-peng Tong, Fang Wu: A novel nonlinear adaptive Mooney-viscosity model based on DRPLS-GP algorithm for rubber mixing process, Chemometrics and Intelligent Laboratory Systems, 2012, 112: 17-23"},
+		{con: "15)&nbsp;Kai Song, Fang Wu, Tuo-peng Tong and Xiao-jing Wang: A real-time Mooney-viscosity prediction model of the mixed rubber based on the Independent Component Regression-Gaussian Process Algorithm, Journal of Chemometrics, 2012, DOI: 10.1002/cem.2478."},
+		{con: "16)&nbsp;Kai Song, Tuo-peng Tong, Ze Zhang, Fang Wu: A novel partial least squares weighting gaussian process algorithm and its application in near infrared spectroscopy data mining problems. Analytical Methods, 2012, 4 (5), 1395-1400"},
+		{con: "17)&nbsp;Kai Song, Haiqing Wang, Ping Li, Zhigang Feng:  Quality Based Prioritized Sensor Fault Monitoring Methodology, Chinese Journal of Chemical Engineering, 2008, 16(4): 1-7"},
+		{con: "18)&nbsp;Kai Song, Haiqing Wang, Ping Li: Discounted-measurement RPLS Algorithm and its Application to Quality Control of the Rubber Mixing Process, Journal of Chemical Industry and Engineering, 6, 942-946 (2004), (in Chinese)"},
+		{con: "19)&nbsp;Kai Song, Haiqing Wang, Ping Li: VPLS based quality and cost control for Tennessee Eastman process, Chinese Journal of Chemical Engineering, 2005, 1: 61-66， "},
+		{con: "20)&nbsp;Kai Song, Haiqing Wang, Ping Li: Quality monitoring of the rubber mixing process by using the discounted-measurement RPLS algorithm, Proceedings of 2003 IEEE International Conference on Systems, Man & Cybernetics, Washington, D.C., U.S.A., 2003, 2348-2353， "},
+		{con: "21)&nbsp;Kai Song, Haiqing Wang, Ping Li: GMPLS based Intelligent Quality Control for Internal Rubber Mixing Process, Proceedings of Fifth World Congress on Intelligent Control and Automation, Hangzhou, China, 2004, 3295-3298."},
+		{con: "22)&nbsp;Kai Song, Haiqing Wang, Ping Li: NN-PLS based On-line Component Soft-analyzer for Tennessee Eastman Process, Proceedings of Fifth World Congress on Intelligent Control and Automation, Hangzhou, China, 2004, 3653-3655. "},
+	]
+}]

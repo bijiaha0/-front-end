@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Click: Do GWAS analysis by yourself by Mouse-Clicking">
+		<title>Beeswarm | Plot by Cancer | ClickGWAS</title>
+		<link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		<link rel="stylesheet" href="../../../css/todo.css" />
+	</head>
+	<body active="home">
+    <script type="text/javascript" src="../../../js/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../js/base_component.js"></script>
+    <script type="text/javascript" src="../../../js/echarts.min.js"></script>
+    <script type="text/javascript" src="../../../js/beeswarm.js"></script>
+    <script src="../../../js/cache.js"></script>
+    <script src="../../../js/bycancer.js"></script>
+		<!--navigation-->
+		<div class="container-fluid navigation"></div>
+		<div class="container-fluid pagetitle">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<h3><strong>Plot | Beeswarm</strong> by Cancer</h3>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+		<!-- ploting main section -->
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<!--左功能区-->
+					<div class="col-md-3 left-contral-area">
+                        <label class="col-md-12">DataType :</label>
+                        <select id="dataType" class="col-md-12 form-control">
+                            <option class="col-md-12" value="c">✅Copy number variations</option>
+							<option class="col-md-12" value="e">✅mRNA expression</option>
+							<!--<option class="col-md-12" value="m" disabled="disabled">❌Methylation values</option>-->
+                            <!--<option class="col-md-12" value="mu" disabled="disabled">❌mutations</option>-->
+                        </select>
+                        <label class="col-md-12">Update :</label>
+                        <select id="newOrOld" class="col-md-12 form-control">
+                            <option class="col-md-12" value="new">✅new [10/01/2018]</option>
+                            <option class="col-md-12" value="old">✅old [10/05/2016]</option>
+                        </select>
+						<label class="col-md-12">Cancer : <a href=# title="Please select a cancer type you are interested in."><img src="../../../img/image1.png" alt="image1" height="20"></a></label>
+                        <input class="col-md-12 form-control" id="cancer_s" placeholder="GBM" />
+                        <select class="col-md-12 form-control" id="cancername" onchange="addToCancerList(this.options[this.options.selectedIndex].value);"></select>
+                        <p class="col-md-12">&nbsp;&nbsp;&nbsp;⚠️:Without non-malignant <a href=# title="The non-malignant samples of this cancer type haven’t been available yet."><img src="../../../img/image1.png" alt="image1" height="20"></a></p>
+                        <p class="col-md-12">&nbsp;&nbsp;&nbsp;❌:Not available <a href=# title="Samples of this cancer type haven’t been available yet."><img src="../../../img/image1.png" alt="image1" height="20"></a></p>
+                        <label class="col-md-12">Chr:Genes : <a href=# title="Please input the gene symbols here: 7:EGFR, 3:TP63..."><img src="../../../img/image1.png" alt="image1" height="20"></a></label>
+						<input class="col-md-12 form-control" id="genes" placeholder="7:EGFR, 3:TP63"/>
+						<div class='col-md-12'>
+							<div class="col-md-6">
+								<input id="islog" type="checkbox" class="col-md-2" />log<sub>2</sub>
+							</div>
+                            <div class="col-md-6">
+                                <input id="mean1" type="checkbox" class="col-md-2" value="mean1" /> mean&plusmn;1std
+                            </div>
+                            <div class="col-md-6">
+                                <input id="boxplot" type="checkbox" class="col-md-2" />boxplot
+                            </div>
+                            <div class="col-md-6">
+                                <input id="mean2" type="checkbox" class="col-md-2" value="mean2" /> mean&plusmn;2std
+                            </div>
+                            <div class="col-md-6">
+                                <input id="mean" type="checkbox" class="col-md-2" value="mean" /> mean
+                            </div>
+							<div class="col-md-6">
+								<input id="mean3" type="checkbox" class="col-md-2" value="mean3" /> mean&plusmn;3std
+							</div>
+						</div>
+						<label class="col-md-12">SampleType :</label>
+						<div class='col-md-12'>
+							<div class="col-md-12">
+								<input type="checkbox" id="simple_nonmalignant" class="col-md-2" /> Non-malignant
+							</div>
+							<div class="col-md-12">
+								<input type="checkbox" class="col-md-2" id="simple_tumor" checked="checked"/> Tumor
+							</div>
+						</div>
+						<label class="col-md-12">T-Test : <a href=# title="Please input the group number of the samples for the unpaired two-tailed Student's t-test (alpha=0.05)."><img src="../../../img/image1.png" alt="image1" height="20"></a></label>
+						<div class='col-md-12'>
+							<input class="col-md-6" id="gene1" placeholder="1" />
+							<input class="col-md-6" id="gene2" placeholder="4" />
+						</div>
+						<label class="col-md-12">CutOff (&ge;): <a href=# title="CutOff: Specify cutoff values to see the corresponding percentages."><img src="../../../img/image1.png" alt="image1" height="20"></a></label>
+						<div class='col-md-12' id="cutoff">
+							<input class="col-md-6" id="line1" placeholder="linel" />
+							<input class="col-md-6" id="line2" placeholder="line2" />
+						</div>
+						<button class="col-md-12 btn btn-primary" id="bt_draw">GO</button>
+					</div>
+					<!--绘图区-->
+					<div class="col-md-9 echarts" style="margin-top: 2%;">
+						<div id="echarts" class="col-md-12">
+							<h1>Plotting Here</h1></div>
+					</div>
+					<!--底部功能区-->
+					<div class="col-md-12 bottom-contral-area" id="tool_bar">
+						<!--下载图片 选择区-->
+						<div class="col-md-3 image-control">
+							<strong class="col-md-12">Figure Downloading</strong>
+							<div class="col-md-12">
+								<span class="col-md-4">Format:</span>
+								<div class="col-md-8">
+									<select id="saveType_select"></select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<span class="col-md-8">Size: (<span id="pic_width">640</span>&nbsp;&times;&nbsp;<span id="pic_height">480</span>) &nbsp;&nbsp;&times; </span>
+								<div class="col-md-4">
+									<select id="pixelRatio_select"></select>
+								</div>
+							</div>
+						</div>
+						<!--样式 选择区-->
+						<div class="col-md-9 style-control">
+							<div class="col-md-12 style-control-group">
+                                <div class="col-md-12">
+                                    <strong>Figure DIY:</strong>&nbsp;&nbsp;Modify colors, shapes and other details of this figure for your own style.
+                                </div>
+								<span class="col-md-1">Group:</span>
+								<div class="col-md-3">
+									<select class="col-md-12 float-right" id="bees_which_select"></select>
+								</div>
+                                <!--<div class="col-md-3" id="btn_Rerender">-->
+                                    <!--<button class="btn btn-primary form-control">GO</button>-->
+                                <!--</div>-->
+							</div>
+							<div class="col-md-4 style-control-marker">
+								<strong class="col-md-12">MarkerStyle</strong>
+								<div class="col-md-12">
+									<span class="col-md-4">Shape:</span>
+									<select class="col-md-7" id="pointStyle_select"></select>
+								</div>
+								<div class="col-md-12">
+									<span class="col-md-4">Size:</span>
+									<select class="col-md-7" id="pointSize_select"></select>
+								</div>
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<input id="pointColor_select" value="blue" type="hidden" />
+										<div class="col-md-12">
+											<span class="col-md-4">Color: </span>
+											<button id="point_color_selector_btn" style="background: blue;border:none;border-radius: 4px;height: 1em;width:1em;padding: 0;margin-top: 0.2em;"></button>
+											<div class="col-md-12" id="point_color_selector" style="display: none;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 style-control-marker">
+								<strong class="col-md-12">BoxStyle</strong>
+                                <div class="col-md-12">
+                                    <input id="boxColor_select" value="purple" type="hidden" />
+                                    <div class="col-md-12">
+                                        <span class="col-md-4">Color: </span>
+                                        <button id="box_color_selector_btn" style="background: purple;border:none;border-radius: 4px;height: 1em;width:1em;padding: 0;margin-top: 0.2em;"></button>
+                                    </div>
+                                    <div class="col-md-12" id="box_color_selector" style="display: none;padding: 0;"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <span class="col-md-4">LineType:</span>
+                                    <select class="col-md-7" id="boxStyle_select"></select>
+                                </div>
+                                <div class="col-md-12">
+                                    <span class="col-md-4">LineWidth:</span>
+                                    <select class="col-md-7" id="box_lineWidth_select"></select>
+                                </div>
+							</div>
+							<div class="col-md-4 style-control-marker">
+								<strong class="col-md-12">LineStyle</strong>
+                                <div class="col-md-12">
+                                    <input id="lineColor_select" value="orange" type="hidden" />
+                                    <div class="col-md-12">
+                                        <span class="col-md-4">LineColor: </span>
+                                        <button class="col-md-2" id="line_color_selector_btn" style="background: orange;border:none;border-radius: 4px;height: 1em;width:1em;padding: 0;margin-top: 0.2em;"></button>
+                                    </div>
+                                    <div class="col-md-12" id="line_color_selector" style="display: none;"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <span class="col-md-4">LineType:</span>
+                                    <select class="col-md-7" id="lineStyle_select"></select>
+                                </div>
+                                <div class="col-md-12">
+                                    <span class="col-md-4">LineWidth:</span>
+                                    <select class="col-md-7" id="mean_lineWidth_select"></select>
+                                </div>
+                                <!--<div class="col-md-6">-->
+                                <!--</div>-->
+                                <!--<div class="col-md-6" id="btn_Rerender">-->
+                                    <!--<button class="btn btn-primary form-control">GO</button>-->
+                                <!--</div>-->
+							</div>
+						</div>
+                        <div class="col-md-12 style-control">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-3" id="btn_Rerender">
+                                <button class="btn btn-primary form-control">GO</button>
+                            </div>
+                        </div>
+					</div>
+					<!--底部功能区结束-->
+					<!--标记 功能区-->
+				</div>
+			</div>
+		</div>
+		<!--以下为绘图部分js-->
+
+        <script type="text/javascript">
+            var addToCancerList = function(value) {
+                if($("#cancer_s").val() == "") {
+                    $("#cancer_s").val($("#cancer_s").val() + value.toUpperCase());
+                } else {
+                    $("#cancer_s").val(value.toUpperCase());
+                }
+            }
+        </script>
+		<script type="text/javascript">
+			var color_arr = ["Black", "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "Feldspar", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateBlue", "LightSlateGray", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "VioletRed", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
+			for(var i = 0; i < color_arr.length; i++) {
+				$("#box_color_selector").append("<div style='width:1em;height:1em;background: " + color_arr[i] + ";border-radius: 4px;margin-left: 1px;margin-top: 1px;float: left;'></div>");
+			}
+			var boxColor_select_open = false;
+			$("#box_color_selector_btn").click(function() {
+				if(boxColor_select_open == false) {
+					$("#box_color_selector").css("display", "block");
+					boxColor_select_open = true;
+				} else {
+					$("#box_color_selector").css("display", "none");
+					boxColor_select_open = false;
+				}
+			});
+			$("#box_color_selector").find("div").click(function() {
+				$("#boxColor_select").val($(this).css("background-color"));
+				$("#box_color_selector_btn").css("background", $(this).css("background-color"));
+				$("#box_color_selector").css("display", "none");
+				boxColor_select_open = false;
+			});
+		</script>
+		<script type="text/javascript">
+			var color_arr = ["Black", "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "Feldspar", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateBlue", "LightSlateGray", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "VioletRed", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
+			for(var i = 0; i < color_arr.length; i++) {
+				$("#line_color_selector").append("<div style='width:1em;height:1em;background: " + color_arr[i] + ";border-radius: 4px;margin-left: 1px;margin-top: 1px;float: left;'></div>");
+			}
+			var lineColor_select_open = false;
+			$("#line_color_selector_btn").click(function() {
+				if(lineColor_select_open == false) {
+					$("#line_color_selector").css("display", "block");
+					lineColor_select_open = true;
+				} else {
+					$("#line_color_selector").css("display", "none");
+					lineColor_select_open = false;
+				}
+			});
+			$("#line_color_selector").find("div").click(function() {
+				$("#lineColor_select").val($(this).css("background-color"));
+				$("#line_color_selector_btn").css("background", $(this).css("background-color"));
+				$("#line_color_selector").css("display", "none");
+				lineColor_select_open = false;
+			});
+		</script>
+		<script type="text/javascript">
+			var color_arr = ["Black", "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "Feldspar", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateBlue", "LightSlateGray", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "VioletRed", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
+			for(var i = 0; i < color_arr.length; i++) {
+				$("#point_color_selector").append("<div style='width:1em;height:1em;background: " + color_arr[i] + ";border-radius: 4px;margin-left: 1px;margin-top: 1px;float: left;'></div>");
+			}
+			var pointColor_select_open = false;
+			$("#point_color_selector_btn").click(function() {
+				if(pointColor_select_open == false) {
+					$("#point_color_selector").css("display", "block");
+					pointColor_select_open = true;
+				} else {
+					$("#point_color_selector").css("display", "none");
+					pointColor_select_open = false;
+				}
+			});
+			$("#point_color_selector").find("div").click(function() {
+				$("#pointColor_select").val($(this).css("background-color"));
+				$("#point_color_selector_btn").css("background", $(this).css("background-color"));
+				$("#point_color_selector").css("display", "none");
+				pointColor_select_open = false;
+			});
+		</script>
+		<script>
+			beesworm.View.init();
+			//mean单选框可选初始化
+			if($("#boxplot").is(':checked')) {
+				$(":input[name='mean']").removeAttr("disabled");
+				//箱线图设置区
+				$("#box_color_selector_btn").removeAttr("disabled");
+				$("#boxStyle_select").removeAttr("disabled");
+                $("#box_lineWidth_select").removeAttr("disabled");
+			} else {
+				$(":input[name='mean']").attr("disabled", "true");
+				$("#mean").attr("checked", "true"); //默认第一项
+				//箱线图设置区
+				$("#box_color_selector_btn").attr("disabled", "true");
+				$("#boxStyle_select").attr("disabled", "true");
+                $("#box_lineWidth_select").attr("disabled", "true");
+			}
+			var is_mean_enable = false;
+			$("#boxplot").click(function() {
+				if(is_mean_enable) {
+					is_mean_enable = false;
+					$(":input[name='mean']").attr("disabled", "true");
+					$("#mean").attr("checked", "true"); //默认第一项
+					//箱线图设置区
+					$("#box_color_selector_btn").attr("disabled", "true");
+					$("#boxStyle_select").attr("disabled", "true");
+                    $("#box_lineWidth_select").attr("disabled", "true");
+				} else {
+					is_mean_enable = true;
+					$(":input[name='mean']").removeAttr("disabled");
+					//箱线图设置区
+					$("#box_color_selector_btn").removeAttr("disabled");
+					$("#boxStyle_select").removeAttr("disabled");
+                    $("#box_lineWidth_select").removeAttr("disabled");
+				}
+			});
+			$("#pic_width").html($("#echarts").css("width"));
+			$("#pic_height").html($("#echarts").css("height"));
+		</script>
+
+        <script>
+            $("#bt_draw").click(function() {
+                var gene = $("#genes").val().replace(/, /g, ",");
+                gene = gene.replace(/,/g, ",");
+                gene = gene.replace(/， /g, ",");
+                gene = gene.replace(/，/g, ",");
+                beesworm.Operate.BEESWORM(gene.toUpperCase(), $("#cancer_s").val().toLowerCase());
+            });
+        </script>
+		<!--footer-->
+		<div class="container-fluid footer"></div>
+	</body>
+
+</html>

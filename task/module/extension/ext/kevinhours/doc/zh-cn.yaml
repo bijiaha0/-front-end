@@ -1,0 +1,28 @@
+---
+name: Kevin项目工时
+code: kevinhours
+type: extension
+copyright: Kevin
+site:
+author: 'kevin<3301647@qq.com>'
+abstract: >
+  基于todo做的工时记录，项目工时统计，考勤管理.
+desc: >
+  基于todo做的工时记录，项目工时统计，考勤管理.
+install: >
+  1.
+  通过禅道的插件管理来进行安装。
+releases:
+  1.7:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: Move to Kevin Plugin Menu
+    date: 2016-11-27
+    zentao:
+      compatible: 8.2.2
+      incompatible:
+    depends:
+      kevincalendar:
+        min: 1.6
+        max:
+    conflicts: null

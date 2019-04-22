@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Click: Do GWAS analysis by yourself by Clicking">
+    <title>Manhattan | ClickGWAS</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/todo.css" />
+</head>
+
+<body active="home">
+<script src="../../js/cache.js"></script>
+<script type="text/javascript" src="../../js/jquery-2.2.1.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/base_component.js"></script>
+<script type="text/javascript" src="../../js/echarts.min.js"></script>
+<script src="../../js/xlsx.core.min.js"></script>
+<script type="text/javascript" src="../../js/fileManhattan.js"></script>
+<script type="text/javascript" src="../../js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="../../js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="../../js/jquery.iframe-transport.js"></script>
+    <!--navigation-->
+    <div class="container-fluid navigation"></div>
+
+    <div class="container-fluid pagetitle">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h3><strong>Plot | Manhattan</strong></h3>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+    <!-- ploting main section -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <!--左功能区-->
+                <div class="col-md-4 left-contral-area">
+                    <label class="col-md-12">DataType :</label>
+                    <select id="dataType" class="col-md-12 form-control">
+                        <option class="col-md-12" value="c">✅Copy number variations</option>
+                        <!--<option class="col-md-12" value="e" disabled="disabled">❌mRNA expression</option>-->
+                        <!--<option class="col-md-12" value="m" disabled="disabled">❌Methylation values</option>-->
+                        <!--<option class="col-md-12" value="mu" disabled="disabled">❌mutations</option>-->
+                    </select>
+
+                    <label class="col-md-12">Chromosomes :<a href=# title="Please select a chromosome number."><img id="Img1" src="../../img/image1.png" alt="image1"height="20"></a></label>
+                    <select class="col-md-12 form-control" id="chromosome"></select>
+
+                    <label class="col-md-12">HighlightedGenes :<a href=# title="Please fill in highlighted gene names."><img src="../../img/image1.png" alt="image"height="20"></a></label>
+                    <input class="col-md-12 form-control" id="genes" placeholder="CPSF3L" />
+
+                    <label class="col-md-12">Statistics :</label>
+                    <select class="col-md-12 form-control" id="showType">
+                        <option class="col-md-12" value="mid">Median</option>
+                        <option class="col-md-12" value="mean">Mean</option>
+                    </select>
+
+                    <label class="col-md-12">Others :</label>
+                    <div class='col-md-12'>
+                        <div class="col-md-12">
+                            <input type="checkbox" class="col-md-2" id="isAbsolute" /> Directional Manhattan
+                        </div>
+                    </div>
+
+                    <div class='col-md-12'>
+                        <div class="col-md-12">
+                            <input type="checkbox" class="col-md-2" id="isLog" /> log<sub>2</sub>
+                        </div>
+                    </div>
+
+                    <label class="col-md-12">αlpha_ttest (&ge;):</label>
+                    <div class='col-md-12' id="cutoff">
+                        <input class="col-md-12" id="line1" placeholder="line1" />
+                    </div>
+
+                    <div class="container col-md-12" id="form">
+                        <div style="margin-bottom: 10px">
+                            <strong>Upload File1 :</strong>
+                        </div>
+                        <input id="File0" name="files" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <div style="margin-bottom: 10px">
+                            <strong>Upload File2 :</strong>
+                        </div>
+                        <input id="File1" name="files" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                    </div>
+                    <button type="submit" class="col-md-12 btn btn-primary" id="bt_draw">GO</button>
+                </div>
+
+                <!--绘图区-->
+                <div class="col-md-8 echarts" style="margin-top: 2%;">
+
+                    <div id="echarts" class="col-md-12">
+                        <h1>Ploting Here</h1>
+                    </div>
+                </div>
+
+                <!--底部功能区-->
+                <div class="col-md-12 bottom-contral-area" id="tool_bar">
+                    <!--下载图片 选择区-->
+                    <div class="col-md-4 image-control">
+                        <strong class="col-md-12">Figure Downloading</strong>
+
+                        <div class="col-md-12">
+                            <span class="col-md-4">Format:</span>
+                            <div class="col-md-8">
+                                <select id="saveType_select"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="col-md-8">Size: (<span id="pic_width">640</span>&nbsp;&times;&nbsp;<span id="pic_height">480</span>) &nbsp;&nbsp;&times; </span>
+                            <div class="col-md-4">
+                                <select id="pixelRatio_select"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--样式 选择区-->
+                    <div class="col-md-8 style-control">
+                        <div class="col-md-12 style-control-group">
+                            <div class="col-md-12">
+                                <strong>Figure DIY:</strong>&nbsp;&nbsp;Modify colors, shapes and other details of this figure for your own style.
+                            </div>
+                            <span class="col-md-1">Group:</span>
+                            <div class="col-md-3">
+                                <select class="col-md-12 float-right" id="manhattan_which_select"></select>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 style-control-marker">
+                            <strong class="col-md-12">Style</strong>
+
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <input id="Color_select" value="blue" type="hidden" />
+                                    <div class="col-md-12">
+                                        <span class="col-md-4">Color: </span>
+                                        <button id="point_color_selector_btn" style="background: blue;border:none;border-radius: 4px;height: 1em;width:1em;padding: 0;margin-top: 0.2em;"></button>
+                                        <div class="col-md-12" id="color_selector" style="display: none;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 style-control-marker">
+                            <div class="col-md-12">
+                                <strong>Y-Limits</strong> (Only the limits broader than the default ones are acceptable.)
+                            </div>
+                            <div class='col-md-12' id="yLimit">
+                                <input class="col-md-4" id="yLimitMin" placeholder="min" style="padding: 1px";/>
+                                <input class="col-md-4" id="yLimitMax" placeholder="max" style="padding: 1px";/>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-12 style-control">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-3" id="btn_Rerender">
+                            <button class="btn btn-primary form-control">GO</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 flag" style="float: right;margin-top: 80px ;text-align: right">
+
+                        <a download="Manhattan_CNV_Chr1_2.xlsx" href="../../Manhattan_CNV_Chr1_2.xlsx">Download Example2 (Manhattan_CNV_Chr1_2.xlsx)</a>
+
+                    </div>
+
+                    <div class="col-md-3 flag" style="float: right;margin-top: 80px ;text-align: right">
+
+                        <a download="Manhattan_CNV_Chr1_1.xlsx" href="../../Manhattan_CNV_Chr1_1.xlsx">Download Example1 (Manhattan_CNV_Chr1_1.xlsx)</a>
+
+                    </div>
+                    <div class="col-md-12">
+
+                        <div id="image" class="col-md-12" style="background-image: url('http://analysis.clickgenome.org/images/manhattan.png'); background-repeat: round; display: block">
+
+                        </div>
+                    </div>
+                </div>
+                <!--底部功能区结束-->
+            </div>
+        </div>
+    </div>
+
+    <!--以下为绘图部分js-->
+
+    <!--<script>-->
+        <!--var cookie_token = getCookie("utoken");-->
+        <!--if (cookie_token) {-->
+        <!--} else {-->
+            <!--alert("Please register or login first!");-->
+            <!--window.location.href = "http://portal.clickgenome.org/";-->
+        <!--}-->
+    <!--</script>-->
+
+    <script type="text/javascript">
+        var color_arr = ["Black", "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DodgerBlue", "Feldspar", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateBlue", "LightSlateGray", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "VioletRed", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
+        for(var i = 0; i < color_arr.length; i++) {
+            $("#color_selector").append("<div style='width:1em;height:1em;background: " + color_arr[i] + ";border-radius: 4px;margin-left: 1px;margin-top: 1px;float: left;'></div>");
+        }
+        var pointColor_select_open = false;
+        $("#point_color_selector_btn").click(function() {
+            if(pointColor_select_open == false) {
+                $("#color_selector").css("display", "block");
+                pointColor_select_open = true;
+            } else {
+                $("#color_selector").css("display", "none");
+                pointColor_select_open = false;
+            }
+        });
+        $("#color_selector").find("div").click(function() {
+            $("#Color_select").val($(this).css("background-color"));
+            $("#point_color_selector_btn").css("background", $(this).css("background-color"));
+            $("#color_selector").css("display", "none");
+            pointColor_select_open = false;
+        });
+    </script>
+
+    <script>
+        fileUploadManhattan.view.init();
+        $("#pic_width").html($("#echarts").css("width"));
+        $("#pic_height").html($("#echarts").css("height"));
+        $("#chromosome").html("");
+        for(var i = 1; i <= 22; i++) {
+            $("#chromosome").append("<option class='col-md-12' value='" + i + "'>" + i + "</option>");
+        }
+        //判断文件的完整性
+        function isError(data){
+            for(var i = 0;i < data.length;i++){//文件的个数
+                if(data[i].length != data[0].length){
+                    $("#bt_draw").removeAttr("disabled");
+                    $("#echarts").html(
+                        '<p class="col-md-12" style="text-align:center;color:rgb(61,132,193);margin-top:40%;">❌ Please check the contents of your uploaded file.</p>');
+                }else {
+                    for(var j=1;j<data[i].length;j++){//具体到某一个文件
+                        for(var k=0;k<data[i][j].length;k++){
+                            if(data[i][j][k]==""){
+                                $("#bt_draw").removeAttr("disabled");
+                                $("#echarts").html(
+                                    '<p class="col-md-12" style="text-align:center;color:rgb(61,132,193);margin-top:40%;">❌ Please check the contents of your uploaded file.</p>');
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        //去重
+        function unique(arr) {
+            var res = [];
+            var resName = [];
+            for(var i=0;i<arr.length;i++){
+
+                if(resName.indexOf(arr[i].name) == -1){
+                    resName.push(arr[i].name);
+                    res.push(arr[i]);
+                }
+            }
+            return res;
+        }
+        //读取文件
+        function readParseFiles(callback) {
+            var data = [];
+            var files = [];
+            files.push(document.getElementById('File0').files[0], document.getElementById('File1').files[0]);
+            var index = 0;
+            ~function () {
+                var reader = new FileReader();
+                reader.readAsBinaryString(files[index]);
+                index++;
+                var context = arguments.callee;
+                //读取完文件之后，执行下面这个回调函数：
+                reader.onloadend = function (evt) {
+                    if(evt.target.readyState == FileReader.DONE){
+                        var workbook = XLSX.read(reader.result, { type: 'binary' });
+                        var sheet_name_list = workbook.SheetNames;
+                        data.push(XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]], {header:1}));
+                        if(index == files.length){
+                            callback && callback(data);
+                        }else {
+                            context();
+                        }
+                    }
+                };
+            }();
+        };
+
+        var filesList = [];
+        $("#form").fileupload({
+            autoUpload: false,
+            fileInput: $("input:file"),
+            replaceFileInput:false,
+            singleFileUploads:false,
+            type:"POST",
+            dataType: 'json',
+            add: function (e, data) {
+                for (var i = 0; i < data.files.length; i++) {
+                    filesList.push(data.files[i]);
+                }
+                return false;
+            },
+            done:function (e,data) {
+                var third =[];
+                if($("#isAbsolute").is(':checked')==false){
+                    for(var mm=0;mm < data.result.data.length; mm++){
+                        for(var ww = 0; ww < data.result.data[mm].length; ww++){
+                            data.result.data[mm][ww].pValue=Math.abs(data.result.data[mm][ww].pValue);
+                        }
+                    }
+                }
+                for(var w=0; w<data.result.data.length; w++){
+                    var second=[];
+                    for(var ww = 0; ww < data.result.data[w].length; ww++){
+                        var first=[];
+                        first.push(data.result.data[w][ww].pValue,data.result.data[w][ww].geneName);
+                        second.push(first);
+                    }
+                    third.push(second);
+                }
+                var manhattanStyle = [];
+                var highlightedGene = $("#genes").val().replace(/, /g, ",");
+                fileUploadManhattan.view.draw(third, manhattanStyle, false, highlightedGene.toUpperCase());
+            }
+        });
+        $("#bt_draw").click(function (e) {
+            e.preventDefault();
+            $("#bt_draw").attr("disabled", "true");
+            $("#echarts").html('<div class="spinner">' +
+                '<div class="rect1"></div>' +
+                '<div class="rect2"></div>' +
+                '<div class="rect3"></div>' +
+                '<div class="rect4"></div>' +
+                '</div><p class="col-md-12" style="text-align:center;color:rgb(61,132,193);">Loading... </br>Due to the big data size and the internet speed, this may take a while.</p>');
+
+            var chrom = $("#chromosome").val();//传递几号染色体
+            var showType = $("#showType").val();//选择的是mid还是mean
+            var value;//是否取log，默认不取
+            if ($("#isLog").is(':checked')) {
+                value = "l";
+            } else {
+                value = "y";
+            }
+            var fileListResult=unique(filesList);
+            if(fileListResult.length != 2){
+                $("#bt_draw").removeAttr("disabled");
+                $("#echarts").html(
+                    '<p class="col-md-12" style="text-align:center;color:rgb(61,132,193);margin-top:40%;">❌ Please check the contents of your uploaded file.</p>');
+            }
+            //读取文件，判断文件的完整性
+            readParseFiles(function (data) {
+                isError(data);
+                $("#form").fileupload('option','url', "http://54.193.40.253:8080/data/data/" + chrom + "/"+ showType + "/"+ value +"/manhattanSubmit",);
+                // $("#form").fileupload('option','url', "http://localhost:8088/data/data/" + chrom + "/"+ showType + "/"+ value +"/manhattanSubmit",);
+                $("#form").fileupload('send', {files:fileListResult});
+            });
+        });
+    </script>
+    <!--footer-->
+    <div class="container-fluid footer"></div>
+</body>
+</html>

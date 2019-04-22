@@ -1,0 +1,23 @@
+---
+name: zentao kevin common
+code: kevincom
+type: extension
+copyright: Kevin
+site: http://kevincom.sourceforge.net/
+author: 'kevin<3301647@qq.com>'
+abstract: kevin common functions for zentao.
+desc: kevin common functions for zentao.
+install: >
+  1. Install through the buildin extension
+  manager.
+releases:
+  1.7:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: conig for toolbar inormation
+    date: 2016-6-7
+    zentao:
+      compatible: all
+      incompatible:
+    depends: null
+    conflicts: null

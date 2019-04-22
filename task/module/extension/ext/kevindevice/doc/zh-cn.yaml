@@ -1,0 +1,27 @@
+---
+name: Kevin Device
+code: kevindevice
+type: extension
+copyright: Kevin
+site:
+author: kevin
+abstract: Kevin Device
+desc: Kevin Device
+install: |
+  1. 通过禅道的插件管理来进行安装。
+  检查数据库的列是否正确，不正确手动添加。
+  安装echarts3.0插件
+releases:
+  1.4:
+    charge: free
+    license: ZPL (http://zpl.pub/v1)
+    changelog: Move to Kevin Plugin Menu
+    date: 2016-11-27
+    zentao:
+      compatible: all
+      incompatible:
+    depends:
+      kevincom:
+        min: 1.9
+        max:
+    conflicts: null
