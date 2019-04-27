@@ -250,11 +250,15 @@ var chromsome = new Object({
                 valueOne.push(chromsome.Utils.getResult(DTW[m][9],2));
                 valueOne.push(chromsome.Utils.getResult(DTW[m][10],2));
                 valueOne.push(chromsome.Utils.getResult(DTW[m][11],2));
+                valueOne.push(chromsome.Utils.getResult(DTW[m][12],2));
+                valueOne.push(chromsome.Utils.getResult(DTW[m][13],2));
+                valueOne.push(chromsome.Utils.getResult(DTW[m][14],2));
                     var preViewData=[
                                         [   { coord: [valueOne[0], valueOne[1],valueOne[2]]}],
                                         [   { coord: [valueOne[3], valueOne[4],valueOne[5]]}],
                                         [   { coord: [valueOne[6], valueOne[7],valueOne[8]]}],
-                                        [   { coord: [valueOne[9], valueOne[10],valueOne[11]]}]
+                                        [   { coord: [valueOne[9], valueOne[10],valueOne[11]]}],
+                                        [   { coord: [valueOne[12], valueOne[13],valueOne[14]]}]
                     ];
                 viewData.push(preViewData);
             }
@@ -1234,6 +1238,7 @@ var chromsome = new Object({
                                     '<tr><td align="center" rowspan="2">Scores</td>';
                                 //动态生成表头开始
                                 for(var i=0;i<series.length-2;i++){
+                                    console.log(series[i]);
                                     table += '<td align="center" colspan="3">'+series[i].name+'</td>';
                                 }
                                 table+='</tr>';
@@ -1248,13 +1253,14 @@ var chromsome = new Object({
 
                                 //动态生成表头结束
                                 //动态生成主题
-                                var param=['Distance','Absolute','Square','DTW'];
-                                var demo=[0,1,2,3];//控制行数
+                                var param=['Distance','Absolute','Square','DTW','Kendall'];
+                                var demo=[0,1,2,3,4];//控制行数
                                 for(var ii=0;ii<demo.length;ii++){
                                     var haha=param[ii];
                                     var e=demo[ii];
                                     table +='<tr><td align="center">'+ haha+'</td>';
                                         var argu=series[0].markPoint.data;//癌症个数
+                                        // console.log(argu);
                                         for(var vk=0;vk<argu.length;vk++){
                                             table +='<td align="center">'+ argu[vk][e][0].coord[0]+'</td>';
                                             table +='<td align="center">'+ argu[vk][e][0].coord[1]+'</td>';
