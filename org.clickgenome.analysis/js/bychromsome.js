@@ -1268,6 +1268,7 @@ var chromsome = new Object({
                                         }
                                     table +='</tr>';
                                 }
+                                table +='<tr><td colspan="4" align="left">Kedndall`s Tau ranges from -1 to 1. It`s direction is determined by the sign(- +). The closer the value is to  -1 or +1, the stronger the relationship.</td></tr>';
                                 table +='<tr><td colspan="4" align="center">Gene Values</td></tr>';
                                 for(var i=0;i<series.length;i++){
                                     if(series[i].data.length == 0){
